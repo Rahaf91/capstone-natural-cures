@@ -1,7 +1,5 @@
-export default function HomePage() {
-  return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
-  );
+import RemediesList from "@/components/RemediesList";
+
+export default function HomePage({ remedies }) {
+  return <RemediesList remedies={remedies} />;
 }
