@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function RemediesList({ remedies }) {
@@ -7,12 +8,14 @@ export default function RemediesList({ remedies }) {
       <GridContainer>
         {remedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
-            <StyledImage
-              src={remedy.imageUrl}
-              alt={remedy.title}
-              width={250}
-              height={250}
-            />
+            <Link href={`/remedy/${remedy.id}`}>
+              <StyledImage
+                src={remedy.imageUrl}
+                alt={remedy.title}
+                width={250}
+                height={250}
+              />
+            </Link>
             <h2>{remedy.title}</h2>
             <h3>Symptoms</h3>
             <ul>
