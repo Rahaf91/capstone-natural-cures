@@ -8,14 +8,12 @@ export default function RemediesList({ remedies }) {
       <GridContainer>
         {remedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
-            <Link href={`/remedy/${remedy.id}`}>
-              <StyledImage
-                src={remedy.imageUrl}
-                alt={remedy.title}
-                width={250}
-                height={250}
-              />
-            </Link>
+            <StyledImage
+              src={remedy.imageUrl}
+              alt={remedy.title}
+              width={250}
+              height={250}
+            />
             <h2>{remedy.title}</h2>
             <h3>Symptoms</h3>
             <ul>
@@ -23,6 +21,7 @@ export default function RemediesList({ remedies }) {
                 <li key={index}>{symptom}</li>
               ))}
             </ul>
+            <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
           </RemedyCard>
         ))}
       </GridContainer>
