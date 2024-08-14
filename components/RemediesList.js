@@ -4,7 +4,6 @@ import styled from "styled-components";
 export default function RemediesList({ remedies }) {
   return (
     <>
-      <h1>Natural Cures</h1>
       <GridContainer>
         {remedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
@@ -32,14 +31,14 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  gap: 10px;
-  padding: 10px;
+  gap: 1rem;
+  padding: 1rem;
 `;
 
 const RemedyCard = styled.section`
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
