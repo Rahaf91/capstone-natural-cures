@@ -19,5 +19,15 @@ export default function AddRemedy() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    const newRemedy = {
+      title: inputsFields.title,
+      ingredients: inputsFields.ingredients,
+      symptoms: inputsFields.symptoms,
+      preparation: inputsFields.preparation,
+      usage: inputsFields.usage,
+      imageUrl: "/placeholder.jpeg",
+    };
   }
+
+  return <form onSubmit={handleSubmit}></form>;
 }
