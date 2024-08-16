@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useState(initialRemedies);
 
   function handleAddRemedy(newRemedy) {
-    setRemedy([
+    setRemedies([
       {
         id: uid(),
         ...newRemedy,
@@ -18,7 +18,11 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} remedies={remedies} />
+      <Component
+        {...pageProps}
+        remedies={remedies}
+        handleAddRemedy={handleAddRemedy}
+      />
     </>
   );
 }
