@@ -136,7 +136,7 @@ export default function RemedyForm({ onAddRemedy }) {
 
         {selectedSymptoms.map((selectedSymptom, index) => (
           <div key={index}>
-            {selectedSymptom}
+            <input type="text" value={selectedSymptom} />
             <button type="button" onClick={() => handleRemoveSymptom(index)}>
               🗑️
             </button>
