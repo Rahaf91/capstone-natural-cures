@@ -1,15 +1,21 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function RemedyDetailsPage({ remedies }) {
+export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   const router = useRouter();
   const { id } = router.query;
 
   const currentRemedy = remedies.find((remedy) => remedy.id === id);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   if (!currentRemedy) {
     return <p>...loading</p>;
+  }
+  function deleteRemedy() {
+    handleDeleteRemedy(id);
+    router.push("/");
   }
 
   return (
@@ -40,6 +46,16 @@ export default function RemedyDetailsPage({ remedies }) {
           <li key={index}>{symptom}</li>
         ))}
       </ul>
+      <button onClick={() => setIsDeleting(true)}> Delete Remedy</button>
+      {isDeleting && (
+        <section>
+          {" "}
+          <p>Are you sure you want to delete the remedy?</p>
+          <button onClick={() => deleteRemedy()}> Yes </button>
+          <button onClick={() => setIsDeleting(false)}> No </button>
+        </section>
+      )}
+
       <Link href="/"> &larr; Back</Link>
     </>
   );
