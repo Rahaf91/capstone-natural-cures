@@ -29,7 +29,7 @@ export default function RemediesList({ remedies }) {
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   justify-items: center;
   gap: 1rem;
   padding: 1rem;

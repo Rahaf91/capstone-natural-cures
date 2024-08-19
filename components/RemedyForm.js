@@ -48,7 +48,7 @@ export default function RemedyForm({ onAddRemedy }) {
       preparation: formData.get("preparation"),
       usage: formData.get("usage"),
       symptoms: selectedSymptoms,
-      imageUrl: "/path/to/placeholder-image.jpg",
+      imageUrl: "/placeholder.jpg",
     };
     onAddRemedy(newRemedy);
     event.target.reset();
@@ -73,13 +73,15 @@ export default function RemedyForm({ onAddRemedy }) {
       />
 
       <section>
-        <label>
+        <label htmlFor="ingredients-group">
           Ingredients:<span aria-label="required">*</span>
         </label>
         {ingredients.map((ingredient, index) => (
           <div key={index}>
             <input
+              id={`ingredient-${index}`}
               type="text"
+              name="ingredients"
               value={ingredient}
               placeholder="Enter remedy ingredient"
               onChange={(event) =>
@@ -88,12 +90,14 @@ export default function RemedyForm({ onAddRemedy }) {
               required
             />
 
-            <button
-              type="button"
-              onClick={() => handleRemoveIngredients(index)}
-            >
-              🗑️
-            </button>
+            {ingredients.length > 1 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveIngredients(index)}
+              >
+                🗑️
+              </button>
+            )}
           </div>
         ))}
 
@@ -136,7 +140,7 @@ export default function RemedyForm({ onAddRemedy }) {
 
         {selectedSymptoms.map((selectedSymptom, index) => (
           <div key={index}>
-            <input type="text" value={selectedSymptom} />
+            <input type="text" value={selectedSymptom} readOnly />
             <button type="button" onClick={() => handleRemoveSymptom(index)}>
               🗑️
             </button>
