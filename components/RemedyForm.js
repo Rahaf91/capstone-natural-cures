@@ -1,11 +1,11 @@
 import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
+import styled from "styled-components";
 
-//We should  include also  validation messages which indicate the fields that need completion.
 export default function RemedyForm({ onAddRemedy }) {
   const [ingredients, setIngredients] = useState([""]);
+
   const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-  const [customSymptoms, setCustomSymptoms] = useState("");
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -24,19 +24,10 @@ export default function RemedyForm({ onAddRemedy }) {
     setIngredients(newIngredients);
   }
 
-  ///////////////////////////////////////////////////
-
-  function handleSelectChange(event) {
+  function handleSelectSymptom(event) {
     const { value } = event.target;
     if (value && !selectedSymptoms.includes(value)) {
       setSelectedSymptoms([...selectedSymptoms, value]);
-    }
-  }
-
-  function handleAddSymptoms() {
-    if (customSymptoms && !selectedSymptoms.includes(customSymptoms)) {
-      setSelectedSymptoms([...selectedSymptoms, customSymptoms]);
-      setCustomSymptoms("");
     }
   }
 
@@ -46,7 +37,6 @@ export default function RemedyForm({ onAddRemedy }) {
     );
     setSelectedSymptoms(newSymptoms);
   }
-  /////////////////////////////////////////////////////////
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -62,16 +52,18 @@ export default function RemedyForm({ onAddRemedy }) {
     };
     onAddRemedy(newRemedy);
     event.target.reset();
+    event.target.title.focus();
     setIngredients([""]);
     setSelectedSymptoms([]);
-    setCustomSymptoms("");
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <h2>Add Remedy</h2>
 
-      <label htmlFor="title">Title </label>
+      <label htmlFor="title">
+        Title:<span aria-label="required">*</span>
+      </label>
       <input
         id="title"
         name="title"
@@ -81,7 +73,9 @@ export default function RemedyForm({ onAddRemedy }) {
       />
 
       <section>
-        <label>Ingredients</label>
+        <label>
+          Ingredients:<span aria-label="required">*</span>
+        </label>
         {ingredients.map((ingredient, index) => (
           <div key={index}>
             <input
@@ -108,26 +102,31 @@ export default function RemedyForm({ onAddRemedy }) {
         </button>
       </section>
 
-      <label htmlFor="preparation">Preparation </label>
+      <label htmlFor="preparation">Preparation:</label>
       <textarea
         id="preparation"
         name="preparation"
         placeholder="Enter preparation steps"
-        required
       />
 
-      <label htmlFor="usage">Usage</label>
+      <label htmlFor="usage">Usage:</label>
       <textarea
         id="usage"
         name="usage"
         placeholder="Enter usage instructions"
-        required
       />
 
       <section>
-        <label>Symptoms</label>
-        <select id="symptoms" name="symptoms" onChange={handleSelectChange}>
-          <option value="">Select a symptom</option>
+        <label>
+          Symptoms:<span aria-label="required">*</span>
+        </label>
+        <select
+          id="symptoms"
+          name="symptoms"
+          onChange={handleSelectSymptom}
+          required
+        >
+          <option value="">Please select a symptom</option>
           {symptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
               {symptom}
@@ -143,20 +142,24 @@ export default function RemedyForm({ onAddRemedy }) {
             </button>
           </div>
         ))}
-
-        <input
-          type="text"
-          name="customSymptom"
-          value={customSymptoms}
-          placeholder="Enter custom symptom"
-          onChange={(event) => setCustomSymptoms(event.target.value)}
-        />
-        <button type="button" onClick={handleAddSymptoms}>
-          <span>+</span>
-        </button>
       </section>
 
-      <button type="submit">Add Remedy</button>
-    </form>
+      <Button type="submit">Submit</Button>
+    </Form>
   );
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 45rem;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+`;
+
+const Button = styled.button`
+  width: 40%;
+  cursor: pointer;
+  font-size: 1rem;
+`;
