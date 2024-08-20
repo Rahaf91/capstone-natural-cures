@@ -2,8 +2,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import ModalDelete from "@/components/ModalDelete.js";
 
-export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
+export default function RemedyDetailsPage({ remedies, onDeleteRemedy }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -13,14 +14,17 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   if (!currentRemedy) {
     return <p>...loading</p>;
   }
-  function deleteRemedy() {
-    handleDeleteRemedy(id);
-    router.push("/");
-  }
+  const handleDelete = () => {
+    if (typeof onDeleteRemedy === "function") {
+      onDeleteRemedy(id);
+      router.push("/");
+    } else {
+      console.error("onDeleteRemedy is not a function");
+    }
+  };
 
   return (
     <>
-      <h1>{currentRemedy.title}</h1>
       <Image
         src={currentRemedy.imageUrl}
         alt={currentRemedy.title}
@@ -46,16 +50,7 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
           <li key={index}>{symptom}</li>
         ))}
       </ul>
-      <button onClick={() => setIsDeleting(true)}> Delete Remedy</button>
-      {isDeleting && (
-        <section>
-          {" "}
-          <p>Are you sure you want to delete the remedy?</p>
-          <button onClick={() => deleteRemedy()}> Yes </button>
-          <button onClick={() => setIsDeleting(false)}> No </button>
-        </section>
-      )}
-
+      <ModalDelete onDelete={handleDelete} />
       <Link href="/"> &larr; Back</Link>
     </>
   );

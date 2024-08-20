@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         remedies={remedies}
-        handleDeleteRemedy={handleDeleteRemedy}
+        onDeleteRemedy={handleDeleteRemedy}
       />
     </>
   );
