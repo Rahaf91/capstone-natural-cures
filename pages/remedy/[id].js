@@ -31,7 +31,7 @@ export default function RemedyDetailsPage({ remedies }) {
       <h3>Preparation:</h3>
       <p>{currentRemedy.preparation}</p>
 
-      <h3>Usage</h3>
+      <h3>Usage:</h3>
       <p>{currentRemedy.usage}</p>
 
       <h3>Symptoms:</h3>
