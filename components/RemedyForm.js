@@ -42,11 +42,13 @@ export default function RemedyForm({ onAddRemedy }) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+    const formObject = Object.fromEntries(formData);
     const newRemedy = {
-      title: formData.get("title"),
+      ...formObject,
+      title: "title",
       ingredients: ingredients,
-      preparation: formData.get("preparation"),
-      usage: formData.get("usage"),
+      preparation: "preparation",
+      usage: "usage",
       symptoms: selectedSymptoms,
       imageUrl: "/placeholder.jpg",
     };
@@ -61,8 +63,8 @@ export default function RemedyForm({ onAddRemedy }) {
     <Form onSubmit={handleSubmit}>
       <h2>Add Remedy</h2>
 
-      <label htmlFor="title">
-        Title:<span aria-label="required">*</span>
+      <label htmlFor="title" aria-label="Title, required">
+        Title:<span>*</span>
       </label>
       <input
         id="title"
@@ -73,8 +75,8 @@ export default function RemedyForm({ onAddRemedy }) {
       />
 
       <section>
-        <label htmlFor="ingredients-group">
-          Ingredients:<span aria-label="required">*</span>
+        <label htmlFor="ingredients-group" aria-label="Ingredients, required">
+          Ingredients: <span>*</span>
         </label>
         {ingredients.map((ingredient, index) => (
           <div key={index}>
@@ -95,14 +97,14 @@ export default function RemedyForm({ onAddRemedy }) {
                 type="button"
                 onClick={() => handleRemoveIngredients(index)}
               >
-                🗑️
+                <span aria-label="Remove ingredient">🗑️</span>
               </button>
             )}
           </div>
         ))}
 
         <button type="button" onClick={handleAddIngredients}>
-          <span>+</span>
+          <span aria-label="Add ingredient">+</span>
         </button>
       </section>
 
@@ -121,8 +123,8 @@ export default function RemedyForm({ onAddRemedy }) {
       />
 
       <section>
-        <label>
-          Symptoms:<span aria-label="required">*</span>
+        <label htmlFor="symptoms" aria-label="Symptoms, required">
+          Symptoms:<span>*</span>
         </label>
         <select
           id="symptoms"
@@ -142,7 +144,7 @@ export default function RemedyForm({ onAddRemedy }) {
           <div key={index}>
             <input type="text" value={selectedSymptom} readOnly />
             <button type="button" onClick={() => handleRemoveSymptom(index)}>
-              🗑️
+              <span aria-label="Remove ingredient">🗑️</span>
             </button>
           </div>
         ))}
@@ -164,6 +166,5 @@ const Form = styled.form`
 
 const Button = styled.button`
   width: 40%;
-  cursor: pointer;
   font-size: 1rem;
 `;
