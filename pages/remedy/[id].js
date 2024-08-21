@@ -13,10 +13,10 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   if (!currentRemedy) {
     return <p>...loading</p>;
   }
-  function handleDelete() {
-    typeof handleDeleteRemedy === "function"
-      ? (handleDeleteRemedy(id), router.push("/"))
-      : null;
+
+  function handleDelete(id) {
+    handleDeleteRemedy(id);
+    router.push("/");
   }
 
   return (
@@ -46,7 +46,11 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
           <li key={index}>{symptom}</li>
         ))}
       </ul>
-      <ModalDelete onDelete={handleDelete} />
+      <ModalDelete
+        onDelete={() => {
+          handleDelete(id);
+        }}
+      />
       <Link href="/"> &larr; Back</Link>
     </>
   );
