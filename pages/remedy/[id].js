@@ -1,27 +1,23 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+
 import ModalDelete from "@/components/ModalDelete.js";
 
-export default function RemedyDetailsPage({ remedies, onDeleteRemedy }) {
+export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   const router = useRouter();
   const { id } = router.query;
 
   const currentRemedy = remedies.find((remedy) => remedy.id === id);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   if (!currentRemedy) {
     return <p>...loading</p>;
   }
-  const handleDelete = () => {
-    if (typeof onDeleteRemedy === "function") {
-      onDeleteRemedy(id);
-      router.push("/");
-    } else {
-      console.error("onDeleteRemedy is not a function");
-    }
-  };
+  function handleDelete() {
+    typeof handleDeleteRemedy === "function"
+      ? (handleDeleteRemedy(id), router.push("/"))
+      : null;
+  }
 
   return (
     <>
