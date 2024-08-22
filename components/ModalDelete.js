@@ -5,9 +5,7 @@ export default function RemedyDeleteButton({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
   function toggleModal() {
-    setShowModal(function (prevShowModal) {
-      return !prevShowModal;
-    });
+    setShowModal((prevShowModal) => !prevShowModal);
   }
 
   function handleConfirmDelete() {
@@ -17,13 +15,13 @@ export default function RemedyDeleteButton({ onDelete }) {
 
   return (
     <>
-      <DeleteButton onClick={() => toggleModal()}>Delete Remedy</DeleteButton>
+      <DeleteButton onClick={toggleModal}>Delete Remedy</DeleteButton>
       {showModal && (
         <Modal>
           <ModalContent>
             <p>Are you sure you want to delete the remedy?</p>
-            <button onClick={() => handleConfirmDelete()}>Delete</button>
-            <button onClick={() => toggleModal()}>Cancel</button>
+            <button onClick={handleConfirmDelete}>Delete</button>
+            <button onClick={toggleModal}>Cancel</button>
           </ModalContent>
         </Modal>
       )}
