@@ -4,36 +4,26 @@ import styled from "styled-components";
 export default function RemedyDeleteButton({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
-  const handleDeleteClick = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  function toggleModal() {
+    setShowModal(function (prevShowModal) {
+      return !prevShowModal;
+    });
+  }
 
-  const handleConfirmDelete = () => {
+  function handleConfirmDelete() {
     setShowModal(false);
     onDelete();
-  };
+  }
 
   return (
     <>
-      <DeleteButton onClick={handleDeleteClick}>Delete Remedy</DeleteButton>
-
+      <DeleteButton onClick={() => toggleModal()}>Delete Remedy</DeleteButton>
       {showModal && (
-        <Modal onClick={handleCloseModal}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <CloseButton onClick={handleCloseModal}>&times;</CloseButton>
-            <Container>
-              <h1>Delete Remedy</h1>
-              <p>Are you sure you want to delete the remedy?</p>
-              <ButtonGroup>
-                <CancelButton onClick={handleCloseModal}>Cancel</CancelButton>
-                <ConfirmDeleteButton onClick={handleConfirmDelete}>
-                  Delete
-                </ConfirmDeleteButton>{" "}
-              </ButtonGroup>
-            </Container>
+        <Modal>
+          <ModalContent>
+            <p>Are you sure you want to delete the remedy?</p>
+            <button onClick={() => handleConfirmDelete()}>Delete</button>
+            <button onClick={() => toggleModal()}>Cancel</button>
           </ModalContent>
         </Modal>
       )}
@@ -46,7 +36,7 @@ const DeleteButton = styled.button`
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
+
   width: 20%;
   opacity: 0.9;
 
@@ -84,20 +74,6 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const CloseButton = styled.span`
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f8fbca;
-  cursor: pointer;
-
-  &:hover {
-    color: #f44336;
-  }
-`;
-
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
@@ -109,7 +85,7 @@ const CancelButton = styled.button`
   padding: 14px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
+
   width: 48%;
 
   &:hover {
@@ -123,7 +99,7 @@ const ConfirmDeleteButton = styled.button`
   padding: 14px;
   margin: 8px 0;
   border: none;
-  cursor: pointer;
+
   width: 48%;
 
   &:hover {
