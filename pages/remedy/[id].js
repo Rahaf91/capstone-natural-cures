@@ -2,7 +2,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function RemedyDetailsPage({ remedies }) {
+import ModalDelete from "@/components/ModalDelete.js";
+
+export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -12,9 +14,13 @@ export default function RemedyDetailsPage({ remedies }) {
     return <p>...loading</p>;
   }
 
+  function handleDelete(id) {
+    handleDeleteRemedy(id);
+    router.push("/");
+  }
+
   return (
     <>
-      <h1>{currentRemedy.title}</h1>
       <Image
         src={currentRemedy.imageUrl}
         alt={currentRemedy.title}
@@ -40,6 +46,11 @@ export default function RemedyDetailsPage({ remedies }) {
           <li key={index}>{symptom}</li>
         ))}
       </ul>
+      <ModalDelete
+        onDelete={() => {
+          handleDelete(id);
+        }}
+      />
       <Link href="/"> &larr; Back</Link>
     </>
   );

@@ -1,4 +1,5 @@
 import GlobalStyle from "../styles";
+
 import initialRemedies from "../assets/remedies.json";
 import { useState } from "react";
 import { uid } from "uid";
@@ -15,6 +16,10 @@ export default function App({ Component, pageProps }) {
       ...remedies,
     ]);
   }
+  function handleDeleteRemedy(id) {
+    setRemedies(remedies.filter((remedy) => remedy.id !== id));
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -22,6 +27,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         remedies={remedies}
         handleAddRemedy={handleAddRemedy}
+        handleDeleteRemedy={handleDeleteRemedy}
       />
     </>
   );
