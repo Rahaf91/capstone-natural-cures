@@ -4,7 +4,7 @@ import RemedyForm from "@/components/RemedyForm";
 export default function HomePage({
   remedies,
   handleAddRemedy,
-  onToggleFavorite,
+  handleToggleFavorite,
 }) {
   return (
     <>
@@ -13,7 +13,10 @@ export default function HomePage({
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
       ) : (
-        <RemediesList remedies={remedies} onToggleFavorite={onToggleFavorite} />
+        <RemediesList
+          remedies={remedies}
+          onToggleFavorite={handleToggleFavorite}
+        />
       )}
     </>
   );

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
+  console.log(handleToggleFavorite);
   return (
     <GridContainer>
       {remedies.map((remedy) => (
@@ -59,7 +60,7 @@ const StyledImage = styled(Image)`
 `;
 
 const ImageWrapper = styled.div`
-  position: relativ;
+  position: relative;
   width: 100%;
   height: auto;
 `;

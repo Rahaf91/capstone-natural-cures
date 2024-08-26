@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleToggleFavorite(id) {
-    const remedy = remedy.find((remedy) => remedy.id === id);
+    const remedy = remedies.find((remedy) => remedy.id === id);
 
     if (!remedy) {
       return;
