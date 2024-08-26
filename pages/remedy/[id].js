@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
-
 import ModalDelete from "@/components/ModalDelete.js";
 
 export default function RemedyDetailsPage({

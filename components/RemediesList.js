@@ -36,8 +36,6 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
           </RemedyCard>
         ))}
       </GridContainer>
-
-      <Link href="/pages/favoritesPage.js">View Bookmarked remedies</Link>
     </>
   );
 }
