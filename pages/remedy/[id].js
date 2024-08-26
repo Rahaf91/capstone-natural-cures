@@ -21,6 +21,7 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
 
   return (
     <>
+      <h1>{currentRemedy.title}</h1>
       <Image
         src={currentRemedy.imageUrl}
         alt={currentRemedy.title}

@@ -45,10 +45,10 @@ export default function RemedyForm({ onAddRemedy }) {
     const formObject = Object.fromEntries(formData);
     const newRemedy = {
       ...formObject,
-      title: "title",
+      title: formObject.title,
       ingredients: ingredients,
-      preparation: "preparation",
-      usage: "usage",
+      preparation: formObject.preparation,
+      usage: formObject.usage,
       symptoms: selectedSymptoms,
       imageUrl: "/placeholder.jpg",
     };
