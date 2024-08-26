@@ -1,18 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import FavoriteButton from "./FavoriteButton";
 
-export default function RemediesList({ remedies }) {
+export default function RemediesList({ remedies, handleToggleFavorite }) {
   return (
     <GridContainer>
       {remedies.map((remedy) => (
         <RemedyCard key={remedy.id}>
-          <StyledImage
-            src={remedy.imageUrl}
-            alt={remedy.title}
-            width={250}
-            height={250}
-          />
+          <ImageWrapper>
+            <StyledImage
+              src={remedy.imageUrl}
+              alt={remedy.title}
+              width={250}
+              height={250}
+            />
+
+            <div>
+              <FavoriteButton
+                isFavorite={remedy.isFavorite}
+                onToggleFavorite={() => handleToggleFavorite(remedy.id)}
+                style={{ border: "1px solid red" }}
+              />
+            </div>
+          </ImageWrapper>
           <h2>{remedy.title}</h2>
           <h3>Symptoms</h3>
           <ul>
@@ -45,4 +56,10 @@ const RemedyCard = styled.section`
 
 const StyledImage = styled(Image)`
   object-fit: cover;
+`;
+
+const ImageWrapper = styled.div`
+  position: relativ;
+  width: 100%;
+  height: auto;
 `;

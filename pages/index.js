@@ -1,6 +1,11 @@
 import RemediesList from "@/components/RemediesList";
 import RemedyForm from "@/components/RemedyForm";
-export default function HomePage({ remedies, handleAddRemedy }) {
+
+export default function HomePage({
+  remedies,
+  handleAddRemedy,
+  onToggleFavorite,
+}) {
   return (
     <>
       <h1>Natural Cures</h1>
@@ -8,7 +13,7 @@ export default function HomePage({ remedies, handleAddRemedy }) {
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
       ) : (
-        <RemediesList remedies={remedies} />
+        <RemediesList remedies={remedies} onToggleFavorite={onToggleFavorite} />
       )}
     </>
   );

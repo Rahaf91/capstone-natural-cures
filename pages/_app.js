@@ -20,6 +20,22 @@ export default function App({ Component, pageProps }) {
     setRemedies(remedies.filter((remedy) => remedy.id !== id));
   }
 
+  function handleToggleFavorite(id) {
+    const remedy = remedy.find((remedy) => remedy.id === id);
+
+    if (!remedy) {
+      return;
+    } else {
+      setRemedies(
+        remedies.map((remedy) => {
+          return remedy.id === id
+            ? { ...remedy, isFavorite: !remedy.isFavorite }
+            : remedy;
+        })
+      );
+    }
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -28,6 +44,7 @@ export default function App({ Component, pageProps }) {
         remedies={remedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
+        handleToggleFavorite={handleToggleFavorite}
       />
     </>
   );
