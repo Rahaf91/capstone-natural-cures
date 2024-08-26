@@ -20,6 +20,14 @@ export default function App({ Component, pageProps }) {
     setRemedies(remedies.filter((remedy) => remedy.id !== id));
   }
 
+  function handleEditRemedy(id, updatedRemedy) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === id ? { ...remedy, ...updatedRemedy } : remedy
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -28,6 +36,7 @@ export default function App({ Component, pageProps }) {
         remedies={remedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
+        handleEditRemedy={handleEditRemedy}
       />
     </>
   );

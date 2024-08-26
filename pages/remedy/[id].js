@@ -52,6 +52,7 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
           handleDelete(id);
         }}
       />
+      <Link href={`/remedy/edit/${id}`}> Edit</Link>
       <Link href="/"> &larr; Back</Link>
     </>
   );
