@@ -1,7 +1,6 @@
 import RemedyDetailsPage from "./remedy/[id]";
 
 export default function FavoritePage({ onToggleFavorite, remedies }) {
-  // Extract favorite remedy IDs
   const favoriteIds = remedies.reduce((ids, remedy) => {
     if (remedy.isFavorite) {
       ids.push(remedy.id);

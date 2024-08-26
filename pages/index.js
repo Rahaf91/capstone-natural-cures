@@ -15,7 +15,7 @@ export default function HomePage({
       ) : (
         <RemediesList
           remedies={remedies}
-          onToggleFavorite={handleToggleFavorite}
+          handleToggleFavorite={handleToggleFavorite}
         />
       )}
     </>

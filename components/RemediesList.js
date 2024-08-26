@@ -4,38 +4,41 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
-  console.log(handleToggleFavorite);
   return (
-    <GridContainer>
-      {remedies.map((remedy) => (
-        <RemedyCard key={remedy.id}>
-          <ImageWrapper>
-            <StyledImage
-              src={remedy.imageUrl}
-              alt={remedy.title}
-              width={250}
-              height={250}
-            />
-
-            <div>
-              <FavoriteButton
-                isFavorite={remedy.isFavorite}
-                onToggleFavorite={() => handleToggleFavorite(remedy.id)}
-                style={{ border: "1px solid red" }}
+    <>
+      <GridContainer>
+        {remedies.map((remedy) => (
+          <RemedyCard key={remedy.id}>
+            <ImageWrapper>
+              <StyledImage
+                src={remedy.imageUrl}
+                alt={remedy.title}
+                width={250}
+                height={250}
               />
-            </div>
-          </ImageWrapper>
-          <h2>{remedy.title}</h2>
-          <h3>Symptoms</h3>
-          <ul>
-            {remedy.symptoms.map((symptom, index) => (
-              <li key={index}>{symptom}</li>
-            ))}
-          </ul>
-          <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
-        </RemedyCard>
-      ))}
-    </GridContainer>
+
+              <div>
+                <FavoriteButton
+                  isFavorite={remedy.isFavorite}
+                  handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+                  style={{ border: "1px solid red" }}
+                />
+              </div>
+            </ImageWrapper>
+            <h2>{remedy.title}</h2>
+            <h3>Symptoms</h3>
+            <ul>
+              {remedy.symptoms.map((symptom, index) => (
+                <li key={index}>{symptom}</li>
+              ))}
+            </ul>
+            <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
+          </RemedyCard>
+        ))}
+      </GridContainer>
+
+      <Link href="/pages/favoritesPage.js">View Bookmarked remedies</Link>
+    </>
   );
 }
 
