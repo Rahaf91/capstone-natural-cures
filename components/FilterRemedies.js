@@ -1,30 +1,30 @@
-export default function FilterList() {
+import symptoms from "../assets/symptoms.json";
+
+export default function FilterList({
+  selectedSymptom,
+  handleSymptomChange,
+  handleClearFilter,
+}) {
   return (
     <>
-      <ul>
-        {symptoms.map((symptom) => (
-          <li key={symptom} onClick={() => onSelect(symptom)}>
-            {symptom}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {selectedSymptoms.length !== 0 && (
-          <>
-            {selectedSymptoms.map((selectedSymptom) => (
-              <li
-                key={selectedSymptom}
-                onClick={() => onDeselect(selectedSymptom)}
-              >
-                {selectedSymptom} X
-              </li>
-            ))}
-            <button type="button" onClick={onClear}>
-              Clear
-            </button>
-          </>
+      <section>
+        <select
+          id="symptoms"
+          name="symptoms"
+          value={selectedSymptom}
+          onChange={handleSymptomChange}
+        >
+          <option value="">Filter by Symptom</option>
+          {symptoms.map((symptom, index) => (
+            <option key={index} value={symptom}>
+              {symptom}
+            </option>
+          ))}
+        </select>
+        {selectedSymptom && (
+          <button onClick={handleClearFilter}>Remove Filter</button>
         )}
-      </ul>
+      </section>
     </>
   );
 }
