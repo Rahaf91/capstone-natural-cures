@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import EditRemedyForm from "@/components/EditRemedyForm/EditRemedyForm";
+import EditRemedyForm from "@/components//EditRemedyForm";
 import Link from "next/link";
 
 export default function RemedyEditPage({ remedies, handleEditRemedy }) {
@@ -12,7 +12,7 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
     return <p>...loading</p>;
   }
 
-  function handleSave(updatedRemedy) {
+  function handleEditRemedyAndRedirect(updatedRemedy) {
     handleEditRemedy(id, updatedRemedy);
     router.push(`/remedy/${id}`);
   }
@@ -20,7 +20,10 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
   return (
     <>
       <h1>{currentRemedy.title}</h1>
-      <EditRemedyForm remedy={currentRemedy} onSave={handleSave} />
+      <EditRemedyForm
+        remedy={currentRemedy}
+        onSave={handleEditRemedyAndRedirect}
+      />
       <Link href={`/remedy/${id}`}>Go Back</Link>
     </>
   );

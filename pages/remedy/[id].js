@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-
 import ModalDelete from "@/components/ModalDelete.js";
+import styled from "styled-components";
 
 export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
   const router = useRouter();
@@ -37,10 +37,8 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
       </ul>
       <h3>Preparation:</h3>
       <p>{currentRemedy.preparation}</p>
-
       <h3>Usage:</h3>
       <p>{currentRemedy.usage}</p>
-
       <h3>Symptoms:</h3>
       <ul>
         {currentRemedy.symptoms.map((symptom, index) => (
@@ -52,8 +50,15 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
           handleDelete(id);
         }}
       />
-      <Link href={`/remedy/edit/${id}`}> Edit</Link>
+      <StyledLink href={`/remedy/edit/${id}`}> Edit</StyledLink> <br />
       <Link href="/"> &larr; Back</Link>
     </>
   );
 }
+const StyledLink = styled(Link)`
+  background-color: rgba(84, 88, 47, 0.9);
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  margin-left: 1rem;
+`;
