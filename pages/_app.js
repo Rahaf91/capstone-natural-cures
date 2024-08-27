@@ -20,19 +20,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleToggleFavorite(id) {
-    const remedy = remedies.find((remedy) => remedy.id === id);
+    const updatedRemedies = remedies.map((remedy) =>
+      remedy.id === id ? { ...remedy, isFavorite: !remedy.isFavorite } : remedy
+    );
 
-    if (!remedy) {
-      return;
-    } else {
-      setRemedies(
-        remedies.map((remedy) => {
-          return remedy.id === id
-            ? { ...remedy, isFavorite: !remedy.isFavorite }
-            : remedy;
-        })
-      );
-    }
+    setRemedies(updatedRemedies);
   }
 
   return (

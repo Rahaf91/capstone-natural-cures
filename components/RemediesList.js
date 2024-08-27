@@ -16,14 +16,10 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
                 width={250}
                 height={250}
               />
-
-              <div>
-                <FavoriteButton
-                  isFavorite={remedy.isFavorite}
-                  handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
-                  style={{ border: "1px solid red" }}
-                />
-              </div>
+              <FavoriteButton
+                isFavorite={remedy.isFavorite}
+                handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+              />
             </ImageWrapper>
             <h2>{remedy.title}</h2>
             <h3>Symptoms</h3>

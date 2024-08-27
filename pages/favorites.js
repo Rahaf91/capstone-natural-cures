@@ -6,7 +6,7 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
 
   return (
     <>
-      <div>
+      <main>
         <h1>Your Favorite Remedies</h1>
         {favoriteRemedies.length > 0 ? (
           <RemediesList
@@ -16,7 +16,7 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
         ) : (
           <p>You have no favorite remedies.</p>
         )}
-      </div>
+      </main>
 
       <Link href="/">Go back to page</Link>
     </>

@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import ModalDelete from "@/components/ModalDelete.js";
-
 export default function RemedyDetailsPage({
   remedies,
   handleDeleteRemedy,
@@ -31,14 +30,10 @@ export default function RemedyDetailsPage({
         width={250}
         height={250}
       />
-
-      <div>
-        <FavoriteButton
-          isFavorite={currentRemedy.isFavorite}
-          handleToggleFavorite={() => handleToggleFavorite(id)}
-          style={{ border: "1px solid red" }}
-        />
-      </div>
+      <FavoriteButton
+        isFavorite={currentRemedy.isFavorite}
+        handleToggleFavorite={() => handleToggleFavorite(id)}
+      />
       <h2>Information</h2>
       <h3>Ingredients:</h3>
       <ul>
