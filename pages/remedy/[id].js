@@ -50,7 +50,7 @@ export default function RemedyDetailsPage({ remedies, handleDeleteRemedy }) {
           handleDelete(id);
         }}
       />
-      <StyledLink href={`/remedy/edit/${id}`}> Edit</StyledLink> <br />
+      <StyledLink href={`/remedy/edit/${id}`}> Edit Remedy</StyledLink> <br />
       <Link href="/"> &larr; Back</Link>
     </>
   );
