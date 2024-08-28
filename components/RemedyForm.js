@@ -1,11 +1,23 @@
 import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
-export default function RemedyForm({ onAddRemedy }) {
-  const [ingredients, setIngredients] = useState([""]);
+export default function RemedyForm({
+  onAddRemedy,
+  isEditMode,
+  onEditRemedy,
+  defaultData = {},
+}) {
+  const router = useRouter();
 
-  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  const [ingredients, setIngredients] = useState(
+    isEditMode && defaultData.ingredients ? defaultData.ingredients : [""]
+  );
+
+  const [selectedSymptoms, setSelectedSymptoms] = useState(
+    isEditMode && defaultData.symptoms ? defaultData.symptoms : []
+  );
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -43,25 +55,25 @@ export default function RemedyForm({ onAddRemedy }) {
 
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
-    const newRemedy = {
+
+    const remedyData = {
       ...formObject,
-      title: formObject.title,
       ingredients: ingredients,
-      preparation: formObject.preparation,
-      usage: formObject.usage,
       symptoms: selectedSymptoms,
-      imageUrl: "/placeholder.jpg",
     };
-    onAddRemedy(newRemedy);
+
+    isEditMode
+      ? onEditRemedy(remedyData)
+      : onAddRemedy({ ...remedyData, imageUrl: "/placeholder.jpg" });
+
     event.target.reset();
-    event.target.title.focus();
     setIngredients([""]);
     setSelectedSymptoms([]);
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2>Add Remedy</h2>
+      {isEditMode ? <h2>Edit Remedy</h2> : <h2>Add Remedy</h2>}
 
       <label htmlFor="title" aria-label="Title, required">
         Title:<span>*</span>
@@ -71,6 +83,7 @@ export default function RemedyForm({ onAddRemedy }) {
         name="title"
         type="text"
         placeholder="Enter remedy title"
+        defaultValue={isEditMode ? defaultData.title : ""}
         required
       />
 
@@ -91,7 +104,6 @@ export default function RemedyForm({ onAddRemedy }) {
               }
               required
             />
-
             {ingredients.length > 1 && (
               <button
                 type="button"
@@ -102,7 +114,6 @@ export default function RemedyForm({ onAddRemedy }) {
             )}
           </div>
         ))}
-
         <button type="button" onClick={handleAddIngredients}>
           <span aria-label="Add ingredient">+</span>
         </button>
@@ -113,6 +124,7 @@ export default function RemedyForm({ onAddRemedy }) {
         id="preparation"
         name="preparation"
         placeholder="Enter preparation steps"
+        defaultValue={isEditMode ? defaultData.preparation : ""}
       />
 
       <label htmlFor="usage">Usage:</label>
@@ -120,18 +132,14 @@ export default function RemedyForm({ onAddRemedy }) {
         id="usage"
         name="usage"
         placeholder="Enter usage instructions"
+        defaultValue={isEditMode ? defaultData.usage : ""}
       />
 
       <section>
         <label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
         </label>
-        <select
-          id="symptoms"
-          name="symptoms"
-          onChange={handleSelectSymptom}
-          required
-        >
+        <select id="symptoms" name="symptoms" onChange={handleSelectSymptom}>
           <option value="">Please select a symptom</option>
           {symptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
@@ -143,14 +151,29 @@ export default function RemedyForm({ onAddRemedy }) {
         {selectedSymptoms.map((selectedSymptom, index) => (
           <div key={index}>
             <input type="text" value={selectedSymptom} readOnly />
-            <button type="button" onClick={() => handleRemoveSymptom(index)}>
-              <span aria-label="Remove ingredient">🗑️</span>
-            </button>
+
+            {selectedSymptoms.length > 1 && (
+              <button type="button" onClick={() => handleRemoveSymptom(index)}>
+                <span aria-label="Remove ingredient">🗑️</span>
+              </button>
+            )}
           </div>
         ))}
       </section>
 
-      <Button type="submit">Submit</Button>
+      {isEditMode ? (
+        <>
+          <Button
+            type="button"
+            onClick={() => router.push(`/remedy/${defaultData.id}`)}
+          >
+            Cancel
+          </Button>
+          <Button type="submit">Save</Button>
+        </>
+      ) : (
+        <Button type="submit">Submit</Button>
+      )}
     </Form>
   );
 }
