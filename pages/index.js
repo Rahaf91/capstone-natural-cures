@@ -1,30 +1,21 @@
 import RemediesList from "@/components/RemediesList";
 import RemedyForm from "@/components/RemedyForm";
-import FilterList from "@/components/FilterRemedies";
+import FilterList from "@/components/FilterList";
 import { useState } from "react";
 
 export default function HomePage({ remedies, handleAddRemedy }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
-  const [filteredRemedies, setFilteredRemedies] = useState(remedies);
 
   function handleSymptomChange(event) {
     const selected = event.target.value;
     setSelectedSymptom(selected);
-
-    if (selected === "") {
-      setFilteredRemedies(remedies);
-    } else {
-      const filtered = remedies.filter((remedy) =>
-        remedy.symptoms.includes(selected)
-      );
-      setFilteredRemedies(filtered);
-    }
   }
-
   function handleClearFilter() {
     setSelectedSymptom("");
-    setFilteredRemedies(remedies);
   }
+  const filteredRemedies = selectedSymptom
+    ? remedies.filter((remedy) => remedy.symptoms.includes(selectedSymptom))
+    : remedies;
 
   return (
     <>
@@ -32,7 +23,9 @@ export default function HomePage({ remedies, handleAddRemedy }) {
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>
-          <button onClick={handleClearFilter}>Clear Filter</button>
+          <button type="button" onClick={handleClearFilter}>
+            Clear Filter
+          </button>
         </>
       ) : (
         <FilterList

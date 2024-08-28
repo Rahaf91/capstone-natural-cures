@@ -9,6 +9,7 @@ export default function FilterList({
   return (
     <>
       <section>
+        <label htmlFor="symptoms" aria-label="Filter by Symptoms"></label>
         <select
           id="symptoms"
           name="symptoms"
