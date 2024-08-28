@@ -1,4 +1,5 @@
 import symptoms from "../assets/symptoms.json";
+import Link from "next/link";
 
 export default function FilterList({
   selectedSymptom,
@@ -21,10 +22,12 @@ export default function FilterList({
             </option>
           ))}
         </select>
+
         {selectedSymptom && (
           <button onClick={handleClearFilter}>Remove Filter</button>
         )}
       </section>
+      <Link href="/"></Link>
     </>
   );
 }

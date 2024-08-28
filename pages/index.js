@@ -29,11 +29,18 @@ export default function HomePage({ remedies, handleAddRemedy }) {
   return (
     <>
       <h1>Natural Cures</h1>
-      <FilterList
-        selectedSymptom={selectedSymptom}
-        handleSymptomChange={handleSymptomChange}
-        handleClearFilter={handleClearFilter}
-      />
+      {filteredRemedies.length === 0 && selectedSymptom ? (
+        <>
+          <p>Sorry, no remedies were found. Please try another symptom</p>
+          <button onClick={handleClearFilter}>Clear Filter</button>
+        </>
+      ) : (
+        <FilterList
+          selectedSymptom={selectedSymptom}
+          handleSymptomChange={handleSymptomChange}
+          handleClearFilter={handleClearFilter}
+        />
+      )}
       <RemedyForm onAddRemedy={handleAddRemedy} />
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
