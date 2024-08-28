@@ -82,7 +82,7 @@ export default function RemedyForm({
         id="title"
         name="title"
         type="text"
-        placeholder="Enter remedy title"
+        placeholder={isEditMode ? "" : "Enter remedy title"}
         defaultValue={isEditMode ? defaultData.title : ""}
         required
       />
@@ -98,7 +98,7 @@ export default function RemedyForm({
               type="text"
               name="ingredients"
               value={ingredient}
-              placeholder="Enter remedy ingredient"
+              placeholder={isEditMode ? "" : "Enter remedy ingredient"}
               onChange={(event) =>
                 handleIngredientChange(index, event.target.value)
               }
@@ -123,7 +123,7 @@ export default function RemedyForm({
       <textarea
         id="preparation"
         name="preparation"
-        placeholder="Enter preparation steps"
+        placeholder={isEditMode ? "" : "Enter preparation steps"}
         defaultValue={isEditMode ? defaultData.preparation : ""}
       />
 
@@ -131,7 +131,7 @@ export default function RemedyForm({
       <textarea
         id="usage"
         name="usage"
-        placeholder="Enter usage instructions"
+        placeholder={isEditMode ? "" : "Enter usage instructions"}
         defaultValue={isEditMode ? defaultData.usage : ""}
       />
 
