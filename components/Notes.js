@@ -24,13 +24,13 @@ export default function Notes() {
 
       setNote("");
     };
-  
+
     const handleCancelNote = () => {
       setNote("");
       setEditId(null);
     };
-    
-const handleEditNote = (id) => {
+
+    const handleEditNote = (id) => {
       const noteToEdit = notes.find((note) => note.id === id);
       setNote(noteToEdit.text);
       handleDeleteNote(id);
@@ -41,25 +41,26 @@ const handleEditNote = (id) => {
       setNotes(updatedNotes);
     };
 
-  return (
-    <div>
-      <h2>Take notes</h2>
-      <textarea
-        value={note}
-        onChange={(event) => setNote(event.target.value)}
-        placeholder="Write your note here"
-      />
-      <button onClick={handleSaveNote}>Save</button>
-      <button onClick={handleCancelNote}>Cancel</button>
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id}>
-            <p>{note.text}</p>
-            <button onClick={() => handleDeleteNote(note.id)}>Delete</button>
-            <button onClick={() => handleEditNote(note.id)}>Edit</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-  }
+    return (
+      <div>
+        <h2>Take notes</h2>
+        <textarea
+          value={note}
+          onChange={(event) => setNote(event.target.value)}
+          placeholder="Write your note here"
+        />
+        <button onClick={handleSaveNote}>Save</button>
+        <button onClick={handleCancelNote}>Cancel</button>
+        <ul>
+          {notes.map((note) => (
+            <li key={note.id}>
+              <p>{note.text}</p>
+              <button onClick={() => handleDeleteNote(note.id)}>Delete</button>
+              <button onClick={() => handleEditNote(note.id)}>Edit</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+}
