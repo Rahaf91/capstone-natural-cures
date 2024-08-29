@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import ModalDelete from "@/components/ModalDelete.js";
+import Notes from "@/components/Notes.js";
+
 export default function RemedyDetailsPage({
   remedies,
   handleDeleteRemedy,
@@ -58,6 +60,7 @@ export default function RemedyDetailsPage({
           handleDelete(id);
         }}
       />
+      <Notes />
       <Link href="/"> &larr; Back</Link>
     </>
   );
