@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import ModalDelete from "@/components/ModalDelete.js";
+import styled from "styled-components";
+
 export default function RemedyDetailsPage({
   remedies,
   handleDeleteRemedy,
@@ -24,6 +26,7 @@ export default function RemedyDetailsPage({
 
   return (
     <>
+      <h1>{currentRemedy.title}</h1>
       <Image
         src={currentRemedy.imageUrl}
         alt={currentRemedy.title}
@@ -43,10 +46,8 @@ export default function RemedyDetailsPage({
       </ul>
       <h3>Preparation:</h3>
       <p>{currentRemedy.preparation}</p>
-
       <h3>Usage:</h3>
       <p>{currentRemedy.usage}</p>
-
       <h3>Symptoms:</h3>
       <ul>
         {currentRemedy.symptoms.map((symptom, index) => (
@@ -58,7 +59,15 @@ export default function RemedyDetailsPage({
           handleDelete(id);
         }}
       />
+      <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
       <Link href="/"> &larr; Back</Link>
     </>
   );
 }
+const StyledLink = styled(Link)`
+  background-color: rgba(84, 88, 47, 0.9);
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  margin-left: 1rem;
+`;
