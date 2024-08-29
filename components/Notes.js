@@ -4,21 +4,32 @@ export default function Notes() {
   const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [note, setNote] = useState("");
+    const [editId, setEditId] = useState(null);
 
     const handleSaveNote = () => {
       if (note === "") return;
-      const newNote = {
-        id: notes.length + 1,
-        text: note,
-      };
-      setNotes([...notes, newNote]);
+      if (editId !== null) {
+        const updatedNotes = notes.map((n) =>
+          notes.id === editId ? { ...notes, text: note } : notes
+        );
+        setNotes(updatedNotes);
+        setEditId(null);
+      } else {
+        const newNote = {
+          id: notes.length + 1,
+          text: note,
+        };
+        setNotes([...notes, newNote]);
+      }
+
       setNote("");
     };
-
+  
     const handleCancelNote = () => {
       setNote("");
+      setEditId(null);
     };
-
+    
 const handleEditNote = (id) => {
       const noteToEdit = notes.find((note) => note.id === id);
       setNote(noteToEdit.text);
