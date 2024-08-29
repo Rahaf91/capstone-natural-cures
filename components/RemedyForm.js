@@ -139,7 +139,12 @@ export default function RemedyForm({
         <label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
         </label>
-        <select id="symptoms" name="symptoms" onChange={handleSelectSymptom}>
+        <select
+          id="symptoms"
+          name="symptoms"
+          onChange={handleSelectSymptom}
+          required={!isEditMode && selectedSymptoms.length === 0}
+        >
           <option value="">Please select a symptom</option>
           {symptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
