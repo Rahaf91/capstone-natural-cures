@@ -19,6 +19,14 @@ export default function App({ Component, pageProps }) {
     setRemedies(remedies.filter((remedy) => remedy.id !== id));
   }
 
+  function handleToggleFavorite(id) {
+    const updatedRemedies = remedies.map((remedy) =>
+      remedy.id === id ? { ...remedy, isFavorite: !remedy.isFavorite } : remedy
+    );
+
+    setRemedies(updatedRemedies);
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -27,6 +35,7 @@ export default function App({ Component, pageProps }) {
         remedies={remedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
+        handleToggleFavorite={handleToggleFavorite}
       />
     </>
   );

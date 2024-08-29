@@ -1,29 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import FavoriteButton from "./FavoriteButton";
 
-export default function RemediesList({ remedies }) {
+export default function RemediesList({ remedies, handleToggleFavorite }) {
   return (
-    <GridContainer>
-      {remedies.map((remedy) => (
-        <RemedyCard key={remedy.id}>
-          <StyledImage
-            src={remedy.imageUrl}
-            alt={remedy.title}
-            width={250}
-            height={250}
-          />
-          <h2>{remedy.title}</h2>
-          <h3>Symptoms</h3>
-          <ul>
-            {remedy.symptoms.map((symptom, index) => (
-              <li key={index}>{symptom}</li>
-            ))}
-          </ul>
-          <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
-        </RemedyCard>
-      ))}
-    </GridContainer>
+    <>
+      <GridContainer>
+        {remedies.map((remedy) => (
+          <RemedyCard key={remedy.id}>
+            <ImageWrapper>
+              <StyledImage
+                src={remedy.imageUrl}
+                alt={remedy.title}
+                width={250}
+                height={250}
+              />
+              <FavoriteButton
+                isFavorite={remedy.isFavorite}
+                handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+              />
+            </ImageWrapper>
+            <h2>{remedy.title}</h2>
+            <h3>Symptoms</h3>
+            <ul>
+              {remedy.symptoms.map((symptom, index) => (
+                <li key={index}>{symptom}</li>
+              ))}
+            </ul>
+            <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
+          </RemedyCard>
+        ))}
+      </GridContainer>
+    </>
   );
 }
 
@@ -45,4 +54,10 @@ const RemedyCard = styled.section`
 
 const StyledImage = styled(Image)`
   object-fit: cover;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
 `;
