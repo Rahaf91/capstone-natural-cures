@@ -4,6 +4,7 @@ import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
 import styled from "styled-components";
+import Notes from "@/components/Notes";
 
 export default function RemedyDetailsPage({
   remedies,
@@ -60,6 +61,7 @@ export default function RemedyDetailsPage({
         }}
       />
       <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
+      <Notes />
       <Link href="/"> &larr; Back</Link>
     </>
   );
