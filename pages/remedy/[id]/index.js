@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
-import ModalDelete from "@/components/ModalDelete.js";
+import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
 import styled from "styled-components";
 
 export default function RemedyDetailsPage({
@@ -54,7 +54,7 @@ export default function RemedyDetailsPage({
           <li key={index}>{symptom}</li>
         ))}
       </ul>
-      <ModalDelete
+      <DeleteButtonConfirmation
         onDelete={() => {
           handleDelete(id);
         }}

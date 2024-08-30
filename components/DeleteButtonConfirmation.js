@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function RemedyDeleteButton({ onDelete }) {
+export default function DeleteButtonConfirmation({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
   function toggleModal() {
