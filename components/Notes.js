@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { uid } from "uid";
+import useLocalStorage from "use-local-storage";
+
 export default function Notes() {
-  const [notes, setNotes] = useState([]);
-  const [note, setNote] = useState("");
+  const [notes, setNotes] = useLocalStorage("notes", []);
+  const [note, setNote] = useLocalStorage("note", "");
+
   const [showTextField, setShowTextField] = useState(false);
+
   function saveNote() {
     if (note === "") return;
     const newNote = {
