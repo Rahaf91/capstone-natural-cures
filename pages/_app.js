@@ -1,10 +1,12 @@
 import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
-import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 
 export default function App({ Component, pageProps }) {
-  const [remedies, setRemedies] = useState(initialRemedies);
+  const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
+    defaultValue: initialRemedies,
+  });
 
   function handleAddRemedy(newRemedy) {
     setRemedies([
