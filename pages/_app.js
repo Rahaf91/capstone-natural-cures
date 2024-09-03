@@ -2,6 +2,18 @@ import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
 import { useState } from "react";
 import { uid } from "uid";
+import { Advent_Pro, Capriola } from "next/font/google";
+
+const capriola = Capriola({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-capriola",
+});
+const adventPro = Advent_Pro({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-advent-pro",
+});
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useState(initialRemedies);
@@ -37,6 +49,12 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <style jsx global>{`
+        :root {
+          --font-capriola: ${capriola.style.fontFamily};
+          --font-advent-pro: ${adventPro.style.fontFamily};
+        }
+      `}</style>
       <GlobalStyle />
       <Component
         {...pageProps}

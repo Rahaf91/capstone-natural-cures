@@ -61,3 +61,62 @@ const ImageWrapper = styled.div`
   width: 100%;
   height: auto;
 `;
+
+/*import Image from "next/image";
+import Link from "next/link";
+import styled from "styled-components";
+import FavoriteButton from "./FavoriteButton";
+
+export default function RemediesList({ remedies, handleToggleFavorite }) {
+  return (
+    <>
+      {remedies.map((remedy) => (
+        <RemedyCard key={remedy.id}>
+          <FavoriteButton
+            isFavorite={remedy.isFavorite}
+            handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+          />
+          <ImageWrapper>
+            <StyledImage
+              src={remedy.imageUrl}
+              alt={remedy.title}
+              layout="fill"
+              objectFit="cover"
+            />
+          </ImageWrapper>
+
+          <h2>{remedy.title}</h2>
+          <h3>Symptoms:</h3>
+          <ul>
+            {remedy.symptoms.map((symptom, index) => (
+              <li key={index}>{symptom}</li>
+            ))}
+          </ul>
+          <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
+        </RemedyCard>
+      ))}
+    </>
+  );
+}
+
+const RemedyCard = styled.section`
+  width: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 1rem;
+  position: relative;
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+`;
+ */
