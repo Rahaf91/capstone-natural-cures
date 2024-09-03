@@ -35,6 +35,18 @@ export default function App({ Component, pageProps }) {
     setRemedies(updatedRemedies);
   }
 
+  function handleAddNotes(remedyId, note) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: [{ id: uid(), ...note }, ...(remedy.notes || [])],
+            }
+          : remedy
+      )
+    );
+  }
   return (
     <>
       <GlobalStyle />
@@ -45,6 +57,7 @@ export default function App({ Component, pageProps }) {
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
+        handleAddNotes={handleAddNotes}
       />
     </>
   );

@@ -1,64 +1,59 @@
 import { useState } from "react";
-import { uid } from "uid";
-import useLocalStorage from "use-local-storage";
 
-export default function Notes({ remedyId }) {
-  const [notes, setNotes] = useLocalStorage("notes", []);
-  const [note, setNote] = useState("");
-
+export default function Notes({ onAddNote, currentRemedy }) {
   const [showTextField, setShowTextField] = useState(false);
-  const currentRemedyNotes = notes[remedyId] || [];
 
-  function saveNote() {
-    if (note === "") return;
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const textArea = form.elements.notes;
 
     const newNote = {
-      id: uid(),
-      text: note,
+      text: textArea.value,
       timestamp: new Date().toLocaleString(),
     };
-    const updatedNotes = {
-      ...notes,
-      [remedyId]: [newNote, ...currentRemedyNotes],
-    };
 
-    setNotes(updatedNotes);
-    setNote("");
-    setShowTextField(false);
+    onAddNote(currentRemedy.id, newNote);
+
+    form.reset();
+    textArea.focus();
   }
-  function cancelNote() {
-    setNote("");
-    setShowTextField(false);
-  }
-  function handleNoteChange(event) {
-    setNote(event.target.value);
-  }
-  function toggleTextField() {
-    setShowTextField(!showTextField);
-  }
+
   return (
-    <div>
+    <>
       <h2>Take notes</h2>
-      <button onClick={toggleTextField}>Add Note</button>
+      <button
+        onClick={() => {
+          setShowTextField(!showTextField);
+        }}
+      >
+        Add Note
+      </button>
       {showTextField && (
-        <div>
-          <textarea
-            value={note}
-            onChange={handleNoteChange}
-            placeholder="Write your note here"
-          />
-          <button onClick={saveNote}>Save</button>
-          <button onClick={cancelNote}>Cancel</button>
-        </div>
+        <>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="note-input"></label>
+            <textarea id="note-input" name="notes" />
+            <button type="submit">Save</button>
+          </form>
+          <button
+            onClick={() => {
+              setShowTextField(!showTextField);
+            }}
+          >
+            Cancel
+          </button>
+        </>
       )}
       <ul>
-        {currentRemedyNotes.map((note) => (
+        {currentRemedy.notes?.map((note) => (
           <li key={note.id}>
             <p>{note.text}</p>
             <p>{note.timestamp}</p>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
