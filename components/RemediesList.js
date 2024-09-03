@@ -1,4 +1,4 @@
-import Image from "next/image";
+/*import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
@@ -60,9 +60,9 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: auto;
-`;
+`;*/
 
-/*import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
@@ -102,7 +102,6 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
 const RemedyCard = styled.section`
   width: 100%;
   border-radius: var(--border-radius);
-  overflow: hidden;
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
   margin-bottom: 1rem;
@@ -117,6 +116,4 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 250px;
-  overflow: hidden;
 `;
- */

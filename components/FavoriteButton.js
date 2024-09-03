@@ -18,13 +18,13 @@ export default function FavoriteButton({ isFavorite, handleToggleFavorite }) {
 }
 
 const StyledFavIcon = styled.path.attrs((props) => ({
-  fill: props.isFavorite ? "red" : "white",
+  fill: props.isFavorite ? "#53592F" : "white",
 }))``;
 
 const StyledFavButton = styled.button`
   text-align: center;
   border: none;
-  background-color: #54582f;
+  background-color: var(--card-background);
   padding: 5px;
   cursor: pointer;
   min-width: 40px;
@@ -32,4 +32,8 @@ const StyledFavButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
 `;

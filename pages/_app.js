@@ -3,6 +3,7 @@ import initialRemedies from "../assets/remedies.json";
 import { useState } from "react";
 import { uid } from "uid";
 import { Advent_Pro, Capriola } from "next/font/google";
+import Layout from "@/components/Layout";
 
 const capriola = Capriola({
   subsets: ["latin"],
@@ -48,7 +49,7 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <>
+    <Layout>
       <style jsx global>{`
         :root {
           --font-capriola: ${capriola.style.fontFamily};
@@ -64,6 +65,6 @@ export default function App({ Component, pageProps }) {
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
       />
-    </>
+    </Layout>
   );
 }

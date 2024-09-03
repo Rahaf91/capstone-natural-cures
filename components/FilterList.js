@@ -1,4 +1,4 @@
-import symptoms from "../assets/symptoms.json";
+/*import symptoms from "../assets/symptoms.json";
 import Link from "next/link";
 
 export default function FilterList({
@@ -32,9 +32,10 @@ export default function FilterList({
     </>
   );
 }
-/*import styled from "styled-components";
+*/
+
+import styled from "styled-components";
 import symptoms from "../assets/symptoms.json";
-import Link from "next/link";
 
 export default function FilterList({
   selectedSymptom,
@@ -104,4 +105,3 @@ const ClearButton = styled.button`
     box-shadow: var(--box-shadow);
   }
 `;
- */

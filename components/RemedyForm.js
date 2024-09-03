@@ -196,10 +196,10 @@ const Button = styled.button`
   width: 40%;
   font-size: 1rem;
 `;
+
 /*import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 import Icon from "./Icons";
 import Link from "next/link";
 export default function RemedyForm({
@@ -208,8 +208,6 @@ export default function RemedyForm({
   onEditRemedy,
   defaultData = {},
 }) {
-  const router = useRouter();
-
   const [ingredients, setIngredients] = useState(
     isEditMode && defaultData.ingredients ? defaultData.ingredients : [""]
   );
@@ -514,5 +512,4 @@ const IngredientInput = styled.input`
     border-color: #85895e;
     outline: none;
   }
-`;
- */
+`;*/
