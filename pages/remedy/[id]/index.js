@@ -61,7 +61,7 @@ export default function RemedyDetailsPage({
         }}
       />
       <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
-      <Notes />
+      <Notes remedyId={id} />
       <Link href="/"> &larr; Back</Link>
     </>
   );

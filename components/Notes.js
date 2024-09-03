@@ -2,20 +2,27 @@ import { useState } from "react";
 import { uid } from "uid";
 import useLocalStorage from "use-local-storage";
 
-export default function Notes() {
+export default function Notes({ remedyId }) {
   const [notes, setNotes] = useLocalStorage("notes", []);
-  const [note, setNote] = useLocalStorage("note", "");
+  const [note, setNote] = useState("");
 
   const [showTextField, setShowTextField] = useState(false);
+  const currentRemedyNotes = notes[remedyId] || [];
 
   function saveNote() {
     if (note === "") return;
+
     const newNote = {
       id: uid(),
       text: note,
       timestamp: new Date().toLocaleString(),
     };
-    setNotes([newNote, ...notes]);
+    const updatedNotes = {
+      ...notes,
+      [remedyId]: [newNote, ...currentRemedyNotes],
+    };
+
+    setNotes(updatedNotes);
     setNote("");
     setShowTextField(false);
   }
@@ -44,15 +51,14 @@ export default function Notes() {
           <button onClick={cancelNote}>Cancel</button>
         </div>
       )}
-      <ul>{notes.map(renderNote)}</ul>
+      <ul>
+        {currentRemedyNotes.map((note) => (
+          <li key={note.id}>
+            <p>{note.text}</p>
+            <p>{note.timestamp}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-  function renderNote(note) {
-    return (
-      <li key={note.id}>
-        <p>{note.text}</p>
-        <p>{note.timestamp}</p>
-      </li>
-    );
-  }
 }
