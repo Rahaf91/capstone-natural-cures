@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import RemedyForm from "@/components//RemedyForm";
 import Link from "next/link";
+import { StyledLinks } from "@/components/StyledLinks";
 
 export default function RemedyEditPage({ remedies, handleEditRemedy }) {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
         isEditMode={true}
         defaultData={currentRemedy}
       />
-      <Link href={`/remedy/${id}`}>Go Back</Link>
+      <StyledLinks href={`/remedy/${id}`}>Go Back</StyledLinks>
     </>
   );
 }

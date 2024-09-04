@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { StyledButton } from "./StyledButtons";
 
 export default function RemedyDeleteButton({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
@@ -15,33 +16,25 @@ export default function RemedyDeleteButton({ onDelete }) {
 
   return (
     <>
-      <DeleteButton onClick={toggleModal}>Delete Remedy</DeleteButton>
+      <StyledButton $variant="delete" onClick={toggleModal}>
+        Delete Remedy
+      </StyledButton>
       {showModal && (
         <Modal>
           <ModalContent>
             <p>Are you sure you want to delete the remedy?</p>
-            <button onClick={handleConfirmDelete}>Delete</button>
-            <button onClick={toggleModal}>Cancel</button>
+            <StyledButton $variant="delete" onClick={handleConfirmDelete}>
+              Delete
+            </StyledButton>
+            <StyledButton $variant="cancel" onClick={toggleModal}>
+              Cancel
+            </StyledButton>
           </ModalContent>
         </Modal>
       )}
     </>
   );
 }
-const DeleteButton = styled.button`
-  background-color: #54582f;
-  color: #f8fbca;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-
-  width: 20%;
-  opacity: 0.9;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
 
 const Modal = styled.div`
   display: flex;

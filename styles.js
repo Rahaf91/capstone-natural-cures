@@ -10,13 +10,14 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
+    background-color: #f8fbca;
   
     
   }
 
 
   :root {
-  --background-color: #f8fbca;  
+  --background-color: #bec092;  
   --text-color:#53592F;  
   --card-background:#BEBF93;
   --font-capriola: sans-serif; 
@@ -25,7 +26,7 @@ export default createGlobalStyle`
   --font-h2: var(--font-adventPro);       
    --font-h3: var(--font-capriola);
    --font-p:var(--font-adventPro)
-   --border-radius: 0.9rem;
+   --border-radius: 10rem;
  --box-shadow:0 0 0 3px rgba(133, 137, 94, 0.3);
 --background-color-button: #85895E;
 --color-button: #F6F9C7;

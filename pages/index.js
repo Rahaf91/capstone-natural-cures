@@ -1,9 +1,8 @@
 import RemediesList from "@/components/RemediesList";
 import RemedyForm from "@/components/RemedyForm";
-import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
-
+import { StyledLinks } from "@/components/StyledLinks";
 export default function HomePage({
   remedies,
   handleAddRemedy,
@@ -39,7 +38,9 @@ export default function HomePage({
         />
       )}
       <RemedyForm onAddRemedy={handleAddRemedy} />
-      <Link href="/favorites">View Bookmarked remedies</Link>
+      <StyledLinks $variant="bookmarked" href="/favorites">
+        View Bookmarked remedies
+      </StyledLinks>
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
       ) : (

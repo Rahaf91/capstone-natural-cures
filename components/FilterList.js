@@ -1,41 +1,6 @@
-/*import symptoms from "../assets/symptoms.json";
-import Link from "next/link";
-
-export default function FilterList({
-  selectedSymptom,
-  handleSymptomChange,
-  handleClearFilter,
-}) {
-  return (
-    <>
-      <section>
-        <label htmlFor="symptoms" aria-label="Filter by Symptoms"></label>
-        <select
-          id="symptoms"
-          name="symptoms"
-          value={selectedSymptom}
-          onChange={handleSymptomChange}
-        >
-          <option value="">Filter by Symptom</option>
-          {symptoms.map((symptom, index) => (
-            <option key={index} value={symptom}>
-              {symptom}
-            </option>
-          ))}
-        </select>
-
-        {selectedSymptom && (
-          <button onClick={handleClearFilter}>Remove Filter</button>
-        )}
-      </section>
-      <Link href="/"></Link>
-    </>
-  );
-}
-*/
-
 import styled from "styled-components";
 import symptoms from "../assets/symptoms.json";
+import { StyledButton } from "./StyledButtons";
 
 export default function FilterList({
   selectedSymptom,
@@ -61,7 +26,7 @@ export default function FilterList({
         </FilterSelect>
 
         {selectedSymptom && (
-          <ClearButton onClick={handleClearFilter}>Remove Filter</ClearButton>
+          <StyledButton onClick={handleClearFilter}>Remove Filter</StyledButton>
         )}
       </FilterSection>
     </>
@@ -85,23 +50,4 @@ const FilterSelect = styled.select`
 
 const FilterOption = styled.option`
   color: var(--text-color);
-`;
-
-const ClearButton = styled.button`
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background-color: var(--background-color-button);
-  color: var(--color-button);
-  border-radius: var(--border-radius);
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #6d7250;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: var(--box-shadow);
-  }
 `;
