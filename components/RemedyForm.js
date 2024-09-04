@@ -3,6 +3,7 @@ import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
 import Link from "next/link";
 import Icon from "./Icons";
+import StyledButton from "styled-components";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -108,13 +109,23 @@ export default function RemedyForm({
                 type="button"
                 onClick={() => handleRemoveIngredients(index)}
               >
-                <Icon name="delete" color="#85895e" size="sm" />
+                <Icon
+                  name="delete"
+                  color="#85895e"
+                  size="sm"
+                  aria-label="Remove ingredient"
+                />
               </button>
             )}
           </InputGroup>
         ))}
         <button type="button" onClick={handleAddIngredients}>
-          <Icon name="add" color="#85895e" size="sm" />
+          <Icon
+            name="add"
+            color="#85895e"
+            size="sm"
+            aria-label="add ingredient"
+          />
         </button>
       </section>
 
@@ -158,7 +169,12 @@ export default function RemedyForm({
 
             {selectedSymptoms.length > 1 && (
               <button type="button" onClick={() => handleRemoveSymptom(index)}>
-                <Icon name="delete" color="#85895e" size="sm" />
+                <Icon
+                  name="delete"
+                  color="#85895e"
+                  size="sm"
+                  aria-label="Remove symptom"
+                />
               </button>
             )}
           </div>
@@ -168,10 +184,10 @@ export default function RemedyForm({
       {isEditMode ? (
         <>
           <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
-          <Button type="submit">Save</Button>
+          <button type="submit">Save</button>
         </>
       ) : (
-        <Button type="submit">Submit</Button>
+        <button type="submit">Submit</button>
       )}
     </Form>
   );
@@ -192,10 +208,6 @@ const InputGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-`;
-const Button = styled.button`
-  width: 40%;
-  font-size: 1rem;
 `;
 
 const Label = styled.label`

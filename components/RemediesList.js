@@ -63,19 +63,15 @@ const ImageWrapper = styled.div`
 `;*/
 
 import Image from "next/image";
-import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
+import { StyledLink } from "./StyledLinks";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
   return (
     <>
       {remedies.map((remedy) => (
         <RemedyCard key={remedy.id}>
-          <FavoriteButton
-            isFavorite={remedy.isFavorite}
-            handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
-          />
           <ImageWrapper>
             <StyledImage
               src={remedy.imageUrl}
@@ -84,7 +80,10 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
               objectFit="cover"
             />
           </ImageWrapper>
-
+          <FavoriteButton
+            isFavorite={remedy.isFavorite}
+            handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+          />
           <h2>{remedy.title}</h2>
           <h3>Symptoms:</h3>
           <ul>
@@ -92,7 +91,7 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
               <li key={index}>{symptom}</li>
             ))}
           </ul>
-          <Link href={`/remedy/${remedy.id}`}>View Recipe</Link>
+          <StyledLink href={`/remedy/${remedy.id}`}>View Recipe</StyledLink>
         </RemedyCard>
       ))}
     </>
