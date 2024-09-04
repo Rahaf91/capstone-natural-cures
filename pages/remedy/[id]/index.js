@@ -2,13 +2,15 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
-import ModalDelete from "@/components/ModalDelete.js";
+import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
 import styled from "styled-components";
+import Notes from "@/components/Notes";
 
 export default function RemedyDetailsPage({
   remedies,
   handleDeleteRemedy,
   handleToggleFavorite,
+  handleAddNotes,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -54,12 +56,13 @@ export default function RemedyDetailsPage({
           <li key={index}>{symptom}</li>
         ))}
       </ul>
-      <ModalDelete
+      <DeleteButtonConfirmation
         onDelete={() => {
           handleDelete(id);
         }}
       />
       <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
+      <Notes onAddNote={handleAddNotes} currentRemedy={currentRemedy} />
       <Link href="/"> &larr; Back</Link>
     </>
   );
