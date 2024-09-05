@@ -30,7 +30,7 @@ export const StyledLinks = styled(Link)`
       color: white;
       padding: 14px 28px;
       font-weight: bold;
-      border-radius: 12px;
+      border-radius: var(--border-radius);
       width: 80%;
       margin: 20px auto;
       position: fixed;

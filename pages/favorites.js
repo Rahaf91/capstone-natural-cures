@@ -1,5 +1,4 @@
 import RemediesList from "@/components/RemediesList";
-
 import { StyledLinks } from "@/components/StyledLinks";
 export default function FavoritePage({ handleToggleFavorite, remedies }) {
   const favoriteRemedies = remedies.filter((remedy) => remedy.isFavorite);
@@ -18,7 +17,7 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
         )}
       </main>
 
-      <StyledLinks href="/">Go back </StyledLinks>
+      <StyledLinks href="/">Go back</StyledLinks>
     </>
   );
 }
