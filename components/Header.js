@@ -1,6 +1,17 @@
 import Image from "next/image";
 import styled from "styled-components";
 
+export default function Header() {
+  return (
+    <HeaderWrapper>
+      <Logo>
+        <Image src="/logo.svg" alt="Logo" width={100} height={100} />
+      </Logo>
+      <Title>Natural Cures</Title>
+    </HeaderWrapper>
+  );
+}
+
 const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
@@ -29,14 +40,3 @@ const Logo = styled.div`
     transform: translateY(-3px);
   }
 `;
-
-export default function Header() {
-  return (
-    <HeaderWrapper>
-      <Logo>
-        <Image src="/logo.svg" alt="Logo" width={100} height={100} />
-      </Logo>
-      <Title>Natural Cures</Title>
-    </HeaderWrapper>
-  );
-}

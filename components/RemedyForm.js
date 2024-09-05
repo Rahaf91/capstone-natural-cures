@@ -1,9 +1,10 @@
 import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
-import Link from "next/link";
 import Icon from "./Icons";
 import { StyledButton } from "./StyledButtons";
+import { StyledLinks } from "./StyledLinks";
+import { IconButton } from "./StyledButtons";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -74,18 +75,19 @@ export default function RemedyForm({
   return (
     <Form onSubmit={handleSubmit}>
       {isEditMode ? <h2>Edit Remedy</h2> : <h2>Add Remedy</h2>}
-
-      <Label htmlFor="title" aria-label="Title, required">
-        Title:<span>*</span>
-      </Label>
-      <Input
-        id="title"
-        name="title"
-        type="text"
-        placeholder={isEditMode ? "" : "Enter remedy title"}
-        defaultValue={isEditMode ? defaultData.title : ""}
-        required
-      />
+      <section>
+        <Label htmlFor="title" aria-label="Title, required">
+          Title:<span>*</span>
+        </Label>
+        <Input
+          id="title"
+          name="title"
+          type="text"
+          placeholder={isEditMode ? "" : "Enter remedy title"}
+          defaultValue={isEditMode ? defaultData.title : ""}
+          required
+        />
+      </section>
 
       <section>
         <Label htmlFor="ingredients-group" aria-label="Ingredients, required">
@@ -105,28 +107,28 @@ export default function RemedyForm({
               required
             />
             {ingredients.length > 1 && (
-              <button
+              <IconButton
                 type="button"
                 onClick={() => handleRemoveIngredients(index)}
               >
                 <Icon
                   name="delete"
-                  color="#85895e"
-                  size="sm"
+                  color="#ffa500"
+                  size="lg"
                   aria-label="Remove ingredient"
                 />
-              </button>
+              </IconButton>
             )}
           </InputGroup>
         ))}
-        <button type="button" onClick={handleAddIngredients}>
+        <IconButton type="button" onClick={handleAddIngredients} $fullWidth>
           <Icon
             name="add"
-            color="#85895e"
-            size="sm"
+            color="#F6F9C7"
+            size="lg"
             aria-label="add ingredient"
           />
-        </button>
+        </IconButton>
       </section>
 
       <Label htmlFor="preparation">Preparation:</Label>
@@ -164,27 +166,30 @@ export default function RemedyForm({
         </Select>
 
         {selectedSymptoms.map((selectedSymptom, index) => (
-          <div key={index}>
+          <InputGroup key={index}>
             <Input type="text" value={selectedSymptom} readOnly />
 
             {selectedSymptoms.length > 1 && (
-              <button type="button" onClick={() => handleRemoveSymptom(index)}>
+              <IconButton
+                type="button"
+                onClick={() => handleRemoveSymptom(index)}
+              >
                 <Icon
                   name="delete"
-                  color="#85895e"
-                  size="sm"
+                  color="#ffa500"
+                  size="lg"
                   aria-label="Remove symptom"
                 />
-              </button>
+              </IconButton>
             )}
-          </div>
+          </InputGroup>
         ))}
       </section>
 
       {isEditMode ? (
         <>
-          <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
-          <button type="submit">Save</button>
+          <StyledLinks href={`/remedy/${defaultData.id}`}>Cancel</StyledLinks>
+          <StyledButton type="submit">Save</StyledButton>
         </>
       ) : (
         <StyledButton type="submit">Submit</StyledButton>

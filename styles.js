@@ -11,7 +11,6 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
     background-color: #f8fbca;
-  
     
   }
 
@@ -61,28 +60,3 @@ p {
 
   }
 `;
-
-/*button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: var(--button-color);
-  color: white;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color:#85895E; /
-button:disabled {
-  background-color: #d3d3d3;
-  cursor: not-allowed;
-}
-
-.delete-button {
-  background-color: var(--danger-color);
-}
-
-.delete-button:hover {
-  background-color: #fa5252; } */

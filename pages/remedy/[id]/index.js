@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import ModalDelete from "@/components/ModalDelete.js";
@@ -68,11 +67,11 @@ export default function RemedyDetailsPage({
           handleDelete(id);
         }}
       />
+
       <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
         Edit Remedy
       </StyledLinks>
       <StyledLinks $variant="back" href="/">
-        {" "}
         &larr; Back
       </StyledLinks>
     </Container>

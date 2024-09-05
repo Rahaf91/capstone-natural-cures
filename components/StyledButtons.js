@@ -42,3 +42,18 @@ export const StyledFavoriteButton = styled.button`
     transform: scale(0.95);
   }
 `;
+
+export const IconButton = styled.button`
+  background: #85895e;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  ${(props) =>
+    props.$fullWidth &&
+    `
+      width: 100%;
+    `}
+`;
