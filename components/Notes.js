@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-export default function Notes({ onAddNote, currentRemedy }) {
+export default function Notes({ onAddNote, onEditNote, currentRemedy }) {
   const [showTextField, setShowTextField] = useState(false);
+  const [editingNote, setEditingNote] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -14,10 +15,19 @@ export default function Notes({ onAddNote, currentRemedy }) {
       timestamp: new Date().toLocaleString(),
     };
 
-    onAddNote(currentRemedy.id, newNote);
-
+    if (editingNote) {
+      onEditNote(currentRemedy.id, editingNote.id, newNote);
+      setEditingNote(null);
+    } else {
+      onAddNote(currentRemedy.id, newNote);
+    }
     form.reset();
     textArea.focus();
+  }
+
+  function handleEdit(note) {
+    setEditingNote(note);
+    setShowTextField(true);
   }
 
   return (
@@ -26,20 +36,26 @@ export default function Notes({ onAddNote, currentRemedy }) {
       <button
         onClick={() => {
           setShowTextField(!showTextField);
+          setEditingNote(null);
         }}
       >
-        Add Note
+        {editingNote ? "Edit Note" : "Add Note"}
       </button>
       {showTextField && (
         <>
           <form onSubmit={handleSubmit}>
             <label htmlFor="note-input"></label>
-            <textarea id="note-input" name="notes" />
+            <textarea
+              id="note-input"
+              name="notes"
+              defaultValue={editingNote ? editingNote.text : ""}
+            />
             <button type="submit">Save</button>
           </form>
           <button
             onClick={() => {
               setShowTextField(!showTextField);
+              setEditingNote(null);
             }}
           >
             Cancel
@@ -51,6 +67,7 @@ export default function Notes({ onAddNote, currentRemedy }) {
           <li key={note.id}>
             <p>{note.text}</p>
             <p>{note.timestamp}</p>
+            <button onClick={() => handleEdit(note)}>Edit</button>
           </li>
         ))}
       </ul>
