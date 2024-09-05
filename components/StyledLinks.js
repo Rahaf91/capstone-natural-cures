@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import Link from "next/link";
-import { BaseStyle } from "./BaseStyle";
+import { BaseStyle } from "@/styles";
 
 export const StyledLinks = styled(Link)`
   ${BaseStyle}
@@ -8,6 +8,7 @@ export const StyledLinks = styled(Link)`
   background-color: ${(props) =>
     props.$variant === "edit" ? "#54582f" : "#86895d"};
   color: ${(props) => (props.$variant === "edit" ? "#f8fbca" : "white")};
+  width: 50%;
 
   ${(props) =>
     props.$variant === "back" &&

@@ -16,9 +16,11 @@ export default function RemedyDeleteButton({ onDelete }) {
 
   return (
     <>
-      <StyledButton $variant="delete" onClick={toggleModal}>
-        Delete Remedy
-      </StyledButton>
+      <ButtonContainer>
+        <StyledButton $variant="delete" onClick={toggleModal}>
+          Delete Remedy
+        </StyledButton>
+      </ButtonContainer>
       {showModal && (
         <Modal>
           <ModalContent>
@@ -58,4 +60,10 @@ const ModalContent = styled.div`
   padding: 16px;
   position: relative;
   text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  gap: 10px;
+  display: flex;
+  justify-content: center;
 `;

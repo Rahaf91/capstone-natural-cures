@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { BaseStyle } from "./BaseStyle";
+import { BaseStyle } from "@/styles";
 
 export const StyledButton = styled.button`
   ${BaseStyle}

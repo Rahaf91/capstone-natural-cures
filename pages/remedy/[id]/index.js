@@ -67,10 +67,11 @@ export default function RemedyDetailsPage({
           handleDelete(id);
         }}
       />
-
-      <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
-        Edit Remedy
-      </StyledLinks>
+      <ButtonContainer>
+        <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
+          Edit Remedy
+        </StyledLinks>
+      </ButtonContainer>
       <StyledLinks $variant="back" href="/">
         &larr; Back
       </StyledLinks>
@@ -127,4 +128,10 @@ const ListItem = styled.li`
   font-size: 1rem;
   color: #54582f;
   margin-bottom: 5px;
+`;
+
+const ButtonContainer = styled.div`
+  gap: 10px;
+  display: flex;
+  justify-content: center;
 `;
