@@ -49,6 +49,19 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+
+  function handleDeleteNote(remedyId, noteId) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.filter((note) => note.id !== noteId),
+            }
+          : remedy
+      )
+    );
+  }
   return (
     <>
       <GlobalStyle />
@@ -60,6 +73,7 @@ export default function App({ Component, pageProps }) {
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
+        handleDeleteNote={handleDeleteNote}
       />
     </>
   );
