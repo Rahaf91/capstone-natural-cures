@@ -50,7 +50,23 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleEditNotes(remedyId, noteId, updatedNote) {
+
+
+  function handleDeleteNote(remedyId, noteId) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.filter((note) => note.id !== noteId),
+            }
+          : remedy
+      )
+    );
+  }
+  
+  
+    function handleEditNotes(remedyId, noteId, updatedNote) {
     setRemedies(
       remedies.map((remedy) =>
         remedy.id === remedyId
@@ -77,6 +93,8 @@ export default function App({ Component, pageProps }) {
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
         handleEditNotes={handleEditNotes}
+        handleDeleteNote={handleDeleteNote}
+
       />
     </>
   );

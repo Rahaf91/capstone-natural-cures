@@ -12,6 +12,7 @@ export default function RemedyDetailsPage({
   handleToggleFavorite,
   handleAddNotes,
   handleEditNotes,
+  handleDeleteNote,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -67,6 +68,8 @@ export default function RemedyDetailsPage({
         onAddNote={handleAddNotes}
         onEditNote={handleEditNotes}
         currentRemedy={currentRemedy}
+        onDeleteNote={handleDeleteNote}
+
       />
       <Link href="/"> &larr; Back</Link>
     </>

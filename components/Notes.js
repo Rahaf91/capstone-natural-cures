@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-export default function Notes({ onAddNote, onEditNote, currentRemedy }) {
+
+export default function Notes({ onAddNote, currentRemedy, onDeleteNote,onEditNote }) {
   const [showTextField, setShowTextField] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
+
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -67,7 +70,23 @@ export default function Notes({ onAddNote, onEditNote, currentRemedy }) {
           <li key={note.id}>
             <p>{note.text}</p>
             <p>{note.timestamp}</p>
-            <button onClick={() => handleEdit(note)}>Edit</button>
+
+             <button onClick={() => handleEdit(note)}>Edit</button>
+            <button onClick={() => setNoteToDelete(note.id)}>Delete</button>
+            {noteToDelete && (
+              <div>
+                <p>Are you sure you want to delete this note?</p>
+                <button
+                  onClick={() => {
+                    onDeleteNote(currentRemedy.id, note.id);
+                    setNoteToDelete(null);
+                  }}
+                >
+                  Yes
+                </button>
+                <button onClick={() => setNoteToDelete(null)}>No</button>
+              </div>
+            )}
           </li>
         ))}
       </ul>
