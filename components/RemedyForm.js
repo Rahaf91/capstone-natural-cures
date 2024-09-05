@@ -130,23 +130,24 @@ export default function RemedyForm({
           />
         </IconButton>
       </section>
-
-      <Label htmlFor="preparation">Preparation:</Label>
-      <Textarea
-        id="preparation"
-        name="preparation"
-        placeholder={isEditMode ? "" : "Enter preparation steps"}
-        defaultValue={isEditMode ? defaultData.preparation : ""}
-      />
-
-      <Label htmlFor="usage">Usage:</Label>
-      <Textarea
-        id="usage"
-        name="usage"
-        placeholder={isEditMode ? "" : "Enter usage instructions"}
-        defaultValue={isEditMode ? defaultData.usage : ""}
-      />
-
+      <section>
+        <Label htmlFor="preparation">Preparation:</Label>
+        <Textarea
+          id="preparation"
+          name="preparation"
+          placeholder={isEditMode ? "" : "Enter preparation steps"}
+          defaultValue={isEditMode ? defaultData.preparation : ""}
+        />{" "}
+      </section>
+      <section>
+        <Label htmlFor="usage">Usage:</Label>
+        <Textarea
+          id="usage"
+          name="usage"
+          placeholder={isEditMode ? "" : "Enter usage instructions"}
+          defaultValue={isEditMode ? defaultData.usage : ""}
+        />
+      </section>
       <section>
         <Label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
