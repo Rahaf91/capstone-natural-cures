@@ -52,9 +52,7 @@ export default function Notes({ onAddNote, currentRemedy, onDeleteNote }) {
           <li key={note.id}>
             <p>{note.text}</p>
             <p>{note.timestamp}</p>
-            <button onClick={() => setNoteToDelete(note.id, true)}>
-              Delete
-            </button>
+            <button onClick={() => setNoteToDelete(note.id)}>Delete</button>
             {noteToDelete && (
               <div>
                 <p>Are you sure you want to delete this note?</p>
