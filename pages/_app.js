@@ -49,6 +49,14 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleSearch(query) {
+    setRemedies(
+      initialRemedies.filter((remedy) =>
+        remedy.title.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -60,6 +68,7 @@ export default function App({ Component, pageProps }) {
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
+        handleSearch={handleSearch}
       />
     </>
   );

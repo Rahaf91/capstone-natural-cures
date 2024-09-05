@@ -2,12 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
+import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredRemedies = remedies.filter((remedy) =>
+    remedy.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  function handleSearch(query) {
+    setSearchQuery(query);
+  }
+
+  function handleClearSearchBar() {
+    setSearchQuery("");
+  }
+
   return (
     <>
+      <SearchBar
+        handleSearch={handleSearch}
+        handleClearSearchBar={handleClearSearchBar}
+      />
       <GridContainer>
-        {remedies.map((remedy) => (
+        {filteredRemedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
             <ImageWrapper>
               <StyledImage
