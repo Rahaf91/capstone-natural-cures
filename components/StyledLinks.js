@@ -43,9 +43,5 @@ export const StyledLinks = styled(Link)`
       &:hover {
         background-color: #2d4373;
       }
-
-      &:active {
-        transform: scale(0.95);
-      }
     `}
 `;
