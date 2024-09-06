@@ -158,7 +158,9 @@ export default function RemedyForm({
           onChange={handleSelectSymptom}
           required={!isEditMode && selectedSymptoms.length === 0}
         >
-          <option value="">Please select a symptom</option>
+          <option value="" disabled>
+            Please select a symptom
+          </option>
           {symptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
               {symptom}
