@@ -25,7 +25,7 @@ export default function SearchBar({ handleSearch, handleClearSearchBar }) {
             handleClearSearchBar();
           }}
         >
-          Clear Search
+          Clear
         </button>
       )}
     </SearchBarWrapper>
