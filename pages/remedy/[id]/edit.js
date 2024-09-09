@@ -11,17 +11,11 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
   if (!currentRemedy) {
     return <p>...loading</p>;
   }
-
-  function handleEditRemedyAndRedirect(updatedRemedy) {
-    handleEditRemedy(id, updatedRemedy);
-    router.push(`/remedy/${id}`);
-  }
-
   return (
     <>
       <h1>Edit {currentRemedy.title} Remedy</h1>
       <RemedyForm
-        onEditRemedy={handleEditRemedyAndRedirect}
+        onEditRemedy={(updatedRemedy) => handleEditRemedy(id, updatedRemedy)}
         isEditMode={true}
         defaultData={currentRemedy}
       />

@@ -69,6 +69,8 @@ export default function RemedyForm({
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
+
+    router.back();
   }
 
   return (

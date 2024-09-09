@@ -34,7 +34,7 @@ export default function HomePage({ remedies, handleToggleFavorite }) {
           handleClearFilter={handleClearFilter}
         />
       )}
-      <Link href={"/remedy/add"}>Add Remedy</Link> <br />
+      <Link href="/remedy/add">Add Remedy</Link> <br />
       <Link href="/favorites">View Bookmarked remedies</Link>
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
