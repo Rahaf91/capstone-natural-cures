@@ -3,6 +3,7 @@ import RemedyForm from "@/components/RemedyForm";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
 import { StyledLinks } from "@/components/StyledLinks";
+
 export default function HomePage({
   remedies,
   handleAddRemedy,
