@@ -6,6 +6,11 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(83, 89, 47, 0.5);
+    font-size: 0.7rem;
+  }
 
   body {
     margin: 0;

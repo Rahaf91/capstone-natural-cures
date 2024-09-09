@@ -38,9 +38,11 @@ export default function RemedyForm({
   }
 
   function handleSelectSymptom(event) {
-    const { value } = event.target;
+    const selectElement = event.target;
+    const { value } = selectElement;
     if (value && !selectedSymptoms.includes(value)) {
       setSelectedSymptoms([...selectedSymptoms, value]);
+      selectElement.value = "";
     }
   }
 
@@ -95,7 +97,7 @@ export default function RemedyForm({
         </Label>
         {ingredients.map((ingredient, index) => (
           <InputGroup key={index}>
-            <IngredientInput
+            <Input
               id={`ingredient-${index}`}
               type="text"
               name="ingredients"
@@ -158,7 +160,7 @@ export default function RemedyForm({
           onChange={handleSelectSymptom}
           required={!isEditMode && selectedSymptoms.length === 0}
         >
-          <option value="" disabled>
+          <option value="" hidden>
             Please select a symptom
           </option>
           {symptoms.map((symptom, index) => (
@@ -210,6 +212,7 @@ const Form = styled.form`
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
   padding: 1rem;
+  font-family: var(--font-adventPro);
 `;
 
 const InputGroup = styled.div`
@@ -242,7 +245,6 @@ const Textarea = styled.textarea`
 
 const Select = styled.select`
   width: 100%;
-
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -251,11 +253,6 @@ const Select = styled.select`
   box-shadow: var(--box-shadow);
   background-color: var(--card-background);
   text-align: center;
-
-  &:focus {
-    border-color: #85895e;
-    outline: none;
-  }
 `;
 
 const Input = styled.input`
@@ -266,22 +263,6 @@ const Input = styled.input`
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
   box-shadow: var(--box-shadow);
-
-  &:focus {
-    border-color: #85895e;
-    outline: none;
-  }
-`;
-const IngredientInput = styled.input`
-  background-color: var(--card-background);
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-  box-shadow: var(--box-shadow);
-
   &:focus {
     border-color: #85895e;
     outline: none;
