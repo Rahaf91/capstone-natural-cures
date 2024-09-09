@@ -73,8 +73,6 @@ export default function RemedyForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      {isEditMode ? <h2>Edit Remedy</h2> : <h2>Add Remedy</h2>}
-
       <label htmlFor="title" aria-label="Title, required">
         Title:<span>*</span>
       </label>

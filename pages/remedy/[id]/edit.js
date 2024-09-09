@@ -19,7 +19,7 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
 
   return (
     <>
-      <h1>{currentRemedy.title}</h1>
+      <h1>Edit {currentRemedy.title} Remedy</h1>
       <RemedyForm
         onEditRemedy={handleEditRemedyAndRedirect}
         isEditMode={true}
