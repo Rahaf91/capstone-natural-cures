@@ -60,5 +60,7 @@ const SearchBarWrapper = styled.div`
     cursor: pointer;
     font-size: 0.8rem;
     padding: 0 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
 `;

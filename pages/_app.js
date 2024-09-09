@@ -51,9 +51,13 @@ export default function App({ Component, pageProps }) {
   }
   function handleSearch(query) {
     setRemedies(
-      initialRemedies.filter((remedy) =>
-        remedy.title.toLowerCase().includes(query.toLowerCase())
-      )
+      initialRemedies.filter((remedy) => {
+        const title = remedy.title.toLowerCase();
+        const lowerCaseQuery = query.toLowerCase();
+        return (
+          title.includes(lowerCaseQuery) || title.startsWith(lowerCaseQuery)
+        );
+      })
     );
   }
 
