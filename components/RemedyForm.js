@@ -2,6 +2,7 @@ import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -168,16 +169,14 @@ export default function RemedyForm({
 
       {isEditMode ? (
         <>
-          <Button
-            type="button"
-            onClick={() => router.push(`/remedy/${defaultData.id}`)}
-          >
-            Cancel
-          </Button>
+          <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
           <Button type="submit">Save</Button>
         </>
       ) : (
-        <Button type="submit">Submit</Button>
+        <>
+          <Link href="/">Cancel</Link>
+          <Button type="submit">Submit</Button>
+        </>
       )}
     </Form>
   );
