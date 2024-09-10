@@ -3,9 +3,11 @@ import RemedyForm from "@/components/RemedyForm";
 import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
+import HealthTipsCarousel from "@/components/DailyHealthTips";
 
 export default function HomePage({
   remedies,
+  dailyTips,
   handleAddRemedy,
   handleToggleFavorite,
 }) {
@@ -25,6 +27,7 @@ export default function HomePage({
   return (
     <>
       <h1>Natural Cures</h1>
+      <HealthTipsCarousel dailyhealthtips={dailyTips} />
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>

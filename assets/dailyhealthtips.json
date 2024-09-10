@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "title": "Stay Hydrated",
+    "description": "Drink at least 8 glasses of water a day to keep your body hydrated and functioning optimally.",
+    "imageUrl": "https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "2",
+    "title": "Morning Stretch",
+    "description": "Start your day with a 10-minute stretch to improve flexibility and reduce muscle tension.",
+    "imageUrl": "https://images.pexels.com/photos/4325469/pexels-photo-4325469.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "3",
+    "title": "Eat a Healthy Breakfast",
+    "description": "Never skip breakfast! It boosts your metabolism and provides energy for the day.",
+    "imageUrl": "https://images.pexels.com/photos/4057695/pexels-photo-4057695.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "4",
+    "title": "Take a Walk",
+    "description": "Incorporate a 30-minute walk into your daily routine to improve cardiovascular health.",
+    "imageUrl": "https://images.pexels.com/photos/4425635/pexels-photo-4425635.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "5",
+    "title": "Get Enough Sleep",
+    "description": "Aim for 7-8 hours of sleep each night to allow your body to recover and rejuvenate.",
+    "imageUrl": "https://images.pexels.com/photos/924824/pexels-photo-924824.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "6",
+    "title": "Limit Screen Time",
+    "description": "Reduce screen time to protect your eyes and improve your mental well-being.",
+    "imageUrl": "https://images.pexels.com/photos/5082551/pexels-photo-5082551.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "7",
+    "title": "Eat More Greens",
+    "description": "Include green vegetables in your diet for a rich source of vitamins, minerals, and fiber.",
+    "imageUrl": "https://images.pexels.com/photos/4117656/pexels-photo-4117656.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "8",
+    "title": "Practice Deep Breathing",
+    "description": "Take 5 minutes daily to practice deep breathing to reduce stress and increase oxygen flow.",
+    "imageUrl": "https://images.pexels.com/photos/3916528/pexels-photo-3916528.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "9",
+    "title": "Mindful Eating",
+    "description": "Eat slowly and mindfully, paying attention to your food to improve digestion and enjoy your meals more.",
+    "imageUrl": "https://images.pexels.com/photos/4049717/pexels-photo-4049717.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "10",
+    "title": "Maintain Good Posture",
+    "description": "Be conscious of your posture throughout the day to prevent back pain and improve overall health.",
+    "imageUrl": "https://images.pexels.com/photos/3756688/pexels-photo-3756688.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "11",
+    "title": "Reduce Sugar Intake",
+    "description": "Cut down on sugary foods and beverages to improve your energy levels and overall health.",
+    "imageUrl": "https://images.pexels.com/photos/4551327/pexels-photo-4551327.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "12",
+    "title": "Take Regular Breaks",
+    "description": "Take short breaks every hour while working to reduce stress and increase productivity.",
+    "imageUrl": "https://images.pexels.com/photos/4498363/pexels-photo-4498363.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "13",
+    "title": "Eat More Fruits",
+    "description": "Incorporate a variety of fruits into your diet for essential vitamins and antioxidants.",
+    "imageUrl": "https://images.pexels.com/photos/41957/tangerines-fruits-citrus-fruit-vitamins-41957.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "14",
+    "title": "Stay Positive",
+    "description": "Practice positive thinking to improve your mental health and overall well-being.",
+    "imageUrl": "https://images.pexels.com/photos/2294355/pexels-photo-2294355.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    "id": "15",
+    "title": "Meditate Daily",
+    "description": "Spend 10 minutes meditating each day to reduce stress and enhance mental clarity.",
+    "imageUrl": "https://images.pexels.com/photos/4504485/pexels-photo-4504485.jpeg?auto=compress&cs=tinysrgb&w=600"
+  }
+]
