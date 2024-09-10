@@ -7,23 +7,21 @@ import { useState } from "react";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredRemedies = remedies.filter((remedy) =>
-    remedy.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredRemedies = remedies.filter((remedy) => {
+    const title = remedy.title.toLowerCase();
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    return title.includes(lowerCaseQuery) || title.startsWith(lowerCaseQuery);
+  });
 
   function handleSearch(query) {
     setSearchQuery(query);
-  }
-
-  function handleClearSearchBar() {
-    setSearchQuery("");
   }
 
   return (
     <>
       <SearchBar
         handleSearch={handleSearch}
-        handleClearSearchBar={handleClearSearchBar}
+        handleClearSearchBar={() => handleSearch("")}
       />
       <GridContainer>
         {filteredRemedies.map((remedy) => (

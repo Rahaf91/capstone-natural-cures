@@ -1,32 +1,32 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export default function SearchBar({ handleSearch, handleClearSearchBar }) {
-  const [searchQuery, setSearchQuery] = useState("");
-
+export default function SearchBar({
+  handleSearch,
+  handleClearSearchBar,
+  searchQuery,
+}) {
   function handleSearchChange(event) {
     const query = event.target.value;
-    setSearchQuery(event.target.value);
     handleSearch(query);
   }
 
   return (
     <SearchBarWrapper>
-      <input
+      <VisuallyHiddenLabel htmlFor="searchInput">
+        Search remedies
+      </VisuallyHiddenLabel>
+      <SearchBarField
+        id="searchInput"
         type="text"
-        placeholder="Search remedies"
         value={searchQuery}
         onChange={handleSearchChange}
+        placeholder="Search remedies"
+        aria-label="Search remedies"
       />
       {searchQuery && (
-        <button
-          onClick={() => {
-            setSearchQuery("");
-            handleClearSearchBar();
-          }}
-        >
+        <ClearButton type="button" onClick={handleClearSearchBar}>
           Clear
-        </button>
+        </ClearButton>
       )}
     </SearchBarWrapper>
   );
@@ -44,23 +44,34 @@ const SearchBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
 
-  input {
-    border: none;
-    background: transparent;
-    outline: none;
-    width: 100%;
-    height: 100%;
-    padding: 0 5px;
-  }
+const VisuallyHiddenLabel = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+`;
 
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    padding: 0 5px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-  }
+const SearchBarField = styled.input`
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
+`;
+
+const ClearButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 `;
