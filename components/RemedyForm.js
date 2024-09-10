@@ -51,25 +51,32 @@ export default function RemedyForm({
     setSelectedSymptoms(newSymptoms);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
 
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
     const remedyData = {
       ...formObject,
       ingredients: ingredients,
       symptoms: selectedSymptoms,
+      image: await response.json(),
     };
 
     isEditMode
-      ? onEditRemedy(remedyData)
+      ? onEditRemedy({ remedyData })
       : onAddRemedy({ ...remedyData, imageUrl: "/placeholder.jpg" });
 
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
+    setSelectedImage(null);
 
     router.back();
   }
@@ -166,6 +173,10 @@ export default function RemedyForm({
           </div>
         ))}
       </section>
+      <section>
+        {" "}
+        <StyledFileInput name="cover" id="cover" accept="image/*" required />
+      </section>
 
       {isEditMode ? (
         <>
@@ -194,4 +205,15 @@ const Form = styled.form`
 const Button = styled.button`
   width: 40%;
   font-size: 1rem;
+`;
+
+const StyledFileInput = styled.input.attrs({
+  type: "file",
+})`
+  padding: 8px;
+  border: none;
+  &:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
 `;
