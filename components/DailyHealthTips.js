@@ -2,9 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import dailyHealthTips from "@/assets/dailyhealthtips.json";
+import { useEffect } from "react";
 
 export default function DailyHealthTips() {
   const [currentTipIndex, setCurrentTipIndex] = useState(0);
+
+  useEffect(() => {
+    const randomTip = Math.floor(Math.random() * dailyHealthTips.length);
+    setCurrentTipIndex(randomTip);
+  }, []);
 
   if (!dailyHealthTips || dailyHealthTips.length === 0) {
     return <p>Loading...</p>;
