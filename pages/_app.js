@@ -2,18 +2,10 @@ import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
-import { useState } from "react";
-import dailyhealthtips from "../assets/dailyhealthtips.json";
-
-console.log(dailyhealthtips);
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
     defaultValue: initialRemedies,
-  });
-
-  const [dailyTips, setDailyTips] = useLocalStorageState("_DAILYTIPS", {
-    defaultValue: dailyhealthtips,
   });
 
   function handleAddRemedy(newRemedy) {
@@ -63,7 +55,6 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         remedies={remedies}
-        dailyTips={dailyTips}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
