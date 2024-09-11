@@ -72,24 +72,24 @@ export default function RemedyForm({
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
+
+    router.back();
   }
 
   return (
     <Form onSubmit={handleSubmit}>
       {isEditMode ? <h2>Edit Remedy</h2> : <h2>Add Remedy</h2>}
-      <section>
-        <Label htmlFor="title" aria-label="Title, required">
-          Title:<span>*</span>
-        </Label>
-        <Input
-          id="title"
-          name="title"
-          type="text"
-          placeholder={isEditMode ? "" : "Enter remedy title"}
-          defaultValue={isEditMode ? defaultData.title : ""}
-          required
-        />
-      </section>
+      <Label htmlFor="title" aria-label="Title, required">
+        Title:<span>*</span>
+      </Label>
+      <Input
+        id="title"
+        name="title"
+        type="text"
+        placeholder={isEditMode ? "" : "Enter remedy title"}
+        defaultValue={isEditMode ? defaultData.title : ""}
+        required
+      />
 
       <section>
         <Label htmlFor="ingredients-group" aria-label="Ingredients, required">
@@ -197,7 +197,10 @@ export default function RemedyForm({
           <StyledButton type="submit">Save</StyledButton>
         </>
       ) : (
-        <StyledButton type="submit">Submit</StyledButton>
+        <>
+          <StyledLinks href="/">Cancel</StyledLinks>
+          <StyledButton type="submit">Submit</StyledButton>
+        </>
       )}
     </Form>
   );

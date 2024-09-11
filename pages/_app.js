@@ -1,6 +1,6 @@
 import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
-import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 import { Advent_Pro, Capriola } from "next/font/google";
 import Layout from "@/components/Layout";
@@ -17,7 +17,9 @@ const adventPro = Advent_Pro({
 });
 
 export default function App({ Component, pageProps }) {
-  const [remedies, setRemedies] = useState(initialRemedies);
+  const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
+    defaultValue: initialRemedies,
+  });
 
   function handleAddRemedy(newRemedy) {
     setRemedies([
@@ -48,6 +50,50 @@ export default function App({ Component, pageProps }) {
     setRemedies(updatedRemedies);
   }
 
+  function handleAddNotes(remedyId, note) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: [{ id: uid(), ...note }, ...(remedy.notes || [])],
+            }
+          : remedy
+      )
+    );
+  }
+
+
+
+  function handleDeleteNote(remedyId, noteId) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.filter((note) => note.id !== noteId),
+            }
+          : remedy
+      )
+    );
+  }
+  
+  
+    function handleEditNotes(remedyId, noteId, updatedNote) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.map((note) =>
+                note.id === noteId ? { ...note, ...updatedNote } : note
+              ),
+            }
+          : remedy
+      )
+    );
+  }
+
   return (
     <Layout>
       <style jsx global>{`
@@ -64,6 +110,10 @@ export default function App({ Component, pageProps }) {
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
+        handleAddNotes={handleAddNotes}
+        handleEditNotes={handleEditNotes}
+        handleDeleteNote={handleDeleteNote}
+
       />
     </Layout>
   );

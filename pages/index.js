@@ -1,14 +1,9 @@
 import RemediesList from "@/components/RemediesList";
-import RemedyForm from "@/components/RemedyForm";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
 import { StyledLinks } from "@/components/StyledLinks";
 
-export default function HomePage({
-  remedies,
-  handleAddRemedy,
-  handleToggleFavorite,
-}) {
+export default function HomePage({ remedies, handleToggleFavorite }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
   function handleSymptomChange(event) {
@@ -38,7 +33,7 @@ export default function HomePage({
           handleClearFilter={handleClearFilter}
         />
       )}
-      <RemedyForm onAddRemedy={handleAddRemedy} />
+      <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>
