@@ -14,7 +14,8 @@ export default function App({ Component, pageProps }) {
   const fuse = new Fuse(remedies, {
     keys: ["title", "ingredients"],
     includeScore: true,
-    threshold: 0.3,
+    threshold: 0,
+    useExtendedSearch: true,
   });
 
   const results = searchQuery ? fuse.search(searchQuery) : [];

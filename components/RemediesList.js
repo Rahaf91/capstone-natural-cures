@@ -2,14 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
-import SearchBar from "./SearchBar";
 
-export default function RemediesList({
-  remedies,
-  handleToggleFavorite,
-  handleSearchQuery,
-  searchQuery,
-}) {
+export default function RemediesList({ remedies, handleToggleFavorite }) {
   return (
     <>
       <GridContainer>

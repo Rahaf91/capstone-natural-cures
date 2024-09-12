@@ -3,6 +3,7 @@ import RemedyForm from "@/components/RemedyForm";
 import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
+import SearchBar from "@/components/SearchBar";
 
 export default function HomePage({
   remedies,
