@@ -2,6 +2,7 @@ import RemediesList from "@/components/RemediesList";
 import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
+import DailyHealthTips from "@/components/DailyHealthTips";
 
 export default function HomePage({ remedies, handleToggleFavorite }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
@@ -20,6 +21,7 @@ export default function HomePage({ remedies, handleToggleFavorite }) {
   return (
     <>
       <h1>Natural Cures</h1>
+
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>
@@ -34,7 +36,10 @@ export default function HomePage({ remedies, handleToggleFavorite }) {
           handleClearFilter={handleClearFilter}
         />
       )}
+      <DailyHealthTips />
+
       <Link href="/remedy/add">Add Remedy</Link> <br />
+
       <Link href="/favorites">View Bookmarked remedies</Link>
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
