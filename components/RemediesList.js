@@ -12,13 +12,6 @@ export default function RemediesList({
 }) {
   return (
     <>
-      <SearchBar
-        handleSearchQuery={handleSearchQuery}
-        handleClearSearchBar={() =>
-          handleSearchQuery({ currentTarget: { value: "" } })
-        }
-        searchQuery={searchQuery}
-      />
       <GridContainer>
         {remedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
