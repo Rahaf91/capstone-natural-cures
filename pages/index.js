@@ -8,6 +8,8 @@ export default function HomePage({
   remedies,
   handleAddRemedy,
   handleToggleFavorite,
+  handleSearchQuery,
+  searchQuery,
 }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
@@ -47,6 +49,8 @@ export default function HomePage({
         <RemediesList
           remedies={filteredRemedies}
           handleToggleFavorite={handleToggleFavorite}
+          handleSearchQuery={handleSearchQuery}
+          searchQuery={searchQuery}
         />
       )}
     </>

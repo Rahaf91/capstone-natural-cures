@@ -3,28 +3,24 @@ import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 
-export default function RemediesList({ remedies, handleToggleFavorite }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const filteredRemedies = remedies.filter((remedy) => {
-    const title = remedy.title.toLowerCase();
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    return title.includes(lowerCaseQuery) || title.startsWith(lowerCaseQuery);
-  });
-
-  function handleSearch(query) {
-    setSearchQuery(query);
-  }
-
+export default function RemediesList({
+  remedies,
+  handleToggleFavorite,
+  handleSearchQuery,
+  searchQuery,
+}) {
   return (
     <>
       <SearchBar
-        handleSearch={handleSearch}
-        handleClearSearchBar={() => handleSearch("")}
+        handleSearchQuery={handleSearchQuery}
+        handleClearSearchBar={() =>
+          handleSearchQuery({ currentTarget: { value: "" } })
+        }
+        searchQuery={searchQuery}
       />
       <GridContainer>
-        {filteredRemedies.map((remedy) => (
+        {remedies.map((remedy) => (
           <RemedyCard key={remedy.id}>
             <ImageWrapper>
               <StyledImage

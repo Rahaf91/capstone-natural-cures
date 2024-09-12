@@ -2,11 +2,31 @@ import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
+import Fuse from "fuse.js";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
     defaultValue: initialRemedies,
   });
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const fuse = new Fuse(remedies, {
+    keys: ["title", "ingredients"],
+    includeScore: true,
+  });
+
+  const results = searchQuery ? fuse.search(searchQuery) : [];
+  const filteredRemedies = searchQuery
+    ? results.map((result) => result.item)
+    : null;
+
+  console.log(results);
+
+  function handleSearchQuery({ currentTarget = {} }) {
+    const { value } = currentTarget;
+    setSearchQuery(value);
+  }
 
   function handleAddRemedy(newRemedy) {
     setRemedies([
@@ -55,12 +75,14 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Component
         {...pageProps}
-        remedies={remedies}
+        remedies={filteredRemedies ? filteredRemedies : remedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
+        handleSearchQuery={handleSearchQuery}
+        searchQuery={searchQuery}
       />
     </>
   );

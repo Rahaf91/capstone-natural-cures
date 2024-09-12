@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export default function SearchBar({
-  handleSearch,
+  handleSearchQuery,
   handleClearSearchBar,
   searchQuery,
 }) {
-  function handleSearchChange(event) {
-    const query = event.target.value;
-    handleSearch(query);
+  function onSearchChange(event) {
+    const searchQuery = event.target.value;
+    handleSearchQuery({ currentTarget: { value: searchQuery } });
   }
 
   return (
@@ -16,12 +16,12 @@ export default function SearchBar({
         Search remedies
       </VisuallyHiddenLabel>
       <SearchBarField
-        id="searchInput"
+        input
         type="text"
         value={searchQuery}
-        onChange={handleSearchChange}
-        placeholder="Search remedies"
-        aria-label="Search remedies"
+        placeholder="Search"
+        aria-label="Search"
+        onChange={onSearchChange}
       />
       {searchQuery && (
         <ClearButton type="button" onClick={handleClearSearchBar}>
