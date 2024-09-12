@@ -62,11 +62,13 @@ export default function RemedyForm({
       body: formData,
     });
 
+    const { url } = await response.json();
+
     const remedyData = {
       ...formObject,
       ingredients: ingredients,
       symptoms: selectedSymptoms,
-      image: await response.json(),
+      imageUrl: url,
     };
 
     isEditMode
@@ -76,7 +78,6 @@ export default function RemedyForm({
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
-    setSelectedImage(null);
 
     router.back();
   }
