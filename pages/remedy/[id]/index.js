@@ -11,6 +11,8 @@ export default function RemedyDetailsPage({
   handleDeleteRemedy,
   handleToggleFavorite,
   handleAddNotes,
+  handleEditNotes,
+  handleDeleteNote,
 }) {
   const router = useRouter();
   const { id } = router.query;
@@ -62,7 +64,13 @@ export default function RemedyDetailsPage({
         }}
       />
       <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
-      <Notes onAddNote={handleAddNotes} currentRemedy={currentRemedy} />
+      <Notes
+        onAddNote={handleAddNotes}
+        onEditNote={handleEditNotes}
+        currentRemedy={currentRemedy}
+        onDeleteNote={handleDeleteNote}
+
+      />
       <Link href="/"> &larr; Back</Link>
     </>
   );

@@ -23,8 +23,6 @@ export default function App({ Component, pageProps }) {
     ? results.map((result) => result.item)
     : null;
 
-  console.log(results);
-
   function handleSearchQuery({ currentTarget = {} }) {
     const { value } = currentTarget;
     setSearchQuery(value);
@@ -72,6 +70,35 @@ export default function App({ Component, pageProps }) {
     );
   }
 
+  function handleDeleteNote(remedyId, noteId) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.filter((note) => note.id !== noteId),
+            }
+          : remedy
+      )
+    );
+  }
+  
+  
+    function handleEditNotes(remedyId, noteId, updatedNote) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.map((note) =>
+                note.id === noteId ? { ...note, ...updatedNote } : note
+              ),
+            }
+          : remedy
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -85,6 +112,8 @@ export default function App({ Component, pageProps }) {
         handleAddNotes={handleAddNotes}
         handleSearchQuery={handleSearchQuery}
         searchQuery={searchQuery}
+        handleEditNotes={handleEditNotes}
+        handleDeleteNote={handleDeleteNote}
       />
     </>
   );
