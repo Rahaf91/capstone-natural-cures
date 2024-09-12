@@ -1,15 +1,10 @@
 import RemediesList from "@/components/RemediesList";
-import RemedyForm from "@/components/RemedyForm";
 import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
 import DailyHealthTips from "@/components/DailyHealthTips";
 
-export default function HomePage({
-  remedies,
-  handleAddRemedy,
-  handleToggleFavorite,
-}) {
+export default function HomePage({ remedies, handleToggleFavorite }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
   function handleSymptomChange(event) {
@@ -41,9 +36,10 @@ export default function HomePage({
           handleClearFilter={handleClearFilter}
         />
       )}
-
-      <RemedyForm onAddRemedy={handleAddRemedy} />
       <DailyHealthTips />
+
+      <Link href="/remedy/add">Add Remedy</Link> <br />
+
       <Link href="/favorites">View Bookmarked remedies</Link>
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>

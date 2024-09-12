@@ -49,6 +49,38 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+
+
+
+  function handleDeleteNote(remedyId, noteId) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.filter((note) => note.id !== noteId),
+            }
+          : remedy
+      )
+    );
+  }
+  
+  
+    function handleEditNotes(remedyId, noteId, updatedNote) {
+    setRemedies(
+      remedies.map((remedy) =>
+        remedy.id === remedyId
+          ? {
+              ...remedy,
+              notes: remedy.notes.map((note) =>
+                note.id === noteId ? { ...note, ...updatedNote } : note
+              ),
+            }
+          : remedy
+      )
+    );
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -60,6 +92,9 @@ export default function App({ Component, pageProps }) {
         handleEditRemedy={handleEditRemedy}
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
+        handleEditNotes={handleEditNotes}
+        handleDeleteNote={handleDeleteNote}
+
       />
     </>
   );
