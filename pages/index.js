@@ -27,6 +27,13 @@ export default function HomePage({
   return (
     <>
       <h1>Natural Cures</h1>
+      <SearchBar
+        handleSearchQuery={handleSearchQuery}
+        handleClearSearchBar={() =>
+          handleSearchQuery({ currentTarget: { value: "" } })
+        }
+        searchQuery={searchQuery}
+      />
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>
