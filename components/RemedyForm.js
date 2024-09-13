@@ -56,13 +56,15 @@ export default function RemedyForm({
 
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
-
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const { url } = await response.json();
+    let imageUrl = "";
+    if (!isEditMode) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const { url } = await response.json();
+      imageUrl = url;
+    }
 
     const remedyData = {
       ...formObject,
@@ -72,8 +74,7 @@ export default function RemedyForm({
 
     isEditMode
       ? onEditRemedy(remedyData)
-      : onAddRemedy({ ...remedyData, imageUrl: url });
-
+      : onAddRemedy({ ...remedyData, imageUrl });
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
@@ -173,7 +174,6 @@ export default function RemedyForm({
           </div>
         ))}
       </section>
-
       {isEditMode ? (
         <>
           <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
@@ -183,7 +183,7 @@ export default function RemedyForm({
         <>
           <section>
             <label htmlFor="cover" aria-label="cover, required">
-              Image upload:<span>*</span>{" "}
+              Image upload:<span>*</span>
             </label>
             <StyledFileInput
               name="cover"
@@ -192,6 +192,7 @@ export default function RemedyForm({
               required
             />
           </section>
+
           <Link href="/">Cancel</Link>
           <Button type="submit">Submit</Button>
         </>
