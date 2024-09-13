@@ -68,12 +68,11 @@ export default function RemedyForm({
       ...formObject,
       ingredients: ingredients,
       symptoms: selectedSymptoms,
-      imageUrl: url,
     };
 
     isEditMode
-      ? onEditRemedy({ remedyData })
-      : onAddRemedy({ ...remedyData, imageUrl: "/placeholder.jpg" });
+      ? onEditRemedy(remedyData)
+      : onAddRemedy({ ...remedyData, imageUrl: url });
 
     event.target.reset();
     setIngredients([""]);
@@ -174,10 +173,6 @@ export default function RemedyForm({
           </div>
         ))}
       </section>
-      <section>
-        {" "}
-        <StyledFileInput name="cover" id="cover" accept="image/*" required />
-      </section>
 
       {isEditMode ? (
         <>
@@ -186,6 +181,17 @@ export default function RemedyForm({
         </>
       ) : (
         <>
+          <section>
+            <label htmlFor="cover" aria-label="cover, required">
+              Image upload:<span>*</span>{" "}
+            </label>
+            <StyledFileInput
+              name="cover"
+              id="cover"
+              accept="image/*"
+              required
+            />
+          </section>
           <Link href="/">Cancel</Link>
           <Button type="submit">Submit</Button>
         </>
