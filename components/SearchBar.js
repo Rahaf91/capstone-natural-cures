@@ -16,7 +16,6 @@ export default function SearchBar({
         Search remedies
       </VisuallyHiddenLabel>
       <SearchBarField
-        input
         type="text"
         value={searchQuery}
         placeholder="Search"

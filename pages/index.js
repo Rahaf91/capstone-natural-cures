@@ -7,24 +7,21 @@ import DailyHealthTips from "@/components/DailyHealthTips";
 
 export default function HomePage({
   remedies,
-  handleAddRemedy,
   handleToggleFavorite,
   handleSearchQuery,
   searchQuery,
 }) {
-  
-export default function HomePage({ remedies, handleToggleFavorite }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
   function handleSymptomChange(event) {
     const selected = event.target.value;
     setSelectedSymptom(selected);
   }
-  
+
   function handleClearFilter() {
     setSelectedSymptom("");
   }
-  
+
   const filteredRemedies = selectedSymptom
     ? remedies.filter((remedy) => remedy.symptoms.includes(selectedSymptom))
     : remedies;
@@ -54,9 +51,7 @@ export default function HomePage({ remedies, handleToggleFavorite }) {
         />
       )}
       <DailyHealthTips />
-
       <Link href="/remedy/add">Add Remedy</Link> <br />
-
       <Link href="/favorites">View Bookmarked remedies</Link>
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
