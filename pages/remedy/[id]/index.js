@@ -28,8 +28,15 @@ export default function RemedyDetailsPage({
     router.push("/");
   }
 
+  function handlePrint() {
+    window.print();
+  }
+
   return (
     <>
+      <div className="no-print">
+        <PrintButton onClick={handlePrint}>Print Remedy</PrintButton>
+      </div>
       <h1>{currentRemedy.title}</h1>
       <Image
         src={currentRemedy.imageUrl}
@@ -37,10 +44,12 @@ export default function RemedyDetailsPage({
         width={250}
         height={250}
       />
-      <FavoriteButton
-        isFavorite={currentRemedy.isFavorite}
-        handleToggleFavorite={() => handleToggleFavorite(id)}
-      />
+      <div className="no-print">
+        <FavoriteButton
+          isFavorite={currentRemedy.isFavorite}
+          handleToggleFavorite={() => handleToggleFavorite(id)}
+        />
+      </div>
       <h2>Information</h2>
       <h3>Ingredients:</h3>
       <ul>
@@ -58,27 +67,38 @@ export default function RemedyDetailsPage({
           <li key={index}>{symptom}</li>
         ))}
       </ul>
-      <DeleteButtonConfirmation
-        onDelete={() => {
-          handleDelete(id);
-        }}
-      />
-      <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
-      <Notes
-        onAddNote={handleAddNotes}
-        onEditNote={handleEditNotes}
-        currentRemedy={currentRemedy}
-        onDeleteNote={handleDeleteNote}
-
-      />
-      <Link href="/"> &larr; Back</Link>
+      <div className="no-print">
+        <DeleteButtonConfirmation
+          onDelete={() => {
+            handleDelete(id);
+          }}
+        />
+        <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
+        <Notes
+          onAddNote={handleAddNotes}
+          onEditNote={handleEditNotes}
+          currentRemedy={currentRemedy}
+          onDeleteNote={handleDeleteNote}
+        />
+        <Link href="/"> &larr; Back</Link>
+      </div>
     </>
   );
 }
+
 const StyledLink = styled(Link)`
   background-color: rgba(84, 88, 47, 0.9);
   color: white;
   text-decoration: none;
   padding: 1rem;
   margin-left: 1rem;
+`;
+
+const PrintButton = styled.button`
+  background-color: rgba(84, 88, 47, 0.9);
+  color: white;
+  border: none;
+  padding: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
 `;
