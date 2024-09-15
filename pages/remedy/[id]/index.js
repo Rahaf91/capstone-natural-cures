@@ -5,6 +5,7 @@ import FavoriteButton from "@/components/FavoriteButton";
 import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
 import styled from "styled-components";
 import Notes from "@/components/Notes";
+import React from "react";
 
 export default function RemedyDetailsPage({
   remedies,
@@ -17,6 +18,11 @@ export default function RemedyDetailsPage({
   const router = useRouter();
   const { id } = router.query;
 
+  // Überprüfen, ob die remedies-Daten korrekt geladen sind
+  if (!remedies || remedies.length === 0) {
+    return <p>...loading</p>;
+  }
+
   const currentRemedy = remedies.find((remedy) => remedy.id === id);
 
   if (!currentRemedy) {
@@ -27,6 +33,11 @@ export default function RemedyDetailsPage({
     handleDeleteRemedy(id);
     router.push("/");
   }
+
+  console.log("Current Remedy:", currentRemedy); // Debugging
+  console.log("Video URL:", currentRemedy.videoUrlPreparation); // Debugging
+
+  const currentVideo = currentRemedy.videoUrlPreparation;
 
   return (
     <>
@@ -58,6 +69,21 @@ export default function RemedyDetailsPage({
           <li key={index}>{symptom}</li>
         ))}
       </ul>
+      <h3>Preparation Video:</h3>
+      {currentVideo ? (
+        <VideoContainer>
+          <iframe
+            width="560"
+            height="315"
+            src={currentVideo}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </VideoContainer>
+      ) : (
+        <p>No video available</p>
+      )}
+
       <DeleteButtonConfirmation
         onDelete={() => {
           handleDelete(id);
@@ -69,16 +95,25 @@ export default function RemedyDetailsPage({
         onEditNote={handleEditNotes}
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
-
       />
       <Link href="/"> &larr; Back</Link>
     </>
   );
 }
+
 const StyledLink = styled(Link)`
   background-color: rgba(84, 88, 47, 0.9);
   color: white;
   text-decoration: none;
   padding: 1rem;
   margin-left: 1rem;
+`;
+
+const VideoContainer = styled.div`
+  margin-top: 2rem;
+  iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+  }
 `;

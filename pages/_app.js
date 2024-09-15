@@ -82,9 +82,8 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  
-  
-    function handleEditNotes(remedyId, noteId, updatedNote) {
+
+  function handleEditNotes(remedyId, noteId, updatedNote) {
     setRemedies(
       remedies.map((remedy) =>
         remedy.id === remedyId

@@ -4,7 +4,7 @@
     "title": "Soothing Ginger Tea",
     "imageUrl": "https://images.pexels.com/photos/9399395/pexels-photo-9399395.jpeg?auto=compress&cs=tinysrgb&w=600",
     "videoUrlPreparation": "https://www.youtube.com/embed/JoQ1B_h0xiU",
-     "ingredients": ["Ginger", "Honey", "Lemon"],
+    "ingredients": ["Ginger", "Honey", "Lemon"],
     "preparation": "Boil water with ginger, add lemon and honey to taste.",
     "usage": "Drink warm to soothe a sore throat.",
     "symptoms": ["Sore Throat", "Cold"]
@@ -14,7 +14,7 @@
     "title": "Aloe Vera for Burns",
     "imageUrl": "https://images.pexels.com/photos/18739319/pexels-photo-18739319/free-photo-of-aloe-vera-gel-in-can.jpeg?auto=compress&cs=tinysrgb&w=600",
     "videoUrlPreparation": "https://www.youtube.com/embed/buNYP7F1eHc",
-     "ingredients": ["Aloe Vera Gel"],
+    "ingredients": ["Aloe Vera Gel"],
     "preparation": "Apply aloe vera gel to the affected area.",
     "usage": "Use for minor burns to soothe and heal the skin.",
     "symptoms": ["Skin Burns", "Sunburn"]
@@ -24,7 +24,7 @@
     "title": "Turmeric Milk",
     "imageUrl": "https://images.pexels.com/photos/4048705/pexels-photo-4048705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "videoUrlPreparation": "https://www.youtube.com/embed/QBkZHx48Yzs",
-     ingredients": ["Turmeric", "Milk", "Honey"],
+    "ingredients": ["Turmeric", "Milk", "Honey"],
     "preparation": "Warm the milk, mix in turmeric and honey.",
     "usage": "Drink before bed for anti-inflammatory benefits.",
     "symptoms": ["Inflammation", "Joint Pain"]
@@ -33,8 +33,8 @@
     "id": "4",
     "title": "Garlic for Cold",
     "imageUrl": "https://images.pexels.com/photos/750948/pexels-photo-750948.jpeg?auto=compress&cs=tinysrgb&w=600",
-    // "videoUrlPreparation": "https://www.youtube.com/embed/",
-    ingredients": ["Garlic"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/soxtfF6RYI4",
+    "ingredients": ["Garlic"],
     "preparation": "Chew on a clove of garlic.",
     "usage": "Helps to alleviate cold symptoms.",
     "symptoms": ["Cold", "Flu"]
@@ -123,8 +123,8 @@
     "id": "13",
     "title": "Eucalyptus Steam Inhalation",
     "imageUrl": "https://images.pexels.com/photos/3616981/pexels-photo-3616981.jpeg?auto=compress&cs=tinysrgb&w=600",
-     "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
-     "ingredients": ["Eucalyptus Oil", "Hot Water"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
+    "ingredients": ["Eucalyptus Oil", "Hot Water"],
     "preparation": "Add a few drops of eucalyptus oil to hot water.",
     "usage": "Inhale the steam to clear nasal congestion.",
     "symptoms": ["Nasal Congestion", "Sinusitis"]
@@ -133,7 +133,8 @@
     "id": "14",
     "title": "Banana for Energy Boost",
     "imageUrl": "https://images.pexels.com/photos/5876154/pexels-photo-5876154.jpeg?auto=compress&cs=tinysrgb&w=600",
-     ingredients": ["Banana"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/-yEzOAfhYzs",
+    "ingredients": ["Banana"],
     "preparation": "Eat a ripe banana.",
     "usage": "Provides a quick energy boost with natural sugars and fibre.",
     "symptoms": ["Fatigue", "Low Energy"]
@@ -143,7 +144,7 @@
     "title": "Coconut Oil for Dry Skin",
     "imageUrl": "https://images.pexels.com/photos/725998/pexels-photo-725998.jpeg?auto=compress&cs=tinysrgb&w=600",
     "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
-     "ingredients": ["Coconut Oil"],
+    "ingredients": ["Coconut Oil"],
     "preparation": "Apply coconut oil to dry skin areas.",
     "usage": "Moisturises and nourishes the skin.",
     "symptoms": ["Dry Skin", "Flakiness"]
@@ -153,7 +154,7 @@
     "title": "Yogurt for Gut Health",
     "imageUrl": "https://images.pexels.com/photos/3212808/pexels-photo-3212808.jpeg?auto=compress&cs=tinysrgb&w=600",
     "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
-     "ingredients": ["Yogurt"],
+    "ingredients": ["Yogurt"],
     "preparation": "Consume a serving of plain yogurt.",
     "usage": "Promotes a healthy digestive tract with probiotics.",
     "symptoms": ["Digestive Issues", "Gut Imbalance"]
@@ -163,7 +164,7 @@
     "title": "Ginger for Nausea",
     "imageUrl": "https://images.pexels.com/photos/128403/pexels-photo-128403.jpeg?auto=compress&cs=tinysrgb&w=600",
     "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
-     "ingredients": ["Ginger"],
+    "ingredients": ["Ginger"],
     "preparation": "Chew on a small piece of ginger or drink ginger tea.",
     "usage": "Helps to alleviate nausea and digestive upset.",
     "symptoms": ["Nausea", "Motion Sickness"]
@@ -172,8 +173,8 @@
     "id": "18",
     "title": "Tea Tree Oil for Acne",
     "imageUrl": "https://images.pexels.com/photos/7038206/pexels-photo-7038206.jpeg?auto=compress&cs=tinysrgb&w=600",
-    // "videoUrlPreparation": "https://www.youtube.com/embed/",
-     ingredients": ["Tea Tree Oil", "Carrier Oil"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/REyv8RFppKU",
+    "ingredients": ["Tea Tree Oil", "Carrier Oil"],
     "preparation": "Dilute tea tree oil with a carrier oil and apply to affected areas.",
     "usage": "Natural antimicrobial properties help reduce acne.",
     "symptoms": ["Acne", "Skin Blemishes"]
@@ -182,8 +183,8 @@
     "id": "19",
     "title": "Cucumber Slices for Puffy Eyes",
     "imageUrl": "https://images.pexels.com/photos/10432461/pexels-photo-10432461.jpeg?auto=compress&cs=tinysrgb&w=600",
-     "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
-     "ingredients": ["Cucumber"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/o4GFjN3Es6o",
+    "ingredients": ["Cucumber"],
     "preparation": "Cut cucumber into slices and chill.",
     "usage": "Place over eyes to reduce puffiness and refresh tired eyes.",
     "symptoms": ["Puffy Eyes", "Eye Fatigue"]
@@ -232,8 +233,8 @@
     "id": "24",
     "title": "Rosehip Oil for Skin Regeneration",
     "imageUrl": "https://images.pexels.com/photos/11757211/pexels-photo-11757211.jpeg?auto=compress&cs=tinysrgb&w=600",
-     "videoUrlPreparation": "https://www.youtube.com/embed/rzuBCD__riw",
-     "ingredients": ["Rosehip Oil"],
+    "videoUrlPreparation": "https://www.youtube.com/embed/rzuBCD__riw",
+    "ingredients": ["Rosehip Oil"],
     "preparation": "Apply rosehip oil directly to the face or affected skin areas.",
     "usage": "Use to hydrate skin, reduce scars, and promote regeneration.",
     "symptoms": ["Dry Skin", "Acne Scars", "Wrinkles"]
