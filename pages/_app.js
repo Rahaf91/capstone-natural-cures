@@ -3,14 +3,19 @@ import initialRemedies from "../assets/remedies.json";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 import Fuse from "fuse.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
     defaultValue: initialRemedies,
   });
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [favoriteRemedies, setFavoriteRemedies] = useState([]);
   const fuse = new Fuse(remedies, {
     keys: ["title", "ingredients"],
     includeScore: true,
@@ -55,6 +60,9 @@ export default function App({ Component, pageProps }) {
     );
 
     setRemedies(updatedRemedies);
+
+    const newFavorites = updatedRemedies.filter((remedy) => remedy.isFavorite);
+    setFavoriteRemedies(newFavorites);
   }
 
   function handleAddNotes(remedyId, note) {
@@ -82,9 +90,8 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  
-  
-    function handleEditNotes(remedyId, noteId, updatedNote) {
+
+  function handleEditNotes(remedyId, noteId, updatedNote) {
     setRemedies(
       remedies.map((remedy) =>
         remedy.id === remedyId
@@ -102,19 +109,53 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component
-        {...pageProps}
-        remedies={filteredRemedies ? filteredRemedies : remedies}
-        handleAddRemedy={handleAddRemedy}
-        handleDeleteRemedy={handleDeleteRemedy}
-        handleEditRemedy={handleEditRemedy}
-        handleToggleFavorite={handleToggleFavorite}
-        handleAddNotes={handleAddNotes}
-        handleSearchQuery={handleSearchQuery}
-        searchQuery={searchQuery}
-        handleEditNotes={handleEditNotes}
-        handleDeleteNote={handleDeleteNote}
-      />
+      <SessionProvider session={session}>
+        <AuthWrapper>
+          setFavoriteRemedies={setFavoriteRemedies}
+          favoriteRemedies={favoriteRemedies}
+          <Component
+            {...pageProps}
+            remedies={filteredRemedies ? filteredRemedies : remedies}
+            handleAddRemedy={handleAddRemedy}
+            handleDeleteRemedy={handleDeleteRemedy}
+            handleEditRemedy={handleEditRemedy}
+            handleToggleFavorite={handleToggleFavorite}
+            handleAddNotes={handleAddNotes}
+            handleSearchQuery={handleSearchQuery}
+            searchQuery={searchQuery}
+            handleEditNotes={handleEditNotes}
+            handleDeleteNote={handleDeleteNote}
+          />
+        </AuthWrapper>
+      </SessionProvider>
+    </>
+  );
+}
+
+function AuthWrapper({ children, setFavoriteRemedies, favoriteRemedies }) {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      const userFavorites = session.user.favoriteRemedies || [];
+      setFavoriteRemedies(userFavorites);
+    }
+  }, [session, setFavoriteRemedies]);
+
+  if (session) {
+    return (
+      <>
+        Signed in as {session.user.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+        {children}
+      </>
+    );
+  }
+
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
     </>
   );
 }
