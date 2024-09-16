@@ -18,7 +18,6 @@ export default function RemedyDetailsPage({
   const router = useRouter();
   const { id } = router.query;
 
-  // Überprüfen, ob die remedies-Daten korrekt geladen sind
   if (!remedies || remedies.length === 0) {
     return <p>...loading</p>;
   }
@@ -33,9 +32,6 @@ export default function RemedyDetailsPage({
     handleDeleteRemedy(id);
     router.push("/");
   }
-
-  console.log("Current Remedy:", currentRemedy); // Debugging
-  console.log("Video URL:", currentRemedy.videoUrlPreparation); // Debugging
 
   const currentVideo = currentRemedy.videoUrlPreparation;
 
@@ -81,7 +77,9 @@ export default function RemedyDetailsPage({
           ></iframe>
         </VideoContainer>
       ) : (
-        <p>No video available</p>
+        <PlaceholderContainer>
+          <p>Sorry, the video is not available at the moment.</p>
+        </PlaceholderContainer>
       )}
 
       <DeleteButtonConfirmation
@@ -116,4 +114,12 @@ const VideoContainer = styled.div`
     max-width: 560px;
     height: 315px;
   }
+`;
+
+const PlaceholderContainer = styled.div`
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(84, 88, 47, 0.9);
+  color: white;
+  text-align: center;
 `;
