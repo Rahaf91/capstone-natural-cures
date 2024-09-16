@@ -74,12 +74,16 @@ export default function RemedyDetailsPage({
           }}
         />
         <StyledLink href={`/remedy/${id}/edit`}>Edit Remedy</StyledLink>
+      </div>
+      <div>
         <Notes
           onAddNote={handleAddNotes}
           onEditNote={handleEditNotes}
           currentRemedy={currentRemedy}
           onDeleteNote={handleDeleteNote}
         />
+      </div>
+      <div className="no-print">
         <Link href="/"> &larr; Back</Link>
       </div>
     </>
