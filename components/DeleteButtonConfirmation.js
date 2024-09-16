@@ -17,7 +17,7 @@ export default function DeleteButtonConfirmation({ onDelete }) {
   return (
     <>
       <ButtonContainer>
-        <StyledButton $variant="delete" onClick={toggleModal}>
+        <StyledButton variant="delete" onClick={toggleModal}>
           Delete Remedy
         </StyledButton>
       </ButtonContainer>
@@ -25,12 +25,14 @@ export default function DeleteButtonConfirmation({ onDelete }) {
         <Modal>
           <ModalContent>
             <p>Are you sure you want to delete the remedy?</p>
-            <StyledButton $variant="delete" onClick={handleConfirmDelete}>
-              Delete
-            </StyledButton>
-            <StyledButton $variant="cancel" onClick={toggleModal}>
-              Cancel
-            </StyledButton>
+            <ButtonGroup>
+              <StyledButton variant="delete" onClick={handleConfirmDelete}>
+                Delete
+              </StyledButton>
+              <StyledButton variant="cancel" onClick={toggleModal}>
+                Cancel
+              </StyledButton>
+            </ButtonGroup>
           </ModalContent>
         </Modal>
       )}
@@ -66,4 +68,11 @@ const ButtonContainer = styled.div`
   gap: 10px;
   display: flex;
   justify-content: center;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 `;

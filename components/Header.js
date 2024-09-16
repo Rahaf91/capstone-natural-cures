@@ -15,21 +15,17 @@ export default function Header() {
 const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
-  padding: 20px;
-  background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
+  padding: 1.25rem;
   @media (max-width: 600px) {
     flex-direction: column;
-    padding: 10px;
   }
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
+  font-size: 1.5rem;
   margin: 0;
-
   @media (max-width: 600px) {
-    font-size: 20px;
+    font-size: 2rem;
   }
 `;
 

@@ -1,5 +1,7 @@
 import RemediesList from "@/components/RemediesList";
 import { StyledLinks } from "@/components/StyledLinks";
+import styled from "styled-components";
+
 export default function FavoritePage({ handleToggleFavorite, remedies }) {
   const favoriteRemedies = remedies.filter((remedy) => remedy.isFavorite);
 
@@ -17,7 +19,18 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
         )}
       </main>
 
-      <StyledLinks href="/">Go back</StyledLinks>
+      <BackButtonContainer>
+        <StyledLinks $variant="back" href="/">
+          &larr; Back
+        </StyledLinks>
+      </BackButtonContainer>
     </>
   );
 }
+
+const BackButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  display: flex;
+  width: 100%;
+`;

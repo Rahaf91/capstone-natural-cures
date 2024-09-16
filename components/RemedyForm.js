@@ -5,6 +5,7 @@ import Icon from "./Icons";
 import { StyledButton } from "./StyledButtons";
 import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
+import { useRouter } from "next/router";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -12,6 +13,7 @@ export default function RemedyForm({
   onEditRemedy,
   defaultData = {},
 }) {
+  const router = useRouter();
   const [ingredients, setIngredients] = useState(
     isEditMode && defaultData.ingredients ? defaultData.ingredients : [""]
   );
@@ -78,7 +80,6 @@ export default function RemedyForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      {isEditMode ? <h2>Edit Remedy</h2> : <h2>Add Remedy</h2>}
       <Label htmlFor="title" aria-label="Title, required">
         Title:<span>*</span>
       </Label>
@@ -193,13 +194,21 @@ export default function RemedyForm({
 
       {isEditMode ? (
         <>
-          <StyledLinks href={`/remedy/${defaultData.id}`}>Cancel</StyledLinks>
-          <StyledButton type="submit">Save</StyledButton>
+          <StyledLinks variant="cancel" href={`/remedy/${defaultData.id}`}>
+            Cancel
+          </StyledLinks>
+          <StyledButton variant="primary" type="submit">
+            Save
+          </StyledButton>
         </>
       ) : (
         <>
-          <StyledLinks href="/">Cancel</StyledLinks>
-          <StyledButton type="submit">Submit</StyledButton>
+          <StyledLinks variant="cancel" href="/">
+            Cancel
+          </StyledLinks>
+          <StyledButton variant="primary" type="submit">
+            Submit
+          </StyledButton>
         </>
       )}
     </Form>

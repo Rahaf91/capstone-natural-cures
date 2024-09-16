@@ -26,7 +26,9 @@ export default function FilterList({
         </FilterSelect>
 
         {selectedSymptom && (
-          <StyledButton onClick={handleClearFilter}>Remove Filter</StyledButton>
+          <StyledButton variant="remove" onClick={handleClearFilter}>
+            Remove Filter
+          </StyledButton>
         )}
       </FilterSection>
     </>
@@ -42,7 +44,6 @@ const FilterSection = styled.section`
 const FilterSelect = styled.select`
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   background-color: var(--card-background);

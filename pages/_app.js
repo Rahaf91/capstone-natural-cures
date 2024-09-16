@@ -10,11 +10,11 @@ const capriola = Capriola({
   weight: "400",
   variable: "--font-capriola",
 });
-const adventPro = Advent_Pro({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-advent-pro",
-});
+// const adventPro = Advent_Pro({
+//   subsets: ["latin"],
+//   weight: "400",
+//   variable: "--font-advent-pro",
+// });
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
@@ -63,8 +63,6 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-
-
   function handleDeleteNote(remedyId, noteId) {
     setRemedies(
       remedies.map((remedy) =>
@@ -77,9 +75,8 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  
-  
-    function handleEditNotes(remedyId, noteId, updatedNote) {
+
+  function handleEditNotes(remedyId, noteId, updatedNote) {
     setRemedies(
       remedies.map((remedy) =>
         remedy.id === remedyId
@@ -99,7 +96,6 @@ export default function App({ Component, pageProps }) {
       <style jsx global>{`
         :root {
           --font-capriola: ${capriola.style.fontFamily};
-          --font-advent-pro: ${adventPro.style.fontFamily};
         }
       `}</style>
       <GlobalStyle />
@@ -113,7 +109,6 @@ export default function App({ Component, pageProps }) {
         handleAddNotes={handleAddNotes}
         handleEditNotes={handleEditNotes}
         handleDeleteNote={handleDeleteNote}
-
       />
     </Layout>
   );

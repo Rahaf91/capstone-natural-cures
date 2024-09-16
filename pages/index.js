@@ -2,7 +2,7 @@ import RemediesList from "@/components/RemediesList";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
 import { StyledLinks } from "@/components/StyledLinks";
-
+import { StyledButton } from "@/components/StyledButtons";
 export default function HomePage({ remedies, handleToggleFavorite }) {
   const [selectedSymptom, setSelectedSymptom] = useState("");
 
@@ -22,9 +22,13 @@ export default function HomePage({ remedies, handleToggleFavorite }) {
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>
-          <button type="button" onClick={handleClearFilter}>
+          <StyledButton
+            variant="primary"
+            type="button"
+            onClick={handleClearFilter}
+          >
             Clear Filter
-          </button>
+          </StyledButton>
         </>
       ) : (
         <FilterList

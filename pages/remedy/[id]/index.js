@@ -30,20 +30,22 @@ export default function RemedyDetailsPage({
 
   return (
     <Container>
-      <Title>{currentRemedy.title}</Title>
-      <StyledImage
-        src={currentRemedy.imageUrl}
-        alt={currentRemedy.title}
-        width={250}
-        height={250}
-      />
-      <FavoriteButton
-        isFavorite={currentRemedy.isFavorite}
-        handleToggleFavorite={() => handleToggleFavorite(id)}
-      />
+      <Title>{currentRemedy.title}</Title>9
+      <ImageWrapper>
+        <StyledImage
+          src={currentRemedy.imageUrl}
+          alt={currentRemedy.title}
+          width={250}
+          height={250}
+        />
+        <FavoriteButton
+          isFavorite={currentRemedy.isFavorite}
+          isDetailPage={true}
+          handleToggleFavorite={() => handleToggleFavorite(id)}
+        />
+      </ImageWrapper>
       <Section>
-        <h2>Information</h2>
-        <Subtitle>Ingredients:</Subtitle>
+        <Subtitle>Ingredients</Subtitle>
         <List>
           {currentRemedy.ingredients.map((ingredient, index) => (
             <ListItem key={index}>{ingredient}</ListItem>
@@ -51,15 +53,15 @@ export default function RemedyDetailsPage({
         </List>
       </Section>
       <Section>
-        <Subtitle>Preparation:</Subtitle>
+        <Subtitle>Preparation</Subtitle>
         <Text>{currentRemedy.preparation}</Text>
       </Section>
       <Section>
-        <Subtitle>Usage:</Subtitle>
+        <Subtitle>Usage</Subtitle>
         <Text>{currentRemedy.usage}</Text>
       </Section>
       <Section>
-        <Subtitle>Symptoms:</Subtitle>
+        <Subtitle>Symptoms</Subtitle>
         <List>
           {currentRemedy.symptoms.map((symptom, index) => (
             <ListItem key={index}>{symptom}</ListItem>
@@ -71,7 +73,6 @@ export default function RemedyDetailsPage({
           handleDelete(id);
         }}
       />
-
       <ButtonContainer>
         <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
           Edit Remedy
@@ -83,66 +84,81 @@ export default function RemedyDetailsPage({
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
       />
-      <StyledLinks $variant="back" href="/">
-        &larr; Back
-      </StyledLinks>
+      <BackButtonContainer>
+        <StyledLinks $variant="back" href="/">
+          &larr; Back
+        </StyledLinks>
+      </BackButtonContainer>
     </Container>
   );
 }
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 20rem;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f8fbca;
+  padding: 1rem;
   color: #54582f;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: var(--background-color);
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #54582f;
   text-align: center;
 `;
 
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+`;
+
 const StyledImage = styled(Image)`
   display: block;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 `;
 
 const Section = styled.section`
-  margin-top: 5px;
+  padding: 0.5rem;
+  border-bottom: 1px solid #54582f;
 `;
 
 const Subtitle = styled.h3`
-  font-size: 1.4rem;
-  color: #86895d;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
 `;
 
 const Text = styled.p`
   font-size: 1rem;
-  color: #54582f;
   line-height: 1.6;
+  margin-left: 1rem;
 `;
 
 const List = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
+  margin-left: 1rem;
 `;
 
 const ListItem = styled.li`
   font-size: 1rem;
-  color: #54582f;
-  margin-bottom: 5px;
+  line-height: 1.6;
+  margin-bottom: 0.1rem;
 `;
 
 const ButtonContainer = styled.div`
-  gap: 10px;
   display: flex;
   justify-content: center;
+`;
+
+const BackButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  display: flex;
+  width: 100%;
 `;
