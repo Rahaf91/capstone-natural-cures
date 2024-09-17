@@ -16,11 +16,25 @@ export default function App({ Component, pageProps }) {
     includeScore: true,
     threshold: 0,
     useExtendedSearch: true,
+    ignoreLocation: true,
+    ignoreFieldNorm: true,
+    shouldSort: true,
   });
 
+  function matchesQueryAtWordStart(item, query) {
+    const regex = new RegExp(`\\b${query}`, "i");
+    return (
+      regex.test(item.title) ||
+      item.ingredients.some((ingredient) => regex.test(ingredient))
+    );
+  }
+
   const results = searchQuery ? fuse.search(searchQuery) : [];
+
   const filteredRemedies = searchQuery
-    ? results.map((result) => result.item)
+    ? results
+        .map((result) => result.item)
+        .filter((item) => matchesQueryAtWordStart(item, searchQuery))
     : null;
 
   function handleSearchQuery({ currentTarget = {} }) {
@@ -82,9 +96,8 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  
-  
-    function handleEditNotes(remedyId, noteId, updatedNote) {
+
+  function handleEditNotes(remedyId, noteId, updatedNote) {
     setRemedies(
       remedies.map((remedy) =>
         remedy.id === remedyId
