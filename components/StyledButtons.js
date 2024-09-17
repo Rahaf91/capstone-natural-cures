@@ -38,7 +38,6 @@ export const StyledButton = styled.button`
     props.variant === "cancel" &&
     css`
       background-color: #bdc3c7;
-      color: #2c3e50;
 
       &:hover {
         background-color: #95a5a6;

@@ -2,19 +2,8 @@ import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
-import { Advent_Pro, Capriola } from "next/font/google";
-import Layout from "@/components/Layout";
 
-const capriola = Capriola({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-capriola",
-});
-// const adventPro = Advent_Pro({
-//   subsets: ["latin"],
-//   weight: "400",
-//   variable: "--font-advent-pro",
-// });
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
@@ -93,11 +82,6 @@ export default function App({ Component, pageProps }) {
 
   return (
     <Layout>
-      <style jsx global>{`
-        :root {
-          --font-capriola: ${capriola.style.fontFamily};
-        }
-      `}</style>
       <GlobalStyle />
       <Component
         {...pageProps}
