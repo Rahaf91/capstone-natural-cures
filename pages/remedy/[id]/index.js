@@ -69,7 +69,6 @@ export default function RemedyDetailsPage({
         onEditNote={handleEditNotes}
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
-
       />
       <Link href="/"> &larr; Back</Link>
     </>
