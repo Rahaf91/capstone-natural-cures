@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "styled-components";
 
 export default function Notes({
   onAddNote,
@@ -29,6 +30,7 @@ export default function Notes({
     }
     form.reset();
     textArea.focus();
+    setShowTextField(false);
   }
 
   function handleEdit(note) {
@@ -37,9 +39,10 @@ export default function Notes({
   }
 
   return (
-    <>
-      <h2>Take notes</h2>
+    <NotesContainer>
+      <h2> Notes</h2>
       <button
+        className="no-print"
         onClick={() => {
           setShowTextField(!showTextField);
           setEditingNote(null);
@@ -51,14 +54,17 @@ export default function Notes({
         <>
           <form onSubmit={handleSubmit}>
             <label htmlFor="note-input"></label>
-            <textarea
+            <StyledTextArea
               id="note-input"
               name="notes"
               defaultValue={editingNote ? editingNote.text : ""}
             />
-            <button type="submit">Save</button>
+            <button className="no-print" type="submit">
+              Save
+            </button>
           </form>
           <button
+            className="no-print"
             onClick={() => {
               setShowTextField(!showTextField);
               setEditingNote(null);
@@ -70,29 +76,83 @@ export default function Notes({
       )}
       <ul>
         {currentRemedy.notes?.map((note) => (
-          <li key={note.id}>
-            <p>{note.text}</p>
-            <p>{note.timestamp}</p>
-
-            <button onClick={() => handleEdit(note)}>Edit</button>
-            <button onClick={() => setNoteToDelete(note.id)}>Delete</button>
-            {noteToDelete && (
-              <div>
-                <p>Are you sure you want to delete this note?</p>
-                <button
-                  onClick={() => {
-                    onDeleteNote(currentRemedy.id, note.id);
-                    setNoteToDelete(null);
-                  }}
-                >
-                  Yes
-                </button>
-                <button onClick={() => setNoteToDelete(null)}>No</button>
-              </div>
-            )}
-          </li>
+          <StyledNoteContainer key={note.id}>
+            <StyledNote>
+              <p>{note.text}</p>
+            </StyledNote>
+            <ButtonContainer className="no-print">
+              <button onClick={() => handleEdit(note)}>Edit</button>
+              <button onClick={() => setNoteToDelete(note.id)}>Delete</button>
+              {noteToDelete === note.id && (
+                <div>
+                  <p>Are you sure you want to delete this note?</p>
+                  <button
+                    onClick={() => {
+                      onDeleteNote(currentRemedy.id, note.id);
+                      setNoteToDelete(null);
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button onClick={() => setNoteToDelete(null)}>No</button>
+                </div>
+              )}
+            </ButtonContainer>
+          </StyledNoteContainer>
         ))}
       </ul>
-    </>
+    </NotesContainer>
   );
 }
+
+const NotesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+`;
+
+const StyledTextArea = styled.textarea`
+  font-family: "DPDorkDiary", cursive;
+  font-size: 1.4em;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px;
+  width: 250px;
+  height: 230px;
+  padding: 25px 15px;
+  background: #fefabc;
+  background-color: #fefabc;
+  background-image: linear-gradient(150deg, #efec88 0%, #fefabc 100%);
+  border: 1px solid #cccccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+`;
+
+const StyledNoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+`;
+
+const StyledNote = styled.div`
+  text-align: center;
+  width: 250px;
+  height: 230px;
+  padding: 25px 15px;
+  background: #fefabc;
+  background-color: #fefabc;
+  background-image: linear-gradient(150deg, #efec88 0%, #fefabc 100%);
+  border: 1px solid #cccccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  list-style-type: none;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+
+  button {
+    margin-bottom: 10px;
+  }
+`;
