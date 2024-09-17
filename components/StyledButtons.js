@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
+  font-family: var(--font-capriola);
   border: none;
   padding: ${(props) =>
     props.size === "small" ? "0.3rem 0.1rem" : "0.5rem 1.2rem"};

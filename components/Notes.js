@@ -41,7 +41,6 @@ export default function Notes({
   return (
     <NotesContainer>
       <NotesHeader>
-        <h3>Take Notes</h3>
         <StyledButton
           variant="primary"
           size="small"

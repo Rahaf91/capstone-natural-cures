@@ -30,7 +30,7 @@ export default function RemedyDetailsPage({
 
   return (
     <Container>
-      <Title>{currentRemedy.title}</Title>9
+      <Title>{currentRemedy.title}</Title>
       <ImageWrapper>
         <StyledImage
           src={currentRemedy.imageUrl}
