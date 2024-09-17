@@ -51,11 +51,20 @@ export default function RemedyForm({
     setSelectedSymptoms(newSymptoms);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
+    let imageUrl = "";
+    if (!isEditMode) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const { url } = await response.json();
+      imageUrl = url;
+    }
 
     const remedyData = {
       ...formObject,
@@ -65,8 +74,7 @@ export default function RemedyForm({
 
     isEditMode
       ? onEditRemedy(remedyData)
-      : onAddRemedy({ ...remedyData, imageUrl: "/placeholder.jpg" });
-
+      : onAddRemedy({ ...remedyData, imageUrl });
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
@@ -166,7 +174,6 @@ export default function RemedyForm({
           </div>
         ))}
       </section>
-
       {isEditMode ? (
         <>
           <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
@@ -174,6 +181,18 @@ export default function RemedyForm({
         </>
       ) : (
         <>
+          <section>
+            <label htmlFor="cover" aria-label="cover, required">
+              Image upload:<span>*</span>
+            </label>
+            <StyledFileInput
+              name="cover"
+              id="cover"
+              accept="image/*"
+              required
+            />
+          </section>
+
           <Link href="/">Cancel</Link>
           <Button type="submit">Submit</Button>
         </>
@@ -194,4 +213,15 @@ const Form = styled.form`
 const Button = styled.button`
   width: 40%;
   font-size: 1rem;
+`;
+
+const StyledFileInput = styled.input.attrs({
+  type: "file",
+})`
+  padding: 8px;
+  border: none;
+  &:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
 `;

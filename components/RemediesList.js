@@ -12,7 +12,7 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
             <ImageWrapper>
               <StyledImage
                 src={remedy.imageUrl}
-                alt={remedy.title}
+                alt={remedy.title || "Image"}
                 width={250}
                 height={250}
               />
