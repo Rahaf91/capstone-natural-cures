@@ -47,8 +47,9 @@ const FilterSelect = styled.select`
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   background-color: var(--card-background);
+  color: #fff;
 `;
 
 const FilterOption = styled.option`
-  color: var(--text-color);
+  color: #ffff;
 `;

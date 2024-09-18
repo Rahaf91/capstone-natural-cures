@@ -36,7 +36,7 @@ export const StyledLinks = styled(Link)`
       background-color: transparent;
       color: black;
       padding: 0;
-      font-size: 0.9rem;
+      font-size: 1rem;
       text-align: right;
       width: auto;
     `}
@@ -45,7 +45,6 @@ export const StyledLinks = styled(Link)`
     props.variant === "cancel" &&
     css`
       background-color: #bdc3c7;
-      color: #2c3e50;
 
       &:hover {
         background-color: #95a5a6;
