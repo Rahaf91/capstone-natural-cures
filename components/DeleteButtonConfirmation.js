@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { StyledButton } from "./StyledButtons";
 
 export default function DeleteButtonConfirmation({ onDelete }) {
   const [showModal, setShowModal] = useState(false);
@@ -15,33 +16,29 @@ export default function DeleteButtonConfirmation({ onDelete }) {
 
   return (
     <>
-      <DeleteButton onClick={toggleModal}>Delete Remedy</DeleteButton>
+      <ButtonContainer>
+        <StyledButton variant="delete" onClick={toggleModal}>
+          Delete Remedy
+        </StyledButton>
+      </ButtonContainer>
       {showModal && (
         <Modal>
           <ModalContent>
             <p>Are you sure you want to delete the remedy?</p>
-            <button onClick={handleConfirmDelete}>Delete</button>
-            <button onClick={toggleModal}>Cancel</button>
+            <ButtonGroup>
+              <StyledButton variant="delete" onClick={handleConfirmDelete}>
+                Delete
+              </StyledButton>
+              <StyledButton variant="cancel" onClick={toggleModal}>
+                Cancel
+              </StyledButton>
+            </ButtonGroup>
           </ModalContent>
         </Modal>
       )}
     </>
   );
 }
-const DeleteButton = styled.button`
-  background-color: #54582f;
-  color: #f8fbca;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-
-  width: 20%;
-  opacity: 0.9;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
 
 const Modal = styled.div`
   display: flex;
@@ -65,4 +62,17 @@ const ModalContent = styled.div`
   padding: 16px;
   position: relative;
   text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 `;
