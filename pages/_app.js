@@ -4,7 +4,6 @@ import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
-import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
@@ -98,10 +97,6 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
-  useEffect(() => {
-    setRemedies(initialRemedies);
-  }, []);
 
   return (
     <>

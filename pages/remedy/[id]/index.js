@@ -5,7 +5,6 @@ import FavoriteButton from "@/components/FavoriteButton";
 import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
 import styled from "styled-components";
 import Notes from "@/components/Notes";
-import React from "react";
 
 export default function RemedyDetailsPage({
   remedies,
