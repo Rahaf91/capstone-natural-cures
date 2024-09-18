@@ -5,6 +5,8 @@ import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
 
+import Layout from "@/components/Layout";
+
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
     defaultValue: initialRemedies,
@@ -113,7 +115,7 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <>
+    <Layout>
       <GlobalStyle />
       <Component
         {...pageProps}
@@ -128,6 +130,6 @@ export default function App({ Component, pageProps }) {
         handleEditNotes={handleEditNotes}
         handleDeleteNote={handleDeleteNote}
       />
-    </>
+    </Layout>
   );
 }

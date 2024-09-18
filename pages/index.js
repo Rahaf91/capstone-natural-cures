@@ -1,7 +1,9 @@
 import RemediesList from "@/components/RemediesList";
-import Link from "next/link";
 import FilterList from "@/components/FilterList";
 import { useState } from "react";
+import { StyledLinks } from "@/components/StyledLinks";
+import { StyledButton } from "@/components/StyledButtons";
+
 import SearchBar from "@/components/SearchBar";
 import DailyHealthTips from "@/components/DailyHealthTips";
 
@@ -28,6 +30,7 @@ export default function HomePage({
 
   return (
     <>
+
       <h1>Natural Cures</h1>
       <SearchBar
         handleSearchQuery={handleSearchQuery}
@@ -39,9 +42,13 @@ export default function HomePage({
       {filteredRemedies.length === 0 && selectedSymptom ? (
         <>
           <p>Sorry, no remedies were found. Please try another symptom</p>
-          <button type="button" onClick={handleClearFilter}>
+          <StyledButton
+            variant="primary"
+            type="button"
+            onClick={handleClearFilter}
+          >
             Clear Filter
-          </button>
+          </StyledButton>
         </>
       ) : (
         <FilterList
@@ -50,9 +57,12 @@ export default function HomePage({
           handleClearFilter={handleClearFilter}
         />
       )}
-      <DailyHealthTips />
-      <Link href="/remedy/add">Add Remedy</Link> <br />
-      <Link href="/favorites">View Bookmarked remedies</Link>
+ <DailyHealthTips />
+      <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
+      <StyledLinks $variant="bookmarked" href="/favorites">
+        View Bookmarked remedies
+      </StyledLinks>
+
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
       ) : (

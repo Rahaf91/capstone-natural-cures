@@ -1,5 +1,6 @@
+import styled from "styled-components";
 import symptoms from "../assets/symptoms.json";
-import Link from "next/link";
+import { StyledButton } from "./StyledButtons";
 
 export default function FilterList({
   selectedSymptom,
@@ -8,27 +9,46 @@ export default function FilterList({
 }) {
   return (
     <>
-      <section>
-        <label htmlFor="symptoms" aria-label="Filter by Symptoms"></label>
-        <select
+      <FilterSection>
+        <FilterSelect
           id="symptoms"
           name="symptoms"
           value={selectedSymptom}
           onChange={handleSymptomChange}
+          aria-label="Filter by Symptoms"
         >
-          <option value="">Filter by Symptom</option>
+          <FilterOption value="">Filter by Symptom</FilterOption>
           {symptoms.map((symptom, index) => (
-            <option key={index} value={symptom}>
+            <FilterOption key={index} value={symptom}>
               {symptom}
-            </option>
+            </FilterOption>
           ))}
-        </select>
+        </FilterSelect>
 
         {selectedSymptom && (
-          <button onClick={handleClearFilter}>Remove Filter</button>
+          <StyledButton variant="remove" onClick={handleClearFilter}>
+            Remove Filter
+          </StyledButton>
         )}
-      </section>
-      <Link href="/"></Link>
+      </FilterSection>
     </>
   );
 }
+
+const FilterSection = styled.section`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
+const FilterSelect = styled.select`
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  background-color: var(--card-background);
+`;
+
+const FilterOption = styled.option`
+  color: var(--text-color);
+`;

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
+import Icon from "./Icons";
+import { StyledButton } from "./StyledButtons";
+import { StyledLinks } from "./StyledLinks";
+import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -11,7 +14,6 @@ export default function RemedyForm({
   defaultData = {},
 }) {
   const router = useRouter();
-
   const [ingredients, setIngredients] = useState(
     isEditMode && defaultData.ingredients ? defaultData.ingredients : [""]
   );
@@ -38,9 +40,11 @@ export default function RemedyForm({
   }
 
   function handleSelectSymptom(event) {
-    const { value } = event.target;
+    const selectElement = event.target;
+    const { value } = selectElement;
     if (value && !selectedSymptoms.includes(value)) {
       setSelectedSymptoms([...selectedSymptoms, value]);
+      selectElement.value = "";
     }
   }
 
@@ -84,10 +88,10 @@ export default function RemedyForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <label htmlFor="title" aria-label="Title, required">
+      <Label htmlFor="title" aria-label="Title, required">
         Title:<span>*</span>
-      </label>
-      <input
+      </Label>
+      <Input
         id="title"
         name="title"
         type="text"
@@ -97,91 +101,116 @@ export default function RemedyForm({
       />
 
       <section>
-        <label htmlFor="ingredients-group" aria-label="Ingredients, required">
+        <Label htmlFor="ingredients-group" aria-label="Ingredients, required">
           Ingredients: <span>*</span>
-        </label>
+        </Label>
         {ingredients.map((ingredient, index) => (
-          <div key={index}>
-            <input
+          <InputGroup key={index}>
+            <Input
               id={`ingredient-${index}`}
               type="text"
               name="ingredients"
               value={ingredient}
-              placeholder={isEditMode ? "" : "Enter remedy ingredient"}
+              placeholder={isEditMode ? "" : "Add remedy ingredient"}
               onChange={(event) =>
                 handleIngredientChange(index, event.target.value)
               }
               required
             />
             {ingredients.length > 1 && (
-              <button
+              <IconButton
                 type="button"
                 onClick={() => handleRemoveIngredients(index)}
               >
-                <span aria-label="Remove ingredient">🗑️</span>
-              </button>
+                <Icon
+                  name="delete"
+                  color="#ffa500"
+                  size="lg"
+                  aria-label="Remove ingredient"
+                />
+              </IconButton>
             )}
-          </div>
+          </InputGroup>
         ))}
-        <button type="button" onClick={handleAddIngredients}>
-          <span aria-label="Add ingredient">+</span>
-        </button>
+        <IconButton type="button" onClick={handleAddIngredients} $fullWidth>
+          <Icon
+            name="add"
+            color="#F6F9C7"
+            size="lg"
+            aria-label="add ingredient"
+          />
+        </IconButton>
       </section>
-
-      <label htmlFor="preparation">Preparation:</label>
-      <textarea
-        id="preparation"
-        name="preparation"
-        placeholder={isEditMode ? "" : "Enter preparation steps"}
-        defaultValue={isEditMode ? defaultData.preparation : ""}
-      />
-
-      <label htmlFor="usage">Usage:</label>
-      <textarea
-        id="usage"
-        name="usage"
-        placeholder={isEditMode ? "" : "Enter usage instructions"}
-        defaultValue={isEditMode ? defaultData.usage : ""}
-      />
-
       <section>
-        <label htmlFor="symptoms" aria-label="Symptoms, required">
+        <Label htmlFor="preparation">Preparation:</Label>
+        <Textarea
+          id="preparation"
+          name="preparation"
+          placeholder={isEditMode ? "" : "Enter preparation steps"}
+          defaultValue={isEditMode ? defaultData.preparation : ""}
+        />{" "}
+      </section>
+      <section>
+        <Label htmlFor="usage">Usage:</Label>
+        <Textarea
+          id="usage"
+          name="usage"
+          placeholder={isEditMode ? "" : "Enter usage instructions"}
+          defaultValue={isEditMode ? defaultData.usage : ""}
+        />
+      </section>
+      <section>
+        <Label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
-        </label>
-        <select
+        </Label>
+        <Select
           id="symptoms"
           name="symptoms"
           onChange={handleSelectSymptom}
           required={!isEditMode && selectedSymptoms.length === 0}
         >
-          <option value="">Please select a symptom</option>
+          <option value="" hidden>
+            Please select a symptom
+          </option>
           {symptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
               {symptom}
             </option>
           ))}
-        </select>
+        </Select>
 
         {selectedSymptoms.map((selectedSymptom, index) => (
-          <div key={index}>
-            <input type="text" value={selectedSymptom} readOnly />
+          <InputGroup key={index}>
+            <Input type="text" value={selectedSymptom} readOnly />
 
             {selectedSymptoms.length > 1 && (
-              <button type="button" onClick={() => handleRemoveSymptom(index)}>
-                <span aria-label="Remove ingredient">🗑️</span>
-              </button>
+              <IconButton
+                type="button"
+                onClick={() => handleRemoveSymptom(index)}
+              >
+                <Icon
+                  name="delete"
+                  color="#ffa500"
+                  size="lg"
+                  aria-label="Remove symptom"
+                />
+              </IconButton>
             )}
-          </div>
+          </InputGroup>
         ))}
       </section>
       {isEditMode ? (
         <>
-          <Link href={`/remedy/${defaultData.id}`}>Cancel</Link>
-          <Button type="submit">Save</Button>
+          <StyledLinks variant="cancel" href={`/remedy/${defaultData.id}`}>
+            Cancel
+          </StyledLinks>
+          <StyledButton variant="primary" type="submit">
+            Save
+          </StyledButton>
         </>
       ) : (
         <>
-          <section>
+         <section>
             <label htmlFor="cover" aria-label="cover, required">
               Image upload:<span>*</span>
             </label>
@@ -193,8 +222,12 @@ export default function RemedyForm({
             />
           </section>
 
-          <Link href="/">Cancel</Link>
-          <Button type="submit">Submit</Button>
+          <StyledLinks variant="cancel" href="/">
+            Cancel
+          </StyledLinks>
+          <StyledButton variant="primary" type="submit">
+            Submit
+          </StyledButton> 
         </>
       )}
     </Form>
@@ -204,15 +237,67 @@ export default function RemedyForm({
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  max-width: 45rem;
-  margin: 0 auto;
-  padding-bottom: 2rem;
+  align-items: stretch;
+  width: 100%;
+  gap: 0.5rem;
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
+  font-family: var(--font-adventPro);
 `;
 
-const Button = styled.button`
-  width: 40%;
+const InputGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+
+const Label = styled.label`
+  display: block;
   font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+
+  &:focus {
+    border-color: #85895e;
+    outline: none;
+  }
+`;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+  background-color: var(--card-background);
+  text-align: center;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+  &:focus {
+    border-color: #85895e;
+    outline: none;
+  }
 `;
 
 const StyledFileInput = styled.input.attrs({
