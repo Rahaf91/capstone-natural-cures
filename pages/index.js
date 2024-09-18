@@ -30,8 +30,6 @@ export default function HomePage({
 
   return (
     <>
-
-      <h1>Natural Cures</h1>
       <SearchBar
         handleSearchQuery={handleSearchQuery}
         handleClearSearchBar={() =>
@@ -57,12 +55,11 @@ export default function HomePage({
           handleClearFilter={handleClearFilter}
         />
       )}
- <DailyHealthTips />
+      <DailyHealthTips />
       <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>
-
       {remedies.length === 0 ? (
         <p>You have no remedies left! Please add new remedies</p>
       ) : (
