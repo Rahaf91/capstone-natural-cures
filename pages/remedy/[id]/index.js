@@ -28,7 +28,14 @@ export default function RemedyDetailsPage({
     router.push("/");
   }
 
+  function handlePrint() {
+    window.print();
+  }
+
   return (
+      <div className="no-print">
+        <PrintButton onClick={handlePrint}>Print Remedy</PrintButton>
+      </div>
     <Container>
       <Title>{currentRemedy.title}</Title>
       <ImageWrapper>
@@ -38,11 +45,13 @@ export default function RemedyDetailsPage({
           width={250}
           height={250}
         />
+         <div className="no-print"> 
         <FavoriteButton
           isFavorite={currentRemedy.isFavorite}
           isDetailPage={true}
           handleToggleFavorite={() => handleToggleFavorite(id)}
         />
+</div>
       </ImageWrapper>
       <Section>
         <Subtitle>Ingredients</Subtitle>
@@ -68,28 +77,38 @@ export default function RemedyDetailsPage({
           ))}
         </List>
       </Section>
+<div className="no-print"> 
       <DeleteButtonConfirmation
         onDelete={() => {
           handleDelete(id);
+          
         }}
       />
-      <ButtonContainer>
+ <ButtonContainer>
         <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
           Edit Remedy
         </StyledLinks>
       </ButtonContainer>
+</div>
+
+     
+      <div>
       <Notes
         onAddNote={handleAddNotes}
         onEditNote={handleEditNotes}
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
       />
-      <BackButtonContainer>
+       </div>
+      <BackButtonContainer className="no-print">
         <StyledLinks $variant="back" href="/">
           &larr; Back
         </StyledLinks>
       </BackButtonContainer>
     </Container>
+
+    
+
   );
 }
 
@@ -161,4 +180,13 @@ const BackButtonContainer = styled.div`
   justify-content: flex-end;
   display: flex;
   width: 100%;
+
+const PrintButton = styled.button`
+  background-color: rgba(84, 88, 47, 0.9);
+  color: white;
+  border: none;
+  padding: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+
 `;

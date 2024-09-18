@@ -64,4 +64,16 @@ p {
 }
 
   }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    h2 {
+      margin-bottom: 0;
+    }
+    ul {
+      margin-top: 0;
+    }
+  }
 `;

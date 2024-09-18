@@ -55,11 +55,20 @@ export default function RemedyForm({
     setSelectedSymptoms(newSymptoms);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const formObject = Object.fromEntries(formData);
+    let imageUrl = "";
+    if (!isEditMode) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const { url } = await response.json();
+      imageUrl = url;
+    }
 
     const remedyData = {
       ...formObject,
@@ -69,8 +78,7 @@ export default function RemedyForm({
 
     isEditMode
       ? onEditRemedy(remedyData)
-      : onAddRemedy({ ...remedyData, imageUrl: "/placeholder.jpg" });
-
+      : onAddRemedy({ ...remedyData, imageUrl });
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
@@ -191,7 +199,6 @@ export default function RemedyForm({
           </InputGroup>
         ))}
       </section>
-
       {isEditMode ? (
         <>
           <StyledLinks variant="cancel" href={`/remedy/${defaultData.id}`}>
@@ -203,12 +210,24 @@ export default function RemedyForm({
         </>
       ) : (
         <>
+         <section>
+            <label htmlFor="cover" aria-label="cover, required">
+              Image upload:<span>*</span>
+            </label>
+            <StyledFileInput
+              name="cover"
+              id="cover"
+              accept="image/*"
+              required
+            />
+          </section>
+
           <StyledLinks variant="cancel" href="/">
             Cancel
           </StyledLinks>
           <StyledButton variant="primary" type="submit">
             Submit
-          </StyledButton>
+          </StyledButton> 
         </>
       )}
     </Form>
@@ -277,6 +296,17 @@ const Input = styled.input`
   box-shadow: var(--box-shadow);
   &:focus {
     border-color: #85895e;
+    outline: none;
+  }
+`;
+
+const StyledFileInput = styled.input.attrs({
+  type: "file",
+})`
+  padding: 8px;
+  border: none;
+  &:focus {
+    border-color: #0056b3;
     outline: none;
   }
 `;

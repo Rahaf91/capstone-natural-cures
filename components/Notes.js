@@ -31,6 +31,7 @@ export default function Notes({
     }
     form.reset();
     textArea.focus();
+    setShowTextField(false);
   }
 
   function handleEdit(note) {
@@ -56,6 +57,8 @@ export default function Notes({
       {showTextField && (
         <>
           <NoteForm onSubmit={handleSubmit}>
+            <label htmlFor="note-input"></label>
+
             <StyledTextArea
               id="note-input"
               name="notes"
@@ -223,5 +226,50 @@ const DeleteConfirmation = styled.div`
     margin: 0;
     font-size: 1rem;
     color: #c0392b;
-  }
+`;
+
+const StyledTextArea = styled.textarea`
+  font-family: "DPDorkDiary", cursive;
+  font-size: 1.4em;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px;
+  width: 250px;
+  height: 230px;
+  padding: 25px 15px;
+  background: #fefabc;
+  background-color: #fefabc;
+  background-image: linear-gradient(150deg, #efec88 0%, #fefabc 100%);
+  border: 1px solid #cccccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+`;
+
+const StyledNoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+`;
+
+const StyledNote = styled.div`
+  text-align: center;
+  width: 250px;
+  height: 230px;
+  padding: 25px 15px;
+  background: #fefabc;
+  background-color: #fefabc;
+  background-image: linear-gradient(150deg, #efec88 0%, #fefabc 100%);
+  border: 1px solid #cccccc;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  list-style-type: none;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+
+  button {
+    margin-bottom: 10px;
+
+
 `;

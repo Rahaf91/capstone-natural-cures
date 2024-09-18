@@ -22,6 +22,7 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
             isDetailPage={false}
           />
           <ContentWrapper>
+     
             <h2>{remedy.title}</h2>
             <h3>Symptoms:</h3>
             <ul>
