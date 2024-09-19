@@ -121,7 +121,7 @@ export default function RemedyDetailsPage({
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
       />
-      <BackButtonContainer classname="no-print">
+      <BackButtonContainer className="no-print">
         <StyledLinks $variant="back" href="/">
           &larr; Back
         </StyledLinks>
