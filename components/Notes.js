@@ -92,20 +92,16 @@ export default function Notes({
             <NoteText>{note.text}</NoteText>
             <NoteTimestamp>{note.timestamp}</NoteTimestamp>
 
-            <NoteActions>
-              <div className="no-print">
-                <StyledButton variant="edit" onClick={() => handleEdit(note)}>
-                  Edit
-                </StyledButton>
-              </div>
-              <div className="no-print">
-                <StyledButton
-                  variant="edit"
-                  onClick={() => setNoteToDelete(note.id)}
-                >
-                  Delete
-                </StyledButton>
-              </div>
+            <NoteActions className="no-print">
+              <StyledButton variant="edit" onClick={() => handleEdit(note)}>
+                Edit
+              </StyledButton>
+              <StyledButton
+                variant="edit"
+                onClick={() => setNoteToDelete(note.id)}
+              >
+                Delete
+              </StyledButton>
             </NoteActions>
 
             {noteToDelete === note.id && (
