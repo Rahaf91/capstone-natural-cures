@@ -41,19 +41,17 @@ export default function Notes({
 
   return (
     <NotesContainer>
-      <NotesHeader>
-        <div className="no-print">
-          <StyledButton
-            variant="primary"
-            size="small"
-            onClick={() => {
-              setShowTextField(!showTextField);
-              setEditingNote(null);
-            }}
-          >
-            {editingNote ? "Edit Note" : "Add Note"}
-          </StyledButton>
-        </div>
+      <NotesHeader className="no-print">
+        <StyledButton
+          variant="primary"
+          size="small"
+          onClick={() => {
+            setShowTextField(!showTextField);
+            setEditingNote(null);
+          }}
+        >
+          {editingNote ? "Edit Note" : "Add Note"}
+        </StyledButton>
       </NotesHeader>
 
       {showTextField && (
@@ -67,7 +65,7 @@ export default function Notes({
               placeholder="Type your note here..."
               defaultValue={editingNote ? editingNote.text : ""}
             />
-            <ButtonWrapper>
+            <ButtonWrapper className="no-print">
               <StyledButton variant="primary" type="submit">
                 Save
               </StyledButton>
@@ -107,24 +105,22 @@ export default function Notes({
             {noteToDelete === note.id && (
               <DeleteConfirmation>
                 <p>Are you sure you want to delete this note?</p>
-                <ButtonWrapper>
-                  <div className="no-print">
-                    <StyledButton
-                      variant="delete"
-                      onClick={() => {
-                        onDeleteNote(currentRemedy.id, note.id);
-                        setNoteToDelete(null);
-                      }}
-                    >
-                      Yes
-                    </StyledButton>
-                    <StyledButton
-                      variant="primary"
-                      onClick={() => setNoteToDelete(null)}
-                    >
-                      No
-                    </StyledButton>
-                  </div>
+                <ButtonWrapper className="no-print">
+                  <StyledButton
+                    variant="delete"
+                    onClick={() => {
+                      onDeleteNote(currentRemedy.id, note.id);
+                      setNoteToDelete(null);
+                    }}
+                  >
+                    Yes
+                  </StyledButton>
+                  <StyledButton
+                    variant="primary"
+                    onClick={() => setNoteToDelete(null)}
+                  >
+                    No
+                  </StyledButton>
                 </ButtonWrapper>
               </DeleteConfirmation>
             )}
