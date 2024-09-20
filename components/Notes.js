@@ -41,7 +41,7 @@ export default function Notes({
 
   return (
     <NotesContainer>
-      <NotesHeader>
+      <NotesHeader className="no-print">
         <StyledButton
           variant="primary"
           size="small"
@@ -65,7 +65,7 @@ export default function Notes({
               placeholder="Type your note here..."
               defaultValue={editingNote ? editingNote.text : ""}
             />
-            <ButtonWrapper>
+            <ButtonWrapper className="no-print">
               <StyledButton variant="primary" type="submit">
                 Save
               </StyledButton>
@@ -90,7 +90,7 @@ export default function Notes({
             <NoteText>{note.text}</NoteText>
             <NoteTimestamp>{note.timestamp}</NoteTimestamp>
 
-            <NoteActions>
+            <NoteActions className="no-print">
               <StyledButton variant="edit" onClick={() => handleEdit(note)}>
                 Edit
               </StyledButton>
@@ -105,7 +105,7 @@ export default function Notes({
             {noteToDelete === note.id && (
               <DeleteConfirmation>
                 <p>Are you sure you want to delete this note?</p>
-                <ButtonWrapper>
+                <ButtonWrapper className="no-print">
                   <StyledButton
                     variant="delete"
                     onClick={() => {

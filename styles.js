@@ -69,11 +69,17 @@ p {
     .no-print {
       display: none !important;
     }
-    h2 {
+
+    .Title {
       margin-bottom: 0;
     }
-    ul {
+      .Subtitle {
+      margin-bottom: 0;
+    }
+
+    .List {
       margin-top: 0;
     }
+
   }
 `;

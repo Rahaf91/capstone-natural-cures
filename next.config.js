@@ -4,6 +4,16 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: true,
+  images: {
+    domains: [
+      "images.pexels.com",
+      "images.unsplash.com",
+      "www.youtube.com",
+      "img.youtube.com",
+      "res.cloudinary.com",
+    ],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -13,6 +23,7 @@ const nextConfig = {
 
     return config;
   },
+
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.pexels.com", port: "" },
