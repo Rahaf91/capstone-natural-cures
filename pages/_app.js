@@ -44,6 +44,18 @@ export default function App({ Component, pageProps }) {
     setSearchQuery(value);
   }
 
+  const [category, setCategory] = useState("");
+
+  // show only remedies that match the category passed through handelCateogryChange
+  const categoryRemedies = remedies.filter(
+    (remedy) => remedy.category === category
+  );
+
+  function handleCategoryChange(currentTarget = {}) {
+    const { value } = currentTarget;
+    setCategory(value);
+  }
+
   function handleAddRemedy(newRemedy) {
     setRemedies([
       {
@@ -119,7 +131,7 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Component
         {...pageProps}
-        remedies={filteredRemedies ? filteredRemedies : remedies}
+        remedies={filteredRemedies ? filteredRemedies : categoryRemedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
