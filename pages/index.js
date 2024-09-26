@@ -2,15 +2,20 @@ import RemediesList from "@/components/RemediesList";
 import { useState } from "react";
 import { StyledLinks } from "@/components/StyledLinks";
 import Categories from "@/components/Categories";
+import CategoriesBackButton from "@/components/CategoriesBackButton";
+import SearchBar from "@/components/SearchBar";
 
 export default function HomePage({
   remedies,
   handleToggleFavorite,
   handleSearchQuery,
+  handleCategoryChange,
   searchQuery,
 }) {
-  const [selectedSymptom, setSelectedSymptom] = useState("");
+  // const [selectedSymptom, setSelectedSymptom] = useState("");
   const [showIcons, setShowIcons] = useState(true);
+  const [showBackButton, setShowBackButton] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(true);
 
   function handleSymptomChange(event) {
     const selected = event.target.value;
@@ -21,35 +26,61 @@ export default function HomePage({
     setSelectedSymptom("");
   }
 
-  function handleCategoryClick(category) {
+  function handleCategoryChangeInternal(event) {
+    handleCategoryChange(event.target.alt);
     setShowIcons(false);
+    setShowBackButton(true);
+    setShowSearchBar(false);
   }
 
   function handleBackClick() {
+    handleCategoryChange("");
+    setShowIcons(true);
+    setShowBackButton(false);
+    setShowSearchBar(true);
+  }
+
+  function handleSearchQueryInternal(event) {
+    const value = event.currentTarget.value;
+    handleSearchQuery(value);
+    // console.log(value);
+    //check if value is empty
+    value === "" ? setShowIcons(true) : setShowIcons(false);
+  }
+
+  function handleClearSearchBar() {
+    handleSearchQuery("");
     setShowIcons(true);
   }
 
   return (
     <>
+      <SearchBar
+        handleSearchQuery={handleSearchQueryInternal}
+        handleClearSearchBar={() => {
+          handleClearSearchBar();
+        }}
+        searchQuery={searchQuery}
+        showSearchBar={showSearchBar}
+      />
       <Categories
         handleToggleFavorite={handleToggleFavorite}
-        handleSearchQuery={handleSearchQuery}
-        searchQuery={searchQuery}
-        handleCategoryClick={handleCategoryClick}
-        handleBackClick={handleBackClick}
+        handleCategoryChange={handleCategoryChangeInternal}
         showIcons={showIcons}
-        setShowIcons={setShowIcons}
       />
       {showIcons}
-      <StyledLinks $variant="bookmarked" href="/favorites">
-        View Bookmarked remedies
-      </StyledLinks>
+
       <RemediesList
         remedies={remedies}
         handleToggleFavorite={handleToggleFavorite}
-        handleSearchQuery={handleSearchQuery}
-        searchQuery={searchQuery}
       />
+      <CategoriesBackButton
+        handleBackClick={handleBackClick}
+        showBackButton={showBackButton}
+      ></CategoriesBackButton>
+      <StyledLinks $variant="bookmarked" href="/favorites">
+        View Bookmarked remedies
+      </StyledLinks>
     </>
   );
 }

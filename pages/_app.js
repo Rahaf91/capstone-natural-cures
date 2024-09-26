@@ -39,21 +39,20 @@ export default function App({ Component, pageProps }) {
         .filter((item) => matchesQueryAtWordStart(item, searchQuery))
     : null;
 
-  function handleSearchQuery({ currentTarget = {} }) {
-    const { value } = currentTarget;
+  function handleSearchQuery(value) {
+    // const value = event.currentTarget.value;
     setSearchQuery(value);
   }
 
-  const [category, setCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // show only remedies that match the category passed through handelCateogryChange
   const categoryRemedies = remedies.filter(
-    (remedy) => remedy.category === category
+    (remedy) => remedy.category === selectedCategory
   );
 
-  function handleCategoryChange(currentTarget = {}) {
-    const { value } = currentTarget;
-    setCategory(value);
+  function handleCategoryChange(value) {
+    setSelectedCategory(value);
   }
 
   function handleAddRemedy(newRemedy) {
@@ -138,6 +137,7 @@ export default function App({ Component, pageProps }) {
         handleToggleFavorite={handleToggleFavorite}
         handleAddNotes={handleAddNotes}
         handleSearchQuery={handleSearchQuery}
+        handleCategoryChange={handleCategoryChange}
         searchQuery={searchQuery}
         handleEditNotes={handleEditNotes}
         handleDeleteNote={handleDeleteNote}

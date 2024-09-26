@@ -1,33 +1,34 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import remediesData from "../assets/remedies.json";
 
 export default function SearchBar({
   handleSearchQuery,
   handleClearSearchBar,
   searchQuery,
+  showSearchBar,
 }) {
-  function onSearchChange(event) {
-    const searchQuery = event.target.value;
-    handleSearchQuery({ currentTarget: { value: searchQuery } });
-  }
-
   return (
-    <SearchBarWrapper>
-      <VisuallyHiddenLabel htmlFor="searchInput">
-        Search remedies
-      </VisuallyHiddenLabel>
-      <SearchBarField
-        type="text"
-        value={searchQuery}
-        placeholder="Search"
-        aria-label="Search"
-        onChange={onSearchChange}
-      />
-      {searchQuery && (
-        <ClearButton type="button" onClick={handleClearSearchBar}>
-          Clear
-        </ClearButton>
+    <>
+      {showSearchBar && (
+        <SearchBarWrapper>
+          <VisuallyHiddenLabel htmlFor="searchInput">
+            Search remedies
+          </VisuallyHiddenLabel>
+          <SearchBarField
+            type="text"
+            value={searchQuery}
+            aria-label="Search"
+            onChange={handleSearchQuery}
+          />
+          {searchQuery && (
+            <ClearButton type="button" onClick={handleClearSearchBar}>
+              Clear
+            </ClearButton>
+          )}
+        </SearchBarWrapper>
       )}
-    </SearchBarWrapper>
+    </>
   );
 }
 

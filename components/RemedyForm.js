@@ -210,7 +210,7 @@ export default function RemedyForm({
         </>
       ) : (
         <>
-         <section>
+          <section>
             <label htmlFor="cover" aria-label="cover, required">
               Image upload:<span>*</span>
             </label>
@@ -227,7 +227,7 @@ export default function RemedyForm({
           </StyledLinks>
           <StyledButton variant="primary" type="submit">
             Submit
-          </StyledButton> 
+          </StyledButton>
         </>
       )}
     </Form>

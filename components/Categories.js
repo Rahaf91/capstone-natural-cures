@@ -4,18 +4,8 @@ import remediesData from "../assets/remedies.json";
 import RemediesList from "@/components/RemediesList";
 import SearchBar from "@/components/SearchBar";
 
-export default function Categories({
-  handleToggleFavorite,
-  handleSearchQuery,
-  searchQuery,
-  handleCategoryClick,
-  handleBackClick,
-  showIcons,
-  setShowIcons,
-}) {
+export default function Categories({ handleCategoryChange, showIcons }) {
   const [categories, setCategories] = useState([]);
-  const [filteredRemedies, setFilteredRemedies] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     async function fetchCategories() {
@@ -32,63 +22,17 @@ export default function Categories({
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    if (selectedCategory) {
-      const filtered = remediesData.filter(
-        (remedy) =>
-          remedy.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
-      setFilteredRemedies(filtered);
-    }
-  }, [selectedCategory]);
-
-  function handleCategoryClickInternal(category) {
-    setSelectedCategory(category);
-    handleCategoryClick(category);
-  }
-
-  function handleBackClickInternal() {
-    setSelectedCategory("");
-    handleBackClick();
-  }
-
-  function handleSearchQueryInternal(event) {
-    handleSearchQuery(event);
-    setShowIcons(false);
-  }
-
   return (
     <>
       {showIcons && (
-        <SearchBar
-          handleSearchQuery={handleSearchQueryInternal}
-          handleClearSearchBar={() => {
-            handleSearchQuery({ currentTarget: { value: "" } });
-            setShowIcons(true);
-          }}
-          searchQuery={searchQuery}
-        />
-      )}
-      {showIcons ? (
         <IconContainer>
           {categories.map((category) => (
-            <IconWrapper
-              key={category.name}
-              onClick={() => handleCategoryClickInternal(category.name)}
-            >
+            <IconWrapper key={category.name} onClick={handleCategoryChange}>
               <IconImage src={category.icon} alt={category.name} />
               <IconLabel>{category.name}</IconLabel>
             </IconWrapper>
           ))}
         </IconContainer>
-      ) : (
-        <>
-          <BackButton onClick={handleBackClickInternal}>Back</BackButton>
-          <RemediesList
-            remedies={filteredRemedies}
-            handleToggleFavorite={handleToggleFavorite}
-          />
-        </>
       )}
     </>
   );
@@ -116,13 +60,4 @@ const IconImage = styled.img`
 
 const IconLabel = styled.span`
   font-size: 0.7rem;
-`;
-
-const BackButton = styled.button`
-  margin: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: #54582f;
-  color: white;
 `;
