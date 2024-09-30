@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
 
   const [searchQuery, setSearchQuery] = useState("");
   const fuse = new Fuse(remedies, {
-    keys: ["title", "ingredients"],
+    keys: ["title", "ingredients", "usage", "symptoms"],
     includeScore: true,
     threshold: 0,
     useExtendedSearch: true,
@@ -27,7 +27,9 @@ export default function App({ Component, pageProps }) {
     const regex = new RegExp(`\\b${query}`, "i");
     return (
       regex.test(item.title) ||
-      item.ingredients.some((ingredient) => regex.test(ingredient))
+      item.ingredients.some((ingredient) => regex.test(ingredient)) ||
+      regex.test(item.usage) ||
+      item.symptoms.some((symptom) => regex.test(symptom))
     );
   }
 
