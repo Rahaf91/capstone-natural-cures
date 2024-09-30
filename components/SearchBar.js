@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import remediesData from "../assets/remedies.json";
-
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -79,6 +76,7 @@ const ClearButton = styled.button`
   padding: 0 5px;
   margin-top: 2px;
   margin-bottom: 2px;
+  color: #aaa;
 `;
 
 const SearchIcon = styled(FontAwesomeIcon)`

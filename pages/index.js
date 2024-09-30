@@ -16,6 +16,9 @@ export default function HomePage({
   const [showIcons, setShowIcons] = useState(true);
   const [showBackButton, setShowBackButton] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(true);
+  // +
+  const [showDailyHealthTips, setShowDailyHealthTips] = useState(true);
+  // +
 
   function handleSymptomChange(event) {
     const selected = event.target.value;
@@ -31,6 +34,9 @@ export default function HomePage({
     setShowIcons(false);
     setShowBackButton(true);
     setShowSearchBar(false);
+    // +
+    setShowDailyHealthTips(false);
+    // +
   }
 
   function handleBackClick() {
@@ -38,12 +44,18 @@ export default function HomePage({
     setShowIcons(true);
     setShowBackButton(false);
     setShowSearchBar(true);
+    // +
+    setShowDailyHealthTips(true);
+    // +
   }
 
   function handleSearchQueryInternal(event) {
     const value = event.currentTarget.value;
     handleSearchQuery(value);
     value === "" ? setShowIcons(true) : setShowIcons(false);
+    // +
+    setShowDailyHealthTips(false);
+    // +
   }
 
   function handleClearSearchBar() {
@@ -77,7 +89,9 @@ export default function HomePage({
         showBackButton={showBackButton}
       ></CategoriesBackButton>
       <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
-      <DailyHealthTips />
+      {/* + */}
+      <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
+      {/* + */}
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>
