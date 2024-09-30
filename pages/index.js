@@ -4,6 +4,7 @@ import { StyledLinks } from "@/components/StyledLinks";
 import Categories from "@/components/Categories";
 import CategoriesBackButton from "@/components/CategoriesBackButton";
 import SearchBar from "@/components/SearchBar";
+import DailyHealthTips from "@/components/DailyHealthTips";
 
 export default function HomePage({
   remedies,
@@ -12,7 +13,6 @@ export default function HomePage({
   handleCategoryChange,
   searchQuery,
 }) {
-  // const [selectedSymptom, setSelectedSymptom] = useState("");
   const [showIcons, setShowIcons] = useState(true);
   const [showBackButton, setShowBackButton] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(true);
@@ -43,8 +43,6 @@ export default function HomePage({
   function handleSearchQueryInternal(event) {
     const value = event.currentTarget.value;
     handleSearchQuery(value);
-    // console.log(value);
-    //check if value is empty
     value === "" ? setShowIcons(true) : setShowIcons(false);
   }
 
@@ -61,7 +59,8 @@ export default function HomePage({
           handleClearSearchBar();
         }}
         searchQuery={searchQuery}
-        showSearchBar={showSearchBar}
+        showSearchBar={true}
+        renderIcon={() => <i className="search-icon" />}
       />
       <Categories
         handleToggleFavorite={handleToggleFavorite}
@@ -69,7 +68,6 @@ export default function HomePage({
         showIcons={showIcons}
       />
       {showIcons}
-
       <RemediesList
         remedies={remedies}
         handleToggleFavorite={handleToggleFavorite}
@@ -78,6 +76,8 @@ export default function HomePage({
         handleBackClick={handleBackClick}
         showBackButton={showBackButton}
       ></CategoriesBackButton>
+      <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
+      <DailyHealthTips />
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>

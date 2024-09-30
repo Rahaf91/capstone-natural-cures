@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import remediesData from "../assets/remedies.json";
 
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 export default function SearchBar({
   handleSearchQuery,
   handleClearSearchBar,
@@ -12,6 +16,7 @@ export default function SearchBar({
     <>
       {showSearchBar && (
         <SearchBarWrapper>
+          <SearchIcon icon={faSearch} />
           <VisuallyHiddenLabel htmlFor="searchInput">
             Search remedies
           </VisuallyHiddenLabel>
@@ -74,4 +79,9 @@ const ClearButton = styled.button`
   padding: 0 5px;
   margin-top: 2px;
   margin-bottom: 2px;
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  margin-right: 8px;
+  color: #aaa;
 `;

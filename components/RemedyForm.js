@@ -7,6 +7,10 @@ import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
 
+// +
+import remediesData from "../assets/remedies.json";
+// +
+
 export default function RemedyForm({
   onAddRemedy,
   isEditMode,
@@ -21,6 +25,16 @@ export default function RemedyForm({
   const [selectedSymptoms, setSelectedSymptoms] = useState(
     isEditMode && defaultData.symptoms ? defaultData.symptoms : []
   );
+
+  // +
+  const [selectedCategory, setSelectedCategory] = useState(
+    isEditMode && defaultData.category ? defaultData.category : []
+  );
+
+  const categories = [
+    ...new Set(remediesData.map((remedy) => remedy.category)),
+  ];
+  // +
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -55,6 +69,16 @@ export default function RemedyForm({
     setSelectedSymptoms(newSymptoms);
   }
 
+  // +
+  function handleSelectCategory(event) {
+    const selectElement = event.target;
+    const { value } = selectElement;
+    if (value) {
+      setSelectedCategory(value);
+    }
+  }
+  // +
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -82,7 +106,9 @@ export default function RemedyForm({
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
-
+    // +
+    setSelectedCategory("");
+    // +
     router.back();
   }
 
@@ -199,6 +225,32 @@ export default function RemedyForm({
           </InputGroup>
         ))}
       </section>
+
+      {/* + */}
+      <section>
+        <Label htmlFor="category" aria-label="Category, required">
+          Category:<span>*</span>
+        </Label>
+        <Select
+          id="category"
+          name="category"
+          onChange={handleSelectCategory}
+          value={selectedCategory}
+          required
+        >
+          <option value="" hidden>
+            Please select a category
+          </option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </Select>
+      </section>
+
+      {/* + */}
+
       {isEditMode ? (
         <>
           <StyledLinks variant="cancel" href={`/remedy/${defaultData.id}`}>
