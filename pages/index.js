@@ -5,28 +5,28 @@ import Categories from "@/components/Categories";
 import CategoriesBackButton from "@/components/CategoriesBackButton";
 import SearchBar from "@/components/SearchBar";
 import DailyHealthTips from "@/components/DailyHealthTips";
+import SymptomFilter from "@/components/SymptomFilter";
 
 export default function HomePage({
   remedies,
   handleToggleFavorite,
   handleSearchQuery,
   handleCategoryChange,
+  handleSymptomChange,
   searchQuery,
+  selectedCategory,
 }) {
   const [showIcons, setShowIcons] = useState(true);
   const [showBackButton, setShowBackButton] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(true);
-  // +
+  const [showSymptomFilter, setShowSymptomFilter] = useState(false);
+  // D
   const [showDailyHealthTips, setShowDailyHealthTips] = useState(true);
-  // +
 
-  function handleSymptomChange(event) {
-    const selected = event.target.value;
-    setSelectedSymptom(selected);
-  }
+  // D
 
-  function handleClearFilter() {
-    setSelectedSymptom("");
+  function handleSymptomChangeInternal(event) {
+    handleSymptomChange(event.target.value);
   }
 
   function handleCategoryChangeInternal(event) {
@@ -34,33 +34,39 @@ export default function HomePage({
     setShowIcons(false);
     setShowBackButton(true);
     setShowSearchBar(false);
-    // +
+    setShowSymptomFilter(true);
+    // D
     setShowDailyHealthTips(false);
-    // +
+    // D
   }
 
   function handleBackClick() {
     handleCategoryChange("");
+    handleSymptomChange("all");
     setShowIcons(true);
     setShowBackButton(false);
     setShowSearchBar(true);
-    // +
+    setShowSymptomFilter(false);
+    // D
     setShowDailyHealthTips(true);
-    // +
+    // D
   }
 
   function handleSearchQueryInternal(event) {
     const value = event.currentTarget.value;
     handleSearchQuery(value);
     value === "" ? setShowIcons(true) : setShowIcons(false);
-    // +
+    // D
     setShowDailyHealthTips(false);
-    // +
+    // D
   }
 
   function handleClearSearchBar() {
     handleSearchQuery("");
     setShowIcons(true);
+    // D
+    setShowDailyHealthTips(true);
+    // D
   }
 
   return (
@@ -79,7 +85,11 @@ export default function HomePage({
         handleCategoryChange={handleCategoryChangeInternal}
         showIcons={showIcons}
       />
-      {showIcons}
+      <SymptomFilter
+        handleSymptomChange={handleSymptomChangeInternal}
+        category={selectedCategory}
+        showSymptomFilter={showSymptomFilter}
+      />
       <RemediesList
         remedies={remedies}
         handleToggleFavorite={handleToggleFavorite}
@@ -89,9 +99,9 @@ export default function HomePage({
         showBackButton={showBackButton}
       ></CategoriesBackButton>
       <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
-      {/* + */}
+      {/* D */}
       <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
-      {/* + */}
+      {/* D */}
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>

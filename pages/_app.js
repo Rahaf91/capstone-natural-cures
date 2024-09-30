@@ -47,14 +47,33 @@ export default function App({ Component, pageProps }) {
   }
 
   const [selectedCategory, setSelectedCategory] = useState("");
+  //selected symptoms with useState all symptoms in the json file
 
-  // show only remedies that match the category passed through handelCateogryChange
+  const allSymptoms = Array.from(
+    new Set(initialRemedies.flatMap((remedy) => remedy.symptoms))
+  );
+  const [selectedSymptoms, setSelectedSymptoms] = useState(allSymptoms);
+
   const categoryRemedies = remedies.filter(
-    (remedy) => remedy.category === selectedCategory
+    (remedy) =>
+      remedy.category.toLowerCase() === selectedCategory.toLowerCase() &&
+      selectedSymptoms.some((symptom) => remedy.symptoms.includes(symptom))
   );
 
   function handleCategoryChange(value) {
     setSelectedCategory(value);
+  }
+
+  function handleSymptomChange(value) {
+    //if value is empty set selected symptoms to all symptoms
+    const selectedSymptoms =
+      value !== "all"
+        ? [value]
+        : Array.from(
+            new Set(initialRemedies.flatMap((remedy) => remedy.symptoms))
+          );
+    setSelectedSymptoms(selectedSymptoms);
+    // setSelectedCategory(selectedCategory);
   }
 
   function handleAddRemedy(newRemedy) {
@@ -140,9 +159,11 @@ export default function App({ Component, pageProps }) {
         handleAddNotes={handleAddNotes}
         handleSearchQuery={handleSearchQuery}
         handleCategoryChange={handleCategoryChange}
+        handleSymptomChange={handleSymptomChange}
         searchQuery={searchQuery}
         handleEditNotes={handleEditNotes}
         handleDeleteNote={handleDeleteNote}
+        selectedCategory={selectedCategory}
       />
     </Layout>
   );
