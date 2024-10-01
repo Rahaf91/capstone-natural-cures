@@ -11,7 +11,6 @@ export default function SymptomFilter({
   const [filteredSymptoms, setFilteredSymptoms] = useState([]);
 
   useEffect(() => {
-    // Extrahiere alle einzigartigen Symptome aus remediesData
     const remediesInCategory = remediesData.filter(
       (remedy) => remedy.category === category
     );
@@ -21,8 +20,6 @@ export default function SymptomFilter({
     );
     setFilteredSymptoms(allSymptoms);
   }, [category]);
-
-  // function handleSymptomSelect(event) {
 
   return (
     <>

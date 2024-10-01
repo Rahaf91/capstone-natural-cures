@@ -7,6 +7,10 @@ import SearchBar from "@/components/SearchBar";
 import DailyHealthTips from "@/components/DailyHealthTips";
 import SymptomFilter from "@/components/SymptomFilter";
 
+// +
+import Subheader from "@/components/Subheader";
+// +
+
 export default function HomePage({
   remedies,
   handleToggleFavorite,
@@ -20,10 +24,7 @@ export default function HomePage({
   const [showBackButton, setShowBackButton] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(true);
   const [showSymptomFilter, setShowSymptomFilter] = useState(false);
-  // D
   const [showDailyHealthTips, setShowDailyHealthTips] = useState(true);
-
-  // D
 
   function handleSymptomChangeInternal(event) {
     handleSymptomChange(event.target.value);
@@ -35,9 +36,7 @@ export default function HomePage({
     setShowBackButton(true);
     setShowSearchBar(false);
     setShowSymptomFilter(true);
-    // D
     setShowDailyHealthTips(false);
-    // D
   }
 
   function handleBackClick() {
@@ -47,9 +46,7 @@ export default function HomePage({
     setShowBackButton(false);
     setShowSearchBar(true);
     setShowSymptomFilter(false);
-    // D
     setShowDailyHealthTips(true);
-    // D
   }
 
   function handleSearchQueryInternal(event) {
@@ -71,6 +68,9 @@ export default function HomePage({
 
   return (
     <>
+      {/* + */}
+      <Subheader selectedCategory={selectedCategory} />
+      {/* + */}
       <SearchBar
         handleSearchQuery={handleSearchQueryInternal}
         handleClearSearchBar={() => {
