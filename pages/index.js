@@ -99,9 +99,7 @@ export default function HomePage({
         showBackButton={showBackButton}
       ></CategoriesBackButton>
       <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
-      {/* D */}
       <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
-      {/* D */}
       <StyledLinks $variant="bookmarked" href="/favorites">
         View Bookmarked remedies
       </StyledLinks>

@@ -4,8 +4,10 @@ import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
-
 import Layout from "@/components/Layout";
+// +
+import ScrollToTop from "@/components/ScrollToTopButton";
+// +
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
@@ -149,6 +151,9 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout>
       <GlobalStyle />
+      {/* + */}
+      <ScrollToTop />
+      {/* + */}
       <Component
         {...pageProps}
         remedies={filteredRemedies ? filteredRemedies : categoryRemedies}
