@@ -6,9 +6,18 @@ export default function SymptomFilter({
   category,
   handleSymptomChange,
   showSymptomFilter,
+  selectedSymptoms,
 }) {
-  const [selectedSymptom, setSelectedSymptom] = useState("");
   const [filteredSymptoms, setFilteredSymptoms] = useState([]);
+  const [selectedSymptom, setSelectedSymptom] = useState(selectedSymptoms);
+
+  useEffect(() => {
+    if (selectedSymptoms.length > 1) {
+      setSelectedSymptom("Select a symptom");
+    } else {
+      setSelectedSymptom(selectedSymptoms[0]);
+    }
+  }, [selectedSymptoms]);
 
   useEffect(() => {
     const remediesInCategory = remediesData.filter(
@@ -33,7 +42,7 @@ export default function SymptomFilter({
             aria-label="Select an option"
           >
             <DropdownOption value="all">Select a symptom</DropdownOption>
-            <DropdownOption value="all">all</DropdownOption>
+            <DropdownOption value="all">All</DropdownOption>
             {filteredSymptoms.map((symptom, index) => (
               <DropdownOption key={index} value={symptom}>
                 {symptom}

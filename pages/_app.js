@@ -5,9 +5,7 @@ import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
 import Layout from "@/components/Layout";
-// +
 import ScrollToTop from "@/components/ScrollToTopButton";
-// +
 
 export default function App({ Component, pageProps }) {
   const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
@@ -44,12 +42,10 @@ export default function App({ Component, pageProps }) {
     : null;
 
   function handleSearchQuery(value) {
-    // const value = event.currentTarget.value;
     setSearchQuery(value);
   }
 
   const [selectedCategory, setSelectedCategory] = useState("");
-  //selected symptoms with useState all symptoms in the json file
 
   const allSymptoms = Array.from(
     new Set(initialRemedies.flatMap((remedy) => remedy.symptoms))
@@ -67,7 +63,6 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleSymptomChange(value) {
-    //if value is empty set selected symptoms to all symptoms
     const selectedSymptoms =
       value !== "all"
         ? [value]
@@ -75,7 +70,6 @@ export default function App({ Component, pageProps }) {
             new Set(initialRemedies.flatMap((remedy) => remedy.symptoms))
           );
     setSelectedSymptoms(selectedSymptoms);
-    // setSelectedCategory(selectedCategory);
   }
 
   function handleAddRemedy(newRemedy) {
@@ -151,9 +145,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout>
       <GlobalStyle />
-      {/* + */}
       <ScrollToTop />
-      {/* + */}
       <Component
         {...pageProps}
         remedies={filteredRemedies ? filteredRemedies : categoryRemedies}
@@ -169,6 +161,7 @@ export default function App({ Component, pageProps }) {
         handleEditNotes={handleEditNotes}
         handleDeleteNote={handleDeleteNote}
         selectedCategory={selectedCategory}
+        selectedSymptoms={selectedSymptoms}
       />
     </Layout>
   );

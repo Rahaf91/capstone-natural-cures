@@ -9,7 +9,9 @@ export default function ScrollToTop() {
     right: 1rem;
     padding: 0.5rem;
     border-radius: var(--border-radius);
-    background-color: var(--card-background);
+    border: none;
+    background-color: #54582f;
+    color: white;
     box-shadow: var(--box-shadow);
     font-size: 1.5rem;
     display: flex;
