@@ -6,10 +6,7 @@ import { StyledButton } from "./StyledButtons";
 import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
-
-// +
 import remediesData from "../assets/remedies.json";
-// +
 
 export default function RemedyForm({
   onAddRemedy,
@@ -26,7 +23,6 @@ export default function RemedyForm({
     isEditMode && defaultData.symptoms ? defaultData.symptoms : []
   );
 
-  // +
   const [selectedCategory, setSelectedCategory] = useState(
     isEditMode && defaultData.category ? defaultData.category : []
   );
@@ -34,7 +30,6 @@ export default function RemedyForm({
   const categories = [
     ...new Set(remediesData.map((remedy) => remedy.category)),
   ];
-  // +
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -69,7 +64,6 @@ export default function RemedyForm({
     setSelectedSymptoms(newSymptoms);
   }
 
-  // +
   function handleSelectCategory(event) {
     const selectElement = event.target;
     const { value } = selectElement;
@@ -77,7 +71,6 @@ export default function RemedyForm({
       setSelectedCategory(value);
     }
   }
-  // +
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -106,9 +99,8 @@ export default function RemedyForm({
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
-    // +
     setSelectedCategory("");
-    // +
+
     router.back();
   }
 
@@ -226,7 +218,6 @@ export default function RemedyForm({
         ))}
       </section>
 
-      {/* + */}
       <section>
         <Label htmlFor="category" aria-label="Category, required">
           Category:<span>*</span>
@@ -235,7 +226,6 @@ export default function RemedyForm({
           id="category"
           name="category"
           onChange={handleSelectCategory}
-          value={selectedCategory}
           required
         >
           <option value="" hidden>
@@ -248,8 +238,6 @@ export default function RemedyForm({
           ))}
         </Select>
       </section>
-
-      {/* + */}
 
       {isEditMode ? (
         <>

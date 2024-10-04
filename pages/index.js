@@ -40,6 +40,7 @@ export default function HomePage({
   function handleBackClick() {
     handleCategoryChange("");
     handleSymptomChange("all");
+    handleSearchQuery("");
     setShowIcons(true);
     setShowBackButton(false);
     setShowSearchBar(true);
@@ -51,17 +52,14 @@ export default function HomePage({
     const value = event.currentTarget.value;
     handleSearchQuery(value);
     value === "" ? setShowIcons(true) : setShowIcons(false);
-    // D
+
     setShowDailyHealthTips(false);
-    // D
   }
 
   function handleClearSearchBar() {
     handleSearchQuery("");
     setShowIcons(true);
-    // D
     setShowDailyHealthTips(true);
-    // D
   }
 
   return (

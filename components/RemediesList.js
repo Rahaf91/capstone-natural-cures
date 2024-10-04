@@ -4,6 +4,14 @@ import FavoriteButton from "./FavoriteButton";
 import { StyledLinks } from "./StyledLinks";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
+  if (remedies.length === 0) {
+    return (
+      <NoRemediesMessage>
+        Sorry, no remedies were found for this health issue.
+      </NoRemediesMessage>
+    );
+  }
+
   return (
     <>
       {remedies.map((remedy) => (
@@ -38,6 +46,13 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
     </>
   );
 }
+
+const NoRemediesMessage = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-top: 2rem;
+`;
 
 const RemedyCard = styled.section`
   width: 100%;
