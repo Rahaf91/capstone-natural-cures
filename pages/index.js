@@ -6,6 +6,10 @@ import { StyledButton } from "@/components/StyledButtons";
 
 import SearchBar from "@/components/SearchBar";
 import DailyHealthTips from "@/components/DailyHealthTips";
+// +
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComments } from "@fortawesome/free-solid-svg-icons";
+// +
 
 export default function HomePage({
   remedies,
@@ -70,6 +74,10 @@ export default function HomePage({
           searchQuery={searchQuery}
         />
       )}
+      {/* Chat Option Button */}
+      <StyledLinks href="/chat">
+        <FontAwesomeIcon icon={faComments} /> Chat
+      </StyledLinks>
     </>
   );
 }
