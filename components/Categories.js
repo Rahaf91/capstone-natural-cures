@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import remediesData from "../assets/remedies.json";
-import RemediesList from "@/components/RemediesList";
-import SearchBar from "@/components/SearchBar";
 
 export default function Categories({ handleCategoryChange, showIcons }) {
   const [categories, setCategories] = useState([]);

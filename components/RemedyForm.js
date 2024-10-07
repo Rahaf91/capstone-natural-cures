@@ -7,7 +7,7 @@ import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
 import remediesData from "../assets/remedies.json";
-
+import SymptomFilter from "./SymptomFilter";
 export default function RemedyForm({
   onAddRemedy,
   isEditMode,
@@ -48,15 +48,6 @@ export default function RemedyForm({
     setIngredients(newIngredients);
   }
 
-  function handleSelectSymptom(event) {
-    const selectElement = event.target;
-    const { value } = selectElement;
-    if (value && !selectedSymptoms.includes(value)) {
-      setSelectedSymptoms([...selectedSymptoms, value]);
-      selectElement.value = "";
-    }
-  }
-
   function handleRemoveSymptom(index) {
     const newSymptoms = selectedSymptoms.filter(
       (_, currentIndex) => currentIndex !== index
@@ -91,6 +82,7 @@ export default function RemedyForm({
       ...formObject,
       ingredients: ingredients,
       symptoms: selectedSymptoms,
+      category: selectedCategory,
     };
 
     isEditMode
@@ -101,7 +93,7 @@ export default function RemedyForm({
     setSelectedSymptoms([]);
     setSelectedCategory("");
 
-    router.back();
+    router.push(`/?category=${selectedCategory}`);
   }
 
   return (
@@ -166,7 +158,7 @@ export default function RemedyForm({
           name="preparation"
           placeholder={isEditMode ? "" : "Enter preparation steps"}
           defaultValue={isEditMode ? defaultData.preparation : ""}
-        />{" "}
+        />
       </section>
       <section>
         <Label htmlFor="usage">Usage:</Label>
@@ -177,25 +169,43 @@ export default function RemedyForm({
           defaultValue={isEditMode ? defaultData.usage : ""}
         />
       </section>
+
+      <section>
+        <Label htmlFor="category" aria-label="Category, required">
+          Category:<span>*</span>
+        </Label>
+        <Select
+          id="category"
+          name="category"
+          value={selectedCategory}
+          onChange={handleSelectCategory}
+          required
+        >
+          <option value="" hidden>
+            Please select a category
+          </option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </Select>
+      </section>
       <section>
         <Label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
         </Label>
-        <Select
-          id="symptoms"
-          name="symptoms"
-          onChange={handleSelectSymptom}
-          required={!isEditMode && selectedSymptoms.length === 0}
-        >
-          <option value="" hidden>
-            Please select a symptom
-          </option>
-          {symptoms.map((symptom, index) => (
-            <option key={index} value={symptom}>
-              {symptom}
-            </option>
-          ))}
-        </Select>
+        <SymptomFilter
+          category={selectedCategory}
+          handleSymptomChange={(event) => {
+            const value = event.target.value;
+            if (value && !selectedSymptoms.includes(value)) {
+              setSelectedSymptoms([...selectedSymptoms, value]);
+            }
+          }}
+          showSymptomFilter={selectedCategory !== ""}
+          selectedSymptoms={selectedSymptoms}
+        />
 
         {selectedSymptoms.map((selectedSymptom, index) => (
           <InputGroup key={index}>
@@ -216,27 +226,6 @@ export default function RemedyForm({
             )}
           </InputGroup>
         ))}
-      </section>
-
-      <section>
-        <Label htmlFor="category" aria-label="Category, required">
-          Category:<span>*</span>
-        </Label>
-        <Select
-          id="category"
-          name="category"
-          onChange={handleSelectCategory}
-          required
-        >
-          <option value="" hidden>
-            Please select a category
-          </option>
-          {categories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </Select>
       </section>
 
       {isEditMode ? (

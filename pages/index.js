@@ -7,6 +7,8 @@ import SearchBar from "@/components/SearchBar";
 import DailyHealthTips from "@/components/DailyHealthTips";
 import SymptomFilter from "@/components/SymptomFilter";
 import Subheader from "@/components/Subheader";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function HomePage({
   remedies,
@@ -23,6 +25,19 @@ export default function HomePage({
   const [showSearchBar, setShowSearchBar] = useState(true);
   const [showSymptomFilter, setShowSymptomFilter] = useState(false);
   const [showDailyHealthTips, setShowDailyHealthTips] = useState(true);
+  const router = useRouter();
+  const { category } = router.query;
+
+  useEffect(() => {
+    if (category) {
+      handleCategoryChange(category);
+      setShowIcons(false);
+      setShowBackButton(true);
+      setShowSearchBar(false);
+      setShowSymptomFilter(true);
+      setShowDailyHealthTips(false);
+    }
+  }, [category, handleCategoryChange]);
 
   function handleSymptomChangeInternal(event) {
     handleSymptomChange(event.target.value);
@@ -63,44 +78,42 @@ export default function HomePage({
   }
 
   return (
-    console.log("selectedSymptoms", selectedSymptoms),
-    (
-      <>
-        <Subheader selectedCategory={selectedCategory} />
-        <SearchBar
-          handleSearchQuery={handleSearchQueryInternal}
-          handleClearSearchBar={() => {
-            handleClearSearchBar();
-          }}
-          searchQuery={searchQuery}
-          showSearchBar={true}
-          renderIcon={() => <i className="search-icon" />}
-        />
-        <Categories
-          handleToggleFavorite={handleToggleFavorite}
-          handleCategoryChange={handleCategoryChangeInternal}
-          showIcons={showIcons}
-        />
-        <SymptomFilter
-          handleSymptomChange={handleSymptomChangeInternal}
-          category={selectedCategory}
-          selectedSymptoms={selectedSymptoms}
-          showSymptomFilter={showSymptomFilter}
-        />
-        <RemediesList
-          remedies={remedies}
-          handleToggleFavorite={handleToggleFavorite}
-        />
-        <CategoriesBackButton
-          handleBackClick={handleBackClick}
-          showBackButton={showBackButton}
-        ></CategoriesBackButton>
-        <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
-        <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
-        <StyledLinks $variant="bookmarked" href="/favorites">
-          View Bookmarked remedies
-        </StyledLinks>
-      </>
-    )
+    <>
+      <Subheader selectedCategory={selectedCategory} />
+      <SearchBar
+        handleSearchQuery={handleSearchQueryInternal}
+        handleClearSearchBar={() => {
+          handleClearSearchBar();
+        }}
+        searchQuery={searchQuery}
+        showSearchBar={true}
+        renderIcon={() => <i className="search-icon" />}
+      />
+      <Categories
+        handleToggleFavorite={handleToggleFavorite}
+        handleCategoryChange={handleCategoryChangeInternal}
+        showIcons={showIcons}
+      />
+      <SymptomFilter
+        handleSymptomChange={handleSymptomChangeInternal}
+        category={selectedCategory}
+        selectedSymptoms={selectedSymptoms}
+        showSymptomFilter={showSymptomFilter}
+      />
+      <RemediesList
+        remedies={remedies}
+        handleToggleFavorite={handleToggleFavorite}
+        selectedCategory={selectedCategory}
+      />
+      <CategoriesBackButton
+        handleBackClick={handleBackClick}
+        showBackButton={showBackButton}
+      ></CategoriesBackButton>
+      <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
+      <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
+      <StyledLinks $variant="bookmarked" href="/favorites">
+        View Bookmarked remedies
+      </StyledLinks>
+    </>
   );
 }

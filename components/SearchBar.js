@@ -81,5 +81,5 @@ const ClearButton = styled.button`
 
 const SearchIcon = styled(FontAwesomeIcon)`
   margin-right: 8px;
-  color: #aaa;
+  color: #fff;
 `;

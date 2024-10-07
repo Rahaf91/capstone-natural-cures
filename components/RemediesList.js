@@ -3,8 +3,12 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { StyledLinks } from "./StyledLinks";
 
-export default function RemediesList({ remedies, handleToggleFavorite }) {
-  if (remedies.length === 0) {
+export default function RemediesList({
+  remedies,
+  handleToggleFavorite,
+  selectedCategory,
+}) {
+  if (remedies.length === 0 && selectedCategory) {
     return (
       <NoRemediesMessage>
         Sorry, no remedies were found for this health issue.
@@ -124,4 +128,4 @@ const ContentWrapper = styled.div`
       font-size: 0.85rem;
     }
   }
-}`;
+`;
