@@ -1,33 +1,36 @@
 import styled from "styled-components";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function SearchBar({
   handleSearchQuery,
   handleClearSearchBar,
   searchQuery,
+  showSearchBar,
 }) {
-  function onSearchChange(event) {
-    const searchQuery = event.target.value;
-    handleSearchQuery({ currentTarget: { value: searchQuery } });
-  }
-
   return (
-    <SearchBarWrapper>
-      <VisuallyHiddenLabel htmlFor="searchInput">
-        Search remedies
-      </VisuallyHiddenLabel>
-      <SearchBarField
-        type="text"
-        value={searchQuery}
-        placeholder="Search"
-        aria-label="Search"
-        onChange={onSearchChange}
-      />
-      {searchQuery && (
-        <ClearButton type="button" onClick={handleClearSearchBar}>
-          Clear
-        </ClearButton>
+    <>
+      {showSearchBar && (
+        <SearchBarWrapper>
+          <SearchIcon icon={faSearch} />
+          <VisuallyHiddenLabel htmlFor="searchInput">
+            Search remedies
+          </VisuallyHiddenLabel>
+          <SearchBarField
+            type="text"
+            value={searchQuery}
+            aria-label="Search"
+            onChange={handleSearchQuery}
+          />
+          {searchQuery && (
+            <ClearButton type="button" onClick={handleClearSearchBar}>
+              Clear
+            </ClearButton>
+          )}
+        </SearchBarWrapper>
       )}
-    </SearchBarWrapper>
+    </>
   );
 }
 
@@ -73,4 +76,10 @@ const ClearButton = styled.button`
   padding: 0 5px;
   margin-top: 2px;
   margin-bottom: 2px;
+  color: #aaa;
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  margin-right: 8px;
+  color: #fff;
 `;

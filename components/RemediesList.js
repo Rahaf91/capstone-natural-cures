@@ -3,7 +3,19 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { StyledLinks } from "./StyledLinks";
 
-export default function RemediesList({ remedies, handleToggleFavorite }) {
+export default function RemediesList({
+  remedies,
+  handleToggleFavorite,
+  selectedCategory,
+}) {
+  if (remedies.length === 0 && selectedCategory) {
+    return (
+      <NoRemediesMessage>
+        Sorry, no remedies were found for this health issue.
+      </NoRemediesMessage>
+    );
+  }
+
   return (
     <>
       {remedies.map((remedy) => (
@@ -22,7 +34,6 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
             isDetailPage={false}
           />
           <ContentWrapper>
-     
             <h2>{remedy.title}</h2>
             <h3>Symptoms:</h3>
             <ul>
@@ -39,6 +50,13 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
     </>
   );
 }
+
+const NoRemediesMessage = styled.p`
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-top: 2rem;
+`;
 
 const RemedyCard = styled.section`
   width: 100%;

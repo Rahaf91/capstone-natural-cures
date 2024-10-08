@@ -4,7 +4,7 @@ import Image from "next/image";
 import dailyHealthTips from "@/assets/dailyhealthtips.json";
 import { useEffect } from "react";
 
-export default function DailyHealthTips() {
+export default function DailyHealthTips({ showDailyHealthTips }) {
   const [currentTipIndex, setCurrentTipIndex] = useState(0);
 
   useEffect(() => {
@@ -35,33 +35,42 @@ export default function DailyHealthTips() {
   }
 
   return (
-    <CarouselWrapper>
-      <Button onClick={handlePreviousTip}>
-        <Image
-          src="/left-arrow.svg"
-          width={24}
-          height={24}
-          alt="Previous tip"
-        />
-      </Button>
+    <>
+      {showDailyHealthTips && (
+        <CarouselWrapper>
+          <Button onClick={handlePreviousTip}>
+            <Image
+              src="/left-arrow.svg"
+              width={24}
+              height={24}
+              alt="Previous tip"
+            />
+          </Button>
 
-      <Tip>
-        <h3>{currentTip.title}</h3>
-        <ImageWrapper>
-          <StyledImage
-            src={currentTip.imageUrl}
-            layout="fill"
-            objectFit="cover"
-            alt={currentTip.title}
-          />
-        </ImageWrapper>
-        <p>{currentTip.description}</p>
-      </Tip>
+          <Tip>
+            <h3>{currentTip.title}</h3>
+            <ImageWrapper>
+              <StyledImage
+                src={currentTip.imageUrl}
+                layout="fill"
+                objectFit="cover"
+                alt={currentTip.title}
+              />
+            </ImageWrapper>
+            <p>{currentTip.description}</p>
+          </Tip>
 
-      <Button onClick={handleNextTip}>
-        <Image src="/right-arrow.svg" width={24} height={24} alt="Next tip" />
-      </Button>
-    </CarouselWrapper>
+          <Button onClick={handleNextTip}>
+            <Image
+              src="/right-arrow.svg"
+              width={24}
+              height={24}
+              alt="Next tip"
+            />
+          </Button>
+        </CarouselWrapper>
+      )}
+    </>
   );
 }
 

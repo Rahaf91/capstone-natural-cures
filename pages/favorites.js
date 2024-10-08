@@ -1,13 +1,16 @@
 import RemediesList from "@/components/RemediesList";
 import { StyledLinks } from "@/components/StyledLinks";
 import styled from "styled-components";
-
 export default function FavoritePage({ handleToggleFavorite, remedies }) {
   const favoriteRemedies = remedies.filter((remedy) => remedy.isFavorite);
-
   return (
     <>
       <main>
+        <BackButtonContainer>
+          <StyledLinks $variant="back" href="/">
+            &larr; Back
+          </StyledLinks>
+        </BackButtonContainer>
         <h1>Your Favorite Remedies</h1>
         {favoriteRemedies.length > 0 ? (
           <RemediesList
@@ -18,12 +21,6 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
           <p>You have no favorite remedies.</p>
         )}
       </main>
-
-      <BackButtonContainer>
-        <StyledLinks $variant="back" href="/">
-          &larr; Back
-        </StyledLinks>
-      </BackButtonContainer>
     </>
   );
 }
