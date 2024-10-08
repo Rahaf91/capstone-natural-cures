@@ -58,17 +58,9 @@ export const StyledLinks = styled(Link)`
       padding: 1rem, 1.5rem;
       font-weight: bold;
       border-radius: var(--border-radius);
-      width: 80%;
       margin: 1.25rem auto;
-      position: fixed;
       bottom: 1.25rem;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      z-index: 1000;
 
-      &:hover {
-        background-color: #2d4373;
-      }
+      text-align: center;
     `}
 `;

@@ -25,11 +25,9 @@ const SubheaderWrapper = styled.header`
 const CategoryTitle = styled.h2`
   font-size: 1.5rem;
   margin: 0;
-  }
 `;
 
 const CategoryIcon = styled.img`
   width: 8em;
   height: 8em;
-  }
 `;

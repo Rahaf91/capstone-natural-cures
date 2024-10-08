@@ -1,5 +1,5 @@
 import RemediesList from "@/components/RemediesList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyledLinks } from "@/components/StyledLinks";
 import Categories from "@/components/Categories";
 import CategoriesBackButton from "@/components/CategoriesBackButton";
@@ -8,7 +8,7 @@ import DailyHealthTips from "@/components/DailyHealthTips";
 import SymptomFilter from "@/components/SymptomFilter";
 import Subheader from "@/components/Subheader";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import Fuse from "fuse.js";
 
 export default function HomePage({
   remedies,
@@ -25,8 +25,36 @@ export default function HomePage({
   const [showSearchBar, setShowSearchBar] = useState(true);
   const [showSymptomFilter, setShowSymptomFilter] = useState(false);
   const [showDailyHealthTips, setShowDailyHealthTips] = useState(true);
+  const [showRemediesList, setShowRemediesList] = useState(false);
   const router = useRouter();
   const { category } = router.query;
+
+  const fuse = new Fuse(remedies, {
+    keys: ["title", "ingredients", "usage", "symptoms"],
+    includeScore: true,
+    threshold: 0,
+    useExtendedSearch: true,
+    ignoreLocation: true,
+    ignoreFieldNorm: true,
+    shouldSort: true,
+  });
+
+  function matchesQueryAtWordStart(item, query) {
+    const regex = new RegExp(`\\b${query}`, "i");
+    return (
+      regex.test(item.title) ||
+      item.ingredients.some((ingredient) => regex.test(ingredient)) ||
+      regex.test(item.usage) ||
+      item.symptoms.some((symptom) => regex.test(symptom))
+    );
+  }
+
+  const results = searchQuery ? fuse.search(searchQuery) : [];
+  const filteredRemedies = searchQuery
+    ? results
+        .map((result) => result.item)
+        .filter((item) => matchesQueryAtWordStart(item, searchQuery))
+    : remedies;
 
   useEffect(() => {
     if (category) {
@@ -36,8 +64,19 @@ export default function HomePage({
       setShowSearchBar(false);
       setShowSymptomFilter(true);
       setShowDailyHealthTips(false);
+      setShowRemediesList(true);
     }
   }, [category, handleCategoryChange]);
+  const categoryRemedies = selectedCategory
+    ? filteredRemedies.filter(
+        (remedy) =>
+          remedy.category.toLowerCase() === selectedCategory.toLowerCase()
+      )
+    : filteredRemedies;
+
+  const symptomFilteredRemedies = categoryRemedies.filter((remedy) =>
+    selectedSymptoms.some((symptom) => remedy.symptoms.includes(symptom))
+  );
 
   function handleSymptomChangeInternal(event) {
     handleSymptomChange(event.target.value);
@@ -50,6 +89,7 @@ export default function HomePage({
     setShowSearchBar(false);
     setShowSymptomFilter(true);
     setShowDailyHealthTips(false);
+    setShowRemediesList(true);
   }
 
   function handleBackClick() {
@@ -61,30 +101,30 @@ export default function HomePage({
     setShowSearchBar(true);
     setShowSymptomFilter(false);
     setShowDailyHealthTips(true);
+    setShowRemediesList(false);
   }
 
   function handleSearchQueryInternal(event) {
     const value = event.currentTarget.value;
     handleSearchQuery(value);
-    value === "" ? setShowIcons(true) : setShowIcons(false);
 
+    setShowIcons(value === "" ? true : false);
+    setShowRemediesList(value === "" ? false : true);
     setShowDailyHealthTips(false);
   }
-
   function handleClearSearchBar() {
     handleSearchQuery("");
     setShowIcons(true);
     setShowDailyHealthTips(true);
+    setShowRemediesList(false);
   }
 
   return (
     <>
-      <Subheader selectedCategory={selectedCategory} />
+      {showRemediesList && <Subheader selectedCategory={selectedCategory} />}
       <SearchBar
         handleSearchQuery={handleSearchQueryInternal}
-        handleClearSearchBar={() => {
-          handleClearSearchBar();
-        }}
+        handleClearSearchBar={handleClearSearchBar}
         searchQuery={searchQuery}
         showSearchBar={true}
         renderIcon={() => <i className="search-icon" />}
@@ -100,15 +140,16 @@ export default function HomePage({
         selectedSymptoms={selectedSymptoms}
         showSymptomFilter={showSymptomFilter}
       />
-      <RemediesList
-        remedies={remedies}
-        handleToggleFavorite={handleToggleFavorite}
-        selectedCategory={selectedCategory}
-      />
+      {showRemediesList && (
+        <RemediesList
+          remedies={symptomFilteredRemedies}
+          selectedCategory={selectedCategory}
+        />
+      )}
       <CategoriesBackButton
         handleBackClick={handleBackClick}
         showBackButton={showBackButton}
-      ></CategoriesBackButton>
+      />
       <StyledLinks href="/remedy/add">Add Remedy</StyledLinks> <br />
       <DailyHealthTips showDailyHealthTips={showDailyHealthTips} />
       <StyledLinks $variant="bookmarked" href="/favorites">

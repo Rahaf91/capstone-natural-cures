@@ -2,7 +2,6 @@ import GlobalStyle from "../styles";
 import initialRemedies from "../assets/remedies.json";
 import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
-import Fuse from "fuse.js";
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import ScrollToTop from "@/components/ScrollToTopButton";
@@ -13,33 +12,6 @@ export default function App({ Component, pageProps }) {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
-  const fuse = new Fuse(remedies, {
-    keys: ["title", "ingredients", "usage", "symptoms"],
-    includeScore: true,
-    threshold: 0,
-    useExtendedSearch: true,
-    ignoreLocation: true,
-    ignoreFieldNorm: true,
-    shouldSort: true,
-  });
-
-  function matchesQueryAtWordStart(item, query) {
-    const regex = new RegExp(`\\b${query}`, "i");
-    return (
-      regex.test(item.title) ||
-      item.ingredients.some((ingredient) => regex.test(ingredient)) ||
-      regex.test(item.usage) ||
-      item.symptoms.some((symptom) => regex.test(symptom))
-    );
-  }
-
-  const results = searchQuery ? fuse.search(searchQuery) : [];
-
-  const filteredRemedies = searchQuery
-    ? results
-        .map((result) => result.item)
-        .filter((item) => matchesQueryAtWordStart(item, searchQuery))
-    : null;
 
   function handleSearchQuery(value) {
     setSearchQuery(value);
@@ -51,12 +23,6 @@ export default function App({ Component, pageProps }) {
     new Set(initialRemedies.flatMap((remedy) => remedy.symptoms))
   );
   const [selectedSymptoms, setSelectedSymptoms] = useState(allSymptoms);
-
-  const categoryRemedies = remedies.filter(
-    (remedy) =>
-      remedy.category.toLowerCase() === selectedCategory.toLowerCase() &&
-      selectedSymptoms.some((symptom) => remedy.symptoms.includes(symptom))
-  );
 
   function handleCategoryChange(value) {
     setSelectedCategory(value);
@@ -81,6 +47,7 @@ export default function App({ Component, pageProps }) {
       ...remedies,
     ]);
   }
+
   function handleDeleteRemedy(id) {
     setRemedies(remedies.filter((remedy) => remedy.id !== id));
   }
@@ -92,7 +59,6 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
   function handleToggleFavorite(id) {
     const updatedRemedies = remedies.map((remedy) =>
       remedy.id === id ? { ...remedy, isFavorite: !remedy.isFavorite } : remedy
@@ -148,7 +114,7 @@ export default function App({ Component, pageProps }) {
       <ScrollToTop />
       <Component
         {...pageProps}
-        remedies={filteredRemedies ? filteredRemedies : categoryRemedies}
+        remedies={remedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
