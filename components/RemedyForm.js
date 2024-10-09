@@ -1,11 +1,11 @@
 import { useState } from "react";
-import symptoms from "../assets/symptoms.json";
 import styled from "styled-components";
 import Icon from "./Icons";
 import { StyledButton } from "./StyledButtons";
 import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
+import remediesData from "../assets/remedies.json";
 
 export default function RemedyForm({
   onAddRemedy,
@@ -21,6 +21,16 @@ export default function RemedyForm({
   const [selectedSymptoms, setSelectedSymptoms] = useState(
     isEditMode && defaultData.symptoms ? defaultData.symptoms : []
   );
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    isEditMode && defaultData.category ? defaultData.category : ""
+  );
+
+  const [filteredSymptoms, setFilteredSymptoms] = useState([]);
+
+  const categories = [
+    ...new Set(remediesData.map((remedy) => remedy.category)),
+  ];
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -40,11 +50,31 @@ export default function RemedyForm({
   }
 
   function handleSelectSymptom(event) {
-    const selectElement = event.target;
-    const { value } = selectElement;
+    const { value } = event.target;
     if (value && !selectedSymptoms.includes(value)) {
       setSelectedSymptoms([...selectedSymptoms, value]);
-      selectElement.value = "";
+      event.target.value = "";
+    }
+  }
+
+  function handleSelectCategory(event) {
+    const { value } = event.target;
+
+    if (value) {
+      const symptoms = [
+        ...new Set(
+          remediesData
+            .filter((remedy) => remedy.category === value)
+            .flatMap((remedy) => remedy.symptoms)
+        ),
+      ];
+      setSelectedCategory(value);
+      setSelectedSymptoms([]);
+      setFilteredSymptoms(symptoms);
+    } else {
+      setSelectedCategory("");
+      setSelectedSymptoms([]);
+      setFilteredSymptoms([]);
     }
   }
 
@@ -74,16 +104,19 @@ export default function RemedyForm({
       ...formObject,
       ingredients: ingredients,
       symptoms: selectedSymptoms,
+      category: selectedCategory,
     };
 
     isEditMode
       ? onEditRemedy(remedyData)
       : onAddRemedy({ ...remedyData, imageUrl });
+
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
+    setSelectedCategory("");
 
-    router.back();
+    router.push(`/categories/${selectedCategory}`);
   }
 
   return (
@@ -141,6 +174,7 @@ export default function RemedyForm({
           />
         </IconButton>
       </section>
+
       <section>
         <Label htmlFor="preparation">Preparation:</Label>
         <Textarea
@@ -148,8 +182,9 @@ export default function RemedyForm({
           name="preparation"
           placeholder={isEditMode ? "" : "Enter preparation steps"}
           defaultValue={isEditMode ? defaultData.preparation : ""}
-        />{" "}
+        />
       </section>
+
       <section>
         <Label htmlFor="usage">Usage:</Label>
         <Textarea
@@ -159,20 +194,38 @@ export default function RemedyForm({
           defaultValue={isEditMode ? defaultData.usage : ""}
         />
       </section>
+
+      <section>
+        <Label htmlFor="category" aria-label="Category, required">
+          Category:<span>*</span>
+        </Label>
+        <Select
+          id="category"
+          name="category"
+          value={selectedCategory}
+          onChange={handleSelectCategory}
+          required
+        >
+          <option value="" hidden>
+            Please select a category
+          </option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </Select>
+      </section>
       <section>
         <Label htmlFor="symptoms" aria-label="Symptoms, required">
           Symptoms:<span>*</span>
         </Label>
-        <Select
-          id="symptoms"
-          name="symptoms"
-          onChange={handleSelectSymptom}
-          required={!isEditMode && selectedSymptoms.length === 0}
-        >
+
+        <Select id="symptoms" onChange={handleSelectSymptom}>
           <option value="" hidden>
-            Please select a symptom
+            Select a symptom
           </option>
-          {symptoms.map((symptom, index) => (
+          {filteredSymptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
               {symptom}
             </option>
@@ -182,7 +235,6 @@ export default function RemedyForm({
         {selectedSymptoms.map((selectedSymptom, index) => (
           <InputGroup key={index}>
             <Input type="text" value={selectedSymptom} readOnly />
-
             {selectedSymptoms.length > 1 && (
               <IconButton
                 type="button"
@@ -210,7 +262,7 @@ export default function RemedyForm({
         </>
       ) : (
         <>
-         <section>
+          <section>
             <label htmlFor="cover" aria-label="cover, required">
               Image upload:<span>*</span>
             </label>
@@ -227,7 +279,7 @@ export default function RemedyForm({
           </StyledLinks>
           <StyledButton variant="primary" type="submit">
             Submit
-          </StyledButton> 
+          </StyledButton>
         </>
       )}
     </Form>

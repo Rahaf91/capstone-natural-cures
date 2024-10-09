@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import symptoms from "../assets/symptoms.json";
 import { StyledButton } from "./StyledButtons";
 
 export default function FilterList({
+  symptoms,
   selectedSymptom,
   handleSymptomChange,
   handleClearFilter,
@@ -39,7 +39,7 @@ const FilterSection = styled.section`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 `;
 const FilterSelect = styled.select`
   padding: 0.5rem;

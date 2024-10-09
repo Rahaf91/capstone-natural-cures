@@ -7,7 +7,8 @@
     "ingredients": ["Ginger", "Honey", "Lemon"],
     "preparation": "Boil water with ginger, add lemon and honey to taste.",
     "usage": "Drink warm to soothe a sore throat.",
-    "symptoms": ["Sore Throat", "Cold"]
+    "symptoms": ["Sore Throat", "Cold"],
+    "category": "throat"
   },
   {
     "id": "2",
@@ -17,7 +18,8 @@
     "ingredients": ["Aloe Vera Gel"],
     "preparation": "Apply aloe vera gel to the affected area.",
     "usage": "Use for minor burns to soothe and heal the skin.",
-    "symptoms": ["Skin Burns", "Sunburn"]
+    "symptoms": ["Skin Burns", "Sunburn"],
+    "category": "skin"
   },
   {
     "id": "3",
@@ -27,7 +29,8 @@
     "ingredients": ["Turmeric", "Milk", "Honey"],
     "preparation": "Warm the milk, mix in turmeric and honey.",
     "usage": "Drink before bed for anti-inflammatory benefits.",
-    "symptoms": ["Inflammation", "Joint Pain"]
+    "symptoms": ["Inflammation", "Joint Pain"],
+    "category": "joints"
   },
   {
     "id": "4",
@@ -37,7 +40,8 @@
     "ingredients": ["Garlic"],
     "preparation": "Chew on a clove of garlic.",
     "usage": "Helps to alleviate cold symptoms.",
-    "symptoms": ["Cold", "Flu"]
+    "symptoms": ["Cold", "Flu"],
+    "category": "body"
   },
   {
     "id": "5",
@@ -47,7 +51,8 @@
     "ingredients": ["Cinnamon", "Honey", "Hot Water"],
     "preparation": "Steep cinnamon in hot water, add honey to taste.",
     "usage": "Drink to soothe a sore throat.",
-    "symptoms": ["Sore Throat", "Cough"]
+    "symptoms": ["Sore Throat", "Cough"],
+    "category": "throat"
   },
   {
     "id": "6",
@@ -57,7 +62,8 @@
     "ingredients": ["Peppermint Leaves", "Hot Water"],
     "preparation": "Steep peppermint leaves in hot water.",
     "usage": "Drink to relieve digestive discomfort.",
-    "symptoms": ["Indigestion", "Gas"]
+    "symptoms": ["Indigestion", "Gas"],
+    "category": "intestine"
   },
   {
     "id": "7",
@@ -67,7 +73,8 @@
     "ingredients": ["Chamomile Flowers", "Hot Water"],
     "preparation": "Steep chamomile flowers in hot water for 5 minutes.",
     "usage": "Drink before bed to improve sleep quality.",
-    "symptoms": ["Insomnia", "Stress"]
+    "symptoms": ["Insomnia", "Stress"],
+    "category": "body"
   },
   {
     "id": "8",
@@ -77,7 +84,8 @@
     "ingredients": ["Honey", "Lemon Juice"],
     "preparation": "Mix honey and lemon juice.",
     "usage": "Take a spoonful to relieve cough.",
-    "symptoms": ["Cough", "Throat Irritation"]
+    "symptoms": ["Cough", "Throat Irritation"],
+    "category": "throat"
   },
   {
     "id": "9",
@@ -87,7 +95,8 @@
     "ingredients": ["Colloidal Oatmeal", "Warm Bath Water"],
     "preparation": "Add colloidal oatmeal to warm bath water.",
     "usage": "Soak to soothe irritated skin.",
-    "symptoms": ["Skin Irritation", "Eczema"]
+    "symptoms": ["Skin Irritation", "Eczema"],
+    "category": "skin"
   },
   {
     "id": "10",
@@ -97,7 +106,8 @@
     "ingredients": ["Salt", "Warm Water"],
     "preparation": "Dissolve salt in warm water.",
     "usage": "Gargle to relieve sore throat and reduce oral bacteria.",
-    "symptoms": ["Sore Throat", "Oral Infections"]
+    "symptoms": ["Sore Throat", "Oral Infections"],
+    "category": "throat"
   },
   {
     "id": "11",
@@ -107,7 +117,8 @@
     "ingredients": ["Apple Cider Vinegar", "Water"],
     "preparation": "Mix a tablespoon of apple cider vinegar with water.",
     "usage": "Drink to aid digestion.",
-    "symptoms": ["Indigestion", "Bloating"]
+    "symptoms": ["Indigestion", "Bloating"],
+    "category": "intestine"
   },
   {
     "id": "12",
@@ -117,7 +128,8 @@
     "ingredients": ["Baking Soda", "Water"],
     "preparation": "Dissolve a teaspoon of baking soda in water.",
     "usage": "Drink to neutralize stomach acid.",
-    "symptoms": ["Heartburn", "Acid Reflux"]
+    "symptoms": ["Heartburn", "Acid Reflux"],
+    "category": "stomach"
   },
   {
     "id": "13",
@@ -127,7 +139,8 @@
     "ingredients": ["Eucalyptus Oil", "Hot Water"],
     "preparation": "Add a few drops of eucalyptus oil to hot water.",
     "usage": "Inhale the steam to clear nasal congestion.",
-    "symptoms": ["Nasal Congestion", "Sinusitis"]
+    "symptoms": ["Nasal Congestion", "Sinusitis"],
+    "category": "nose"
   },
   {
     "id": "14",
@@ -137,7 +150,8 @@
     "ingredients": ["Banana"],
     "preparation": "Eat a ripe banana.",
     "usage": "Provides a quick energy boost with natural sugars and fibre.",
-    "symptoms": ["Fatigue", "Low Energy"]
+    "symptoms": ["Fatigue", "Low Energy"],
+    "category": "body"
   },
   {
     "id": "15",
@@ -147,7 +161,8 @@
     "ingredients": ["Coconut Oil"],
     "preparation": "Apply coconut oil to dry skin areas.",
     "usage": "Moisturises and nourishes the skin.",
-    "symptoms": ["Dry Skin", "Flakiness"]
+    "symptoms": ["Dry Skin", "Flakiness"],
+    "category": "skin"
   },
   {
     "id": "16",
@@ -157,7 +172,8 @@
     "ingredients": ["Yogurt"],
     "preparation": "Consume a serving of plain yogurt.",
     "usage": "Promotes a healthy digestive tract with probiotics.",
-    "symptoms": ["Digestive Issues", "Gut Imbalance"]
+    "symptoms": ["Digestive Issues", "Gut Imbalance"],
+    "category": "intestine"
   },
   {
     "id": "17",
@@ -167,7 +183,8 @@
     "ingredients": ["Ginger"],
     "preparation": "Chew on a small piece of ginger or drink ginger tea.",
     "usage": "Helps to alleviate nausea and digestive upset.",
-    "symptoms": ["Nausea", "Motion Sickness"]
+    "symptoms": ["Nausea", "Motion Sickness"],
+    "category": "stomach"
   },
   {
     "id": "18",
@@ -177,7 +194,8 @@
     "ingredients": ["Tea Tree Oil", "Carrier Oil"],
     "preparation": "Dilute tea tree oil with a carrier oil and apply to affected areas.",
     "usage": "Natural antimicrobial properties help reduce acne.",
-    "symptoms": ["Acne", "Skin Blemishes"]
+    "symptoms": ["Acne", "Skin Blemishes"],
+    "category": "skin"
   },
   {
     "id": "19",
@@ -187,7 +205,8 @@
     "ingredients": ["Cucumber"],
     "preparation": "Cut cucumber into slices and chill.",
     "usage": "Place over eyes to reduce puffiness and refresh tired eyes.",
-    "symptoms": ["Puffy Eyes", "Eye Fatigue"]
+    "symptoms": ["Puffy Eyes", "Eye Fatigue"],
+    "category": "eyes"
   },
   {
     "id": "20",
@@ -197,7 +216,8 @@
     "ingredients": ["Honey"],
     "preparation": "Apply a small amount of honey to minor cuts or grazes.",
     "usage": "Natural antibacterial properties aid in healing.",
-    "symptoms": ["Minor Cuts", "Grazes"]
+    "symptoms": ["Minor Cuts", "Grazes"],
+    "category": "skin"
   },
   {
     "id": "21",
@@ -207,7 +227,8 @@
     "ingredients": ["Lavender Essential Oil", "Diffuser"],
     "preparation": "Add a few drops of lavender essential oil to a diffuser before bedtime.",
     "usage": "Inhale the aroma to promote relaxation and improve sleep quality.",
-    "symptoms": ["Insomnia", "Stress"]
+    "symptoms": ["Insomnia", "Stress"],
+    "category": "body"
   },
   {
     "id": "22",
@@ -217,7 +238,8 @@
     "ingredients": ["Raw Honey", "Turmeric Powder", "Black Pepper"],
     "preparation": "Mix turmeric and a pinch of black pepper into raw honey.",
     "usage": "Consume a spoonful daily to boost immunity and fight inflammation.",
-    "symptoms": ["Inflammation"]
+    "symptoms": ["Inflammation"],
+    "category": "body"
   },
   {
     "id": "23",
@@ -227,7 +249,8 @@
     "ingredients": ["Activated Charcoal Powder", "Water", "Lemon Juice"],
     "preparation": "Stir activated charcoal powder into water and add a splash of lemon juice.",
     "usage": "Drink to absorb toxins and cleanse the digestive system.",
-    "symptoms": ["Bloating", "Digestive Issues"]
+    "symptoms": ["Bloating", "Digestive Issues"],
+    "category": "intestine"
   },
   {
     "id": "24",
@@ -237,7 +260,8 @@
     "ingredients": ["Rosehip Oil"],
     "preparation": "Apply rosehip oil directly to the face or affected skin areas.",
     "usage": "Use to hydrate skin, reduce scars, and promote regeneration.",
-    "symptoms": ["Dry Skin", "Acne Scars", "Wrinkles"]
+    "symptoms": ["Dry Skin", "Acne Scars", "Wrinkles"],
+    "category": "skin"
   },
   {
     "id": "25",
@@ -247,7 +271,8 @@
     "ingredients": ["Matcha Green Tea Powder", "Hot Water", "Honey (optional)"],
     "preparation": "Whisk matcha powder in hot water until frothy and add honey if desired.",
     "usage": "Drink in the morning or before exercise for a natural energy boost.",
-    "symptoms": ["Fatigue", "Low Energy", "Mental Fog"]
+    "symptoms": ["Fatigue", "Low Energy", "Mental Fog"],
+    "category": "body"
   },
   {
     "id": "26",
@@ -257,7 +282,8 @@
     "ingredients": ["Thyme", "Hot Water"],
     "preparation": "Add thyme to boiling water and inhale the steam.",
     "usage": "Use to clear respiratory passages and ease breathing.",
-    "symptoms": ["Bronchitis", "Sinus Congestion", "Respiratory Infections"]
+    "symptoms": ["Bronchitis", "Sinus Congestion", "Respiratory Infections"],
+    "category": "lungs"
   },
   {
     "id": "27",
@@ -267,7 +293,8 @@
     "ingredients": ["Arnica Flowers", "Coconut Oil", "Beeswax"],
     "preparation": "Infuse arnica flowers in coconut oil, strain, and mix with melted beeswax to form a salve.",
     "usage": "Apply to bruises and swollen areas to reduce inflammation and speed healing.",
-    "symptoms": ["Bruises", "Swelling", "Muscle Soreness"]
+    "symptoms": ["Bruises", "Swelling", "Muscle Soreness"],
+    "category": "muscles"
   },
   {
     "id": "28",
@@ -281,7 +308,8 @@
       "Constipation",
       "Irritable Bowel Syndrome",
       "Digestive Discomfort"
-    ]
+    ],
+    "category": "intestine"
   },
   {
     "id": "29",
@@ -291,7 +319,8 @@
     "ingredients": ["Himalayan Pink Salt", "Water"],
     "preparation": "Dissolve Himalayan salt in water to create a sole (salt solution).",
     "usage": "Drink a teaspoon of the sole mixed in a glass of water each morning on an empty stomach.",
-    "symptoms": ["Dehydration", "Electrolyte Imbalance", "Detoxification"]
+    "symptoms": ["Dehydration", "Electrolyte Imbalance", "Detoxification"],
+    "category": "body"
   },
   {
     "id": "30",
@@ -301,6 +330,7 @@
     "ingredients": ["Mint Leaves", "Lemon", "Warm Water", "Epsom Salt"],
     "preparation": "Combine mint leaves, lemon slices, and Epsom salt in warm water.",
     "usage": "Soak feet to refresh and relieve tired, achy feet.",
-    "symptoms": ["Foot Odor", "Swollen Feet", "Tired Feet"]
+    "symptoms": ["Foot Odor", "Swollen Feet", "Tired Feet"],
+    "category": "feet"
   }
 ]

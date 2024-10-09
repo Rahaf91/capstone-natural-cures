@@ -9,6 +9,11 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
     <>
       <main>
         <h1>Your Favorite Remedies</h1>
+        <BackButtonContainer>
+          <StyledLinks $variant="back" href="/">
+            &larr; Back
+          </StyledLinks>
+        </BackButtonContainer>
         {favoriteRemedies.length > 0 ? (
           <RemediesList
             remedies={favoriteRemedies}
@@ -18,12 +23,6 @@ export default function FavoritePage({ handleToggleFavorite, remedies }) {
           <p>You have no favorite remedies.</p>
         )}
       </main>
-
-      <BackButtonContainer>
-        <StyledLinks $variant="back" href="/">
-          &larr; Back
-        </StyledLinks>
-      </BackButtonContainer>
     </>
   );
 }

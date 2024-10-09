@@ -29,7 +29,8 @@ export default function RemedyDetailsPage({
 
   function handleDelete(id) {
     handleDeleteRemedy(id);
-    router.push("/");
+    const category = currentRemedy.category;
+    router.push(`/categories/${category}`);
   }
 
   function handlePrint() {
