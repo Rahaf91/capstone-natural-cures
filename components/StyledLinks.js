@@ -40,7 +40,7 @@ export const StyledLinks = styled(Link)`
     `}
 
   ${(props) =>
-    props.variant === "cancel" &&
+    props.$variant === "cancel" &&
     css`
       background-color: #bdc3c7;
 
