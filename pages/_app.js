@@ -4,7 +4,6 @@ import useLocalStorageState from "use-local-storage-state";
 import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
-
 import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
@@ -37,7 +36,7 @@ export default function App({ Component, pageProps }) {
     ? results
         .map((result) => result.item)
         .filter((item) => matchesQueryAtWordStart(item, searchQuery))
-    : null;
+    : remedies;
 
   function handleSearchQuery({ currentTarget = {} }) {
     const { value } = currentTarget;
@@ -117,9 +116,10 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout>
       <GlobalStyle />
+
       <Component
         {...pageProps}
-        remedies={filteredRemedies ? filteredRemedies : remedies}
+        remedies={filteredRemedies}
         handleAddRemedy={handleAddRemedy}
         handleDeleteRemedy={handleDeleteRemedy}
         handleEditRemedy={handleEditRemedy}
