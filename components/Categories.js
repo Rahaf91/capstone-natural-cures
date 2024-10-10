@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import remediesData from "../assets/remedies.json";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Categories({ showIcons, activeCategory }) {
-  const categories = [
-    ...new Set(remediesData.map((remedy) => remedy.category)),
-  ];
+export default function Categories({
+  showIcons,
+  activeCategory,
+  remedies = [],
+}) {
+  const categories = [...new Set(remedies.map((remedy) => remedy.category))];
 
   return (
     <CategoriesContainer>

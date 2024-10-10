@@ -7,7 +7,7 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
   return (
     <>
       {remedies.map((remedy) => (
-        <RemedyCard key={remedy.id}>
+        <RemedyCard key={remedy._id}>
           <ImageWrapper>
             <StyledImage
               src={remedy.imageUrl}
@@ -18,7 +18,9 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
           </ImageWrapper>
           <FavoriteButton
             isFavorite={remedy.isFavorite}
-            handleToggleFavorite={() => handleToggleFavorite(remedy.id)}
+            handleToggleFavorite={() =>
+              handleToggleFavorite(remedy._id, remedy.isFavorite)
+            }
             isDetailPage={false}
           />
           <ContentWrapper>
@@ -30,7 +32,7 @@ export default function RemediesList({ remedies, handleToggleFavorite }) {
               ))}
             </ul>
           </ContentWrapper>
-          <StyledLinks href={`/remedy/${remedy.id}`} $variant="view">
+          <StyledLinks href={`/remedy/${remedy._id}`} $variant="view">
             View Recipe
           </StyledLinks>
         </RemedyCard>

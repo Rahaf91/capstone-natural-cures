@@ -21,7 +21,7 @@ export default function RemedyDetailsPage({
     return <p>...loading</p>;
   }
 
-  const currentRemedy = remedies.find((remedy) => remedy.id === id);
+  const currentRemedy = remedies.find((remedy) => remedy._id === id);
 
   if (!currentRemedy) {
     return <p>...loading</p>;
@@ -56,7 +56,9 @@ export default function RemedyDetailsPage({
           <FavoriteButton
             isFavorite={currentRemedy.isFavorite}
             isDetailPage={true}
-            handleToggleFavorite={() => handleToggleFavorite(id)}
+            handleToggleFavorite={() =>
+              handleToggleFavorite(currentRemedy._id, currentRemedy.isFavorite)
+            }
           />
         </div>
       </ImageWrapper>
@@ -106,13 +108,11 @@ export default function RemedyDetailsPage({
       </div>
       <div className="no-print">
         <DeleteButtonConfirmation
-          onDelete={() => {
-            handleDelete(id);
-          }}
+          onDelete={() => handleDelete(currentRemedy._id)}
         />
       </div>
       <ButtonContainer className="no-print">
-        <StyledLinks $variant="edit" href={`/remedy/${id}/edit`}>
+        <StyledLinks $variant="edit" href={`/remedy/${currentRemedy._id}/edit`}>
           Edit Remedy
         </StyledLinks>
       </ButtonContainer>
