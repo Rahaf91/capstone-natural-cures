@@ -24,11 +24,12 @@ export default function Notes({
     };
 
     if (editingNote) {
-      onEditNote(currentRemedy.id, editingNote.id, newNote);
+      onEditNote(currentRemedy._id, editingNote._id, newNote);
       setEditingNote(null);
     } else {
-      onAddNote(currentRemedy.id, newNote);
+      onAddNote(currentRemedy._id, newNote);
     }
+
     form.reset();
     textArea.focus();
     setShowTextField(false);
@@ -37,6 +38,10 @@ export default function Notes({
   function handleEdit(note) {
     setEditingNote(note);
     setShowTextField(true);
+  }
+  function convertToLocalTime(utcDate) {
+    const date = new Date(utcDate);
+    return date.toLocaleString();
   }
 
   return (
@@ -86,9 +91,9 @@ export default function Notes({
 
       <NoteList>
         {currentRemedy.notes?.map((note) => (
-          <NoteItem key={note.id}>
+          <NoteItem key={note._id}>
             <NoteText>{note.text}</NoteText>
-            <NoteTimestamp>{note.timestamp}</NoteTimestamp>
+            <NoteTimestamp>{convertToLocalTime(note.timestamp)}</NoteTimestamp>
 
             <NoteActions className="no-print">
               <StyledButton variant="edit" onClick={() => handleEdit(note)}>
@@ -96,20 +101,20 @@ export default function Notes({
               </StyledButton>
               <StyledButton
                 variant="edit"
-                onClick={() => setNoteToDelete(note.id)}
+                onClick={() => setNoteToDelete(note._id)}
               >
                 Delete
               </StyledButton>
             </NoteActions>
 
-            {noteToDelete === note.id && (
+            {noteToDelete === note._id && (
               <DeleteConfirmation>
                 <p>Are you sure you want to delete this note?</p>
                 <ButtonWrapper className="no-print">
                   <StyledButton
                     variant="delete"
                     onClick={() => {
-                      onDeleteNote(currentRemedy.id, note.id);
+                      onDeleteNote(currentRemedy._id, note._id);
                       setNoteToDelete(null);
                     }}
                   >

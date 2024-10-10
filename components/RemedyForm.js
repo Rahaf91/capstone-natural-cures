@@ -5,8 +5,7 @@ import { StyledButton } from "./StyledButtons";
 import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
-import remediesData from "../assets/remedies.json";
-
+import useSWR from "swr";
 export default function RemedyForm({
   onAddRemedy,
   isEditMode,
@@ -14,6 +13,7 @@ export default function RemedyForm({
   defaultData = {},
 }) {
   const router = useRouter();
+  const { data: remedies } = useSWR("/api/remedies");
   const [ingredients, setIngredients] = useState(
     isEditMode && defaultData.ingredients ? defaultData.ingredients : [""]
   );
@@ -28,9 +28,7 @@ export default function RemedyForm({
 
   const [filteredSymptoms, setFilteredSymptoms] = useState([]);
 
-  const categories = [
-    ...new Set(remediesData.map((remedy) => remedy.category)),
-  ];
+  const categories = [...new Set(remedies.map((remedy) => remedy.category))];
 
   function handleIngredientChange(index, value) {
     const newIngredients = [...ingredients];
@@ -63,7 +61,7 @@ export default function RemedyForm({
     if (value) {
       const symptoms = [
         ...new Set(
-          remediesData
+          remedies
             .filter((remedy) => remedy.category === value)
             .flatMap((remedy) => remedy.symptoms)
         ),

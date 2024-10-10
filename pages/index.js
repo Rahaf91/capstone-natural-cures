@@ -18,7 +18,8 @@ export default function HomePage({
         searchQuery={searchQuery}
       />
       <DailyHealthTips />
-      <Categories showIcons={true} />
+
+      {remedies && <Categories showIcons={true} remedies={remedies} />}
 
       {searchQuery && remedies.length > 0 && (
         <RemediesList
