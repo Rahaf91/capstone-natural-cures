@@ -86,10 +86,10 @@ export default function App({ Component, pageProps }) {
       method: "DELETE",
     });
 
-    mutate();
     if (!response.ok) {
       throw new Error("Failed to delete remedy");
     }
+    mutate();
   }
 
   async function handleEditRemedy(id, remedy) {
@@ -100,10 +100,11 @@ export default function App({ Component, pageProps }) {
       },
       body: JSON.stringify(remedy),
     });
-    mutate();
+
     if (!response.ok) {
       throw new Error("Failed to update the remedy.");
     }
+    mutate();
   }
 
   async function handleToggleFavorite(id, isFavorite) {
@@ -114,10 +115,11 @@ export default function App({ Component, pageProps }) {
       },
       body: JSON.stringify({ isFavorite: !isFavorite }),
     });
-    mutate();
+
     if (!response.ok) {
       throw new Error("Failed to toggle favorite");
     }
+    mutate();
   }
 
   async function handleAddNotes(id, note, noteId) {
@@ -129,11 +131,10 @@ export default function App({ Component, pageProps }) {
       body: JSON.stringify(note),
     });
 
-    mutate();
-
     if (!response.ok) {
       throw new Error("Failed to add note");
     }
+    mutate();
   }
 
   async function handleEditNotes(id, noteId, updatedNote) {
@@ -145,20 +146,21 @@ export default function App({ Component, pageProps }) {
       body: JSON.stringify(updatedNote),
     });
 
-    mutate();
     if (!response.ok) {
       throw new Error("Failed to edit note");
     }
+    mutate();
   }
 
   async function handleDeleteNote(id, noteId) {
     const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
       method: "DELETE",
     });
-    mutate();
+
     if (!response.ok) {
       throw new Error("Failed to delete note: " + response.status);
     }
+    mutate();
   }
   return (
     <SWRConfig>
