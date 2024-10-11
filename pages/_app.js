@@ -122,8 +122,8 @@ export default function App({ Component, pageProps }) {
     mutate();
   }
 
-  async function handleAddNotes(id, note, noteId) {
-    const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+  async function handleAddNotes(id, note) {
+    const response = await fetch(`/api/remedies/${id}/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
