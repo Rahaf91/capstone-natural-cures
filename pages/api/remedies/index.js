@@ -8,11 +8,13 @@ export default async function handler(request, response) {
     try {
       const remedies = await Remedy.find().sort({ createdAt: -1 });
 
-      return response.status(200).json(remedies);
+      response.status(200).json(remedies);
+      return;
     } catch (error) {
-      return response
+      response
         .status(500)
         .json({ error: "Error fetching remedies: " + error.message });
+      return;
     }
   }
 
@@ -22,11 +24,13 @@ export default async function handler(request, response) {
 
       await Remedy.create(remedyData);
 
-      return response.status(201).json({ status: "remedy created" });
+      response.status(201).json({ status: "remedy created" });
+      return;
     } catch (error) {
-      return response
+      response
         .status(400)
         .json({ error: "Error creating remedy: " + error.message });
+      return;
     }
   }
 }

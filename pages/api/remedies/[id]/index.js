@@ -10,38 +10,42 @@ export default async function handler(request, response) {
       const remedy = await Remedy.findById(id);
 
       if (!remedy) {
-        return response.status(404).json({ status: "Not Found" });
+        response.status(404).json({ status: "Not Found" });
+        return;
       }
 
-      return response.status(200).json(remedy);
+      response.status(200).json(remedy);
+      return;
     } catch (error) {
-      return response
+      response
         .status(500)
         .json({ error: "Error retrieving remedy: " + error.message });
+      return;
     }
   }
   if (request.method === "PUT") {
     const remedyData = request.body;
 
     if (!remedyData) {
-      return response.status(400).json({ error: "Missing remedy data" });
+      response.status(400).json({ error: "Missing remedy data" });
+      return;
     }
 
     try {
-      const updatedRemedy = await Remedy.findByIdAndUpdate(id, remedyData, {
-        new: true,
-        runValidators: true,
-      });
+      const updatedRemedy = await Remedy.findByIdAndUpdate(id, remedyData);
 
       if (!updatedRemedy) {
-        return response.status(404).json({ status: "Not Found" });
+        response.status(404).json({ status: "Not Found" });
+        return;
       }
 
-      return response.status(200).json(updatedRemedy);
+      response.status(200).json(updatedRemedy);
+      return;
     } catch (error) {
-      return response
+      response
         .status(500)
         .json({ error: "Error updating remedy: " + error.message });
+      return;
     }
   }
 
@@ -49,39 +53,35 @@ export default async function handler(request, response) {
     const { isFavorite } = request.body;
 
     if (typeof isFavorite !== "boolean") {
-      return response.status(400).json({ error: "Invalid favorite status" });
+      response.status(400).json({ error: "Invalid favorite status" });
+      return;
     }
 
     try {
-      const updatedRemedy = await Remedy.findByIdAndUpdate(
-        id,
-        { isFavorite },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+      const updatedRemedy = await Remedy.findByIdAndUpdate(id, { isFavorite });
 
       if (!updatedRemedy) {
-        return response.status(404).json({ status: "Not Found" });
+        response.status(404).json({ status: "Not Found" });
+        return;
       }
-
-      return response.status(200).json(updatedRemedy);
     } catch (error) {
-      return response
+      response
         .status(500)
         .json({ error: "Error updating remedy: " + error.message });
+      return;
     }
   }
 
   if (request.method === "DELETE") {
     try {
       await Remedy.findByIdAndDelete(id);
-      return response.status(200).json({ message: "Success!" });
+      response.status(200).json({ message: "Success!" });
+      return;
     } catch (error) {
-      return response
+      response
         .status(400)
         .json({ error: "Error deleting remedy: " + error.message });
+      return;
     }
   }
 }

@@ -3,31 +3,36 @@ import Fuse from "fuse.js";
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 const fetcher = async (url) => {
-  const res = await fetch(url);
+  const response = await fetch(url);
 
-  if (!res.ok) {
+  if (!response.ok) {
     const error = new Error("An error occurred while fetching the data.");
-    error.info = await res.json();
-    error.status = res.status;
+    error.info = await response.json();
+    error.status = response.status;
     throw error;
   }
 
-  return res.json();
+  return response.json();
 };
 
 export default function App({ Component, pageProps }) {
-  const { data: remedies, error, isLoading } = useSWR("/api/remedies", fetcher);
+  const {
+    data: remedies,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR("/api/remedies", fetcher);
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  if (isLoading || !remedies) {
+  if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (error) {
+  if (error || !remedies) {
     return <h1>Error loading remedies: {error.message}</h1>;
   }
   const fuse = new Fuse(remedies, {
@@ -73,7 +78,7 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to add remedy");
     }
-    mutate("/api/remedies");
+    mutate();
   }
 
   async function handleDeleteRemedy(id) {
@@ -81,10 +86,7 @@ export default function App({ Component, pageProps }) {
       method: "DELETE",
     });
 
-    mutate(
-      "/api/remedies",
-      remedies.filter((remedy) => remedy.id !== id)
-    );
+    mutate();
     if (!response.ok) {
       throw new Error("Failed to delete remedy");
     }
@@ -98,7 +100,7 @@ export default function App({ Component, pageProps }) {
       },
       body: JSON.stringify(remedy),
     });
-    mutate("/api/remedies");
+    mutate();
     if (!response.ok) {
       throw new Error("Failed to update the remedy.");
     }
@@ -112,11 +114,7 @@ export default function App({ Component, pageProps }) {
       },
       body: JSON.stringify({ isFavorite: !isFavorite }),
     });
-    mutate("/api/remedies", (remedies) =>
-      remedies.map((remedy) =>
-        remedy._id === id ? { ...remedy, isFavorite: !isFavorite } : remedy
-      )
-    );
+    mutate();
     if (!response.ok) {
       throw new Error("Failed to toggle favorite");
     }
@@ -131,22 +129,7 @@ export default function App({ Component, pageProps }) {
       body: JSON.stringify(note),
     });
 
-    mutate("/api/remedies", (remedies) =>
-      remedies.map((remedy) =>
-        remedy._id === id
-          ? {
-              notes: [
-                {
-                  id: noteId,
-                  ...note,
-                },
-                ...(remedy.notes || []),
-              ],
-              ...remedy,
-            }
-          : remedy
-      )
-    );
+    mutate();
 
     if (!response.ok) {
       throw new Error("Failed to add note");
@@ -162,18 +145,7 @@ export default function App({ Component, pageProps }) {
       body: JSON.stringify(updatedNote),
     });
 
-    mutate("/api/remedies", (remedies) =>
-      remedies.map((remedy) =>
-        remedy._id === id
-          ? {
-              ...remedy,
-              notes: remedy.notes.map((note) =>
-                note.id === noteId ? { ...note, ...updatedNote } : note
-              ),
-            }
-          : remedy
-      )
-    );
+    mutate();
     if (!response.ok) {
       throw new Error("Failed to edit note");
     }
@@ -183,16 +155,7 @@ export default function App({ Component, pageProps }) {
     const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
       method: "DELETE",
     });
-    mutate("/api/remedies", (remedies) =>
-      remedies.map((remedy) =>
-        remedy._id === id
-          ? {
-              ...remedy,
-              notes: remedy.notes.filter((note) => note.id !== noteId),
-            }
-          : remedy
-      )
-    );
+    mutate();
     if (!response.ok) {
       throw new Error("Failed to delete note: " + response.status);
     }

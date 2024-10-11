@@ -10,33 +10,33 @@ export default async function handler(request, response) {
       const { text } = request.body;
 
       if (!text) {
-        return response.status(400).json({ error: "Note text is required" });
+        response.status(400).json({ error: "Note text is required" });
+        return;
       }
 
-      const updatedRemedy = await Remedy.findByIdAndUpdate(
-        id,
-        {
-          $push: {
-            notes: {
-              $each: [
-                {
-                  text,
-                  timestamp: new Date().toLocaleString(),
-                },
-              ],
-              $position: 0,
-            },
+      const updatedRemedy = await Remedy.findByIdAndUpdate(id, {
+        $push: {
+          notes: {
+            $each: [
+              {
+                text,
+                timestamp: new Date().toLocaleString(),
+              },
+            ],
+            $position: 0,
           },
         },
-        { new: true, runValidators: true }
-      );
+      });
       if (!updatedRemedy) {
-        return response.status(404).json({ status: "Not Found" });
+        response.status(404).json({ status: "Not Found" });
+        return;
       }
 
-      return response.status(200).json(updatedRemedy);
+      response.status(200).json(updatedRemedy);
+      return;
     } catch (error) {
-      return response.status(500).json({ error: "Internal Server Error" });
+      response.status(500).json({ error: "Internal Server Error" });
+      return;
     }
   }
 
@@ -44,7 +44,8 @@ export default async function handler(request, response) {
     const { text } = request.body;
 
     if (!text) {
-      return response.status(400).json({ error: "Missing note text" });
+      response.status(400).json({ error: "Missing note text" });
+      return;
     }
 
     try {
@@ -55,17 +56,19 @@ export default async function handler(request, response) {
             "notes.$.text": text,
             "notes.$.timestamp": new Date().toLocaleString(),
           },
-        },
-        { new: true }
+        }
       );
 
       if (!updatedRemedy) {
-        return response.status(404).json({ error: "Note or Remedy not found" });
+        response.status(404).json({ error: "Note or Remedy not found" });
+        return;
       }
 
-      return response.status(200).json(updatedRemedy);
+      response.status(200).json(updatedRemedy);
+      return;
     } catch (error) {
-      return response.status(500).json({ error: "Error editing note" });
+      response.status(500).json({ error: "Error editing note" });
+      return;
     }
   }
 
@@ -78,12 +81,15 @@ export default async function handler(request, response) {
       );
 
       if (!updatedRemedy) {
-        return response.status(404).json({ error: "note not found" });
+        response.status(404).json({ error: "note not found" });
+        return;
       }
 
-      return response.status(200).json(updatedRemedy);
+      response.status(200).json(updatedRemedy);
+      return;
     } catch (error) {
-      return response.status(500).json({ error: "Error deleting note" });
+      response.status(500).json({ error: "Error deleting note" });
+      return;
     }
   }
 }
