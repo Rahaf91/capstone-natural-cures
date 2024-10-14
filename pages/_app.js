@@ -1,17 +1,40 @@
 import GlobalStyle from "../styles";
-import initialRemedies from "../assets/remedies.json";
-import useLocalStorageState from "use-local-storage-state";
-import { uid } from "uid";
 import Fuse from "fuse.js";
 import { useState } from "react";
 import Layout from "@/components/Layout";
+import { SWRConfig } from "swr";
+import useSWR from "swr";
+
+const fetcher = async (url) => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const error = new Error("An error occurred while fetching the data.");
+    error.info = await response.json();
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+};
 
 export default function App({ Component, pageProps }) {
-  const [remedies, setRemedies] = useLocalStorageState("_REMEDIES", {
-    defaultValue: initialRemedies,
-  });
+  const {
+    data: remedies,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR("/api/remedies", fetcher);
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error || !remedies) {
+    return <h1>Error loading remedies: {error.message}</h1>;
+  }
   const fuse = new Fuse(remedies, {
     keys: ["title", "ingredients"],
     includeScore: true,
@@ -43,93 +66,120 @@ export default function App({ Component, pageProps }) {
     setSearchQuery(value);
   }
 
-  function handleAddRemedy(newRemedy) {
-    setRemedies([
-      {
-        id: uid(),
-        ...newRemedy,
+  async function handleAddRemedy(newRemedy) {
+    const response = await fetch("/api/remedies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      ...remedies,
-    ]);
-  }
-  function handleDeleteRemedy(id) {
-    setRemedies(remedies.filter((remedy) => remedy.id !== id));
-  }
+      body: JSON.stringify(newRemedy),
+    });
 
-  function handleEditRemedy(id, updatedRemedy) {
-    setRemedies(
-      remedies.map((remedy) =>
-        remedy.id === id ? { ...remedy, ...updatedRemedy } : remedy
-      )
-    );
+    if (!response.ok) {
+      throw new Error("Failed to add remedy");
+    }
+    mutate();
   }
 
-  function handleToggleFavorite(id) {
-    const updatedRemedies = remedies.map((remedy) =>
-      remedy.id === id ? { ...remedy, isFavorite: !remedy.isFavorite } : remedy
-    );
+  async function handleDeleteRemedy(id) {
+    const response = await fetch(`/api/remedies/${id}`, {
+      method: "DELETE",
+    });
 
-    setRemedies(updatedRemedies);
+    if (!response.ok) {
+      throw new Error("Failed to delete remedy");
+    }
+    mutate();
   }
 
-  function handleAddNotes(remedyId, note) {
-    setRemedies(
-      remedies.map((remedy) =>
-        remedy.id === remedyId
-          ? {
-              ...remedy,
-              notes: [{ id: uid(), ...note }, ...(remedy.notes || [])],
-            }
-          : remedy
-      )
-    );
+  async function handleEditRemedy(id, remedy) {
+    const response = await fetch(`/api/remedies/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(remedy),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update the remedy.");
+    }
+    mutate();
   }
 
-  function handleDeleteNote(remedyId, noteId) {
-    setRemedies(
-      remedies.map((remedy) =>
-        remedy.id === remedyId
-          ? {
-              ...remedy,
-              notes: remedy.notes.filter((note) => note.id !== noteId),
-            }
-          : remedy
-      )
-    );
+  async function handleToggleFavorite(id, isFavorite) {
+    const response = await fetch(`/api/remedies/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isFavorite: !isFavorite }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to toggle favorite");
+    }
+    mutate();
   }
 
-  function handleEditNotes(remedyId, noteId, updatedNote) {
-    setRemedies(
-      remedies.map((remedy) =>
-        remedy.id === remedyId
-          ? {
-              ...remedy,
-              notes: remedy.notes.map((note) =>
-                note.id === noteId ? { ...note, ...updatedNote } : note
-              ),
-            }
-          : remedy
-      )
-    );
+  async function handleAddNotes(id, note) {
+    const response = await fetch(`/api/remedies/${id}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add note");
+    }
+    mutate();
   }
 
+  async function handleEditNotes(id, noteId, updatedNote) {
+    const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedNote),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to edit note");
+    }
+    mutate();
+  }
+
+  async function handleDeleteNote(id, noteId) {
+    const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete note: " + response.status);
+    }
+    mutate();
+  }
   return (
-    <Layout>
-      <GlobalStyle />
-
-      <Component
-        {...pageProps}
-        remedies={filteredRemedies}
-        handleAddRemedy={handleAddRemedy}
-        handleDeleteRemedy={handleDeleteRemedy}
-        handleEditRemedy={handleEditRemedy}
-        handleToggleFavorite={handleToggleFavorite}
-        handleAddNotes={handleAddNotes}
-        handleSearchQuery={handleSearchQuery}
-        searchQuery={searchQuery}
-        handleEditNotes={handleEditNotes}
-        handleDeleteNote={handleDeleteNote}
-      />
-    </Layout>
+    <SWRConfig>
+      <Layout>
+        <GlobalStyle />
+        <Component
+          {...pageProps}
+          remedies={filteredRemedies}
+          handleAddRemedy={handleAddRemedy}
+          handleDeleteRemedy={handleDeleteRemedy}
+          handleEditRemedy={handleEditRemedy}
+          handleToggleFavorite={handleToggleFavorite}
+          handleAddNotes={handleAddNotes}
+          handleSearchQuery={handleSearchQuery}
+          searchQuery={searchQuery}
+          handleEditNotes={handleEditNotes}
+          handleDeleteNote={handleDeleteNote}
+        />
+      </Layout>
+    </SWRConfig>
   );
 }

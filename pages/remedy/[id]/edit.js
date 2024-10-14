@@ -5,7 +5,7 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const currentRemedy = remedies.find((remedy) => remedy.id === id);
+  const currentRemedy = remedies.find((remedy) => remedy._id === id);
 
   if (!currentRemedy) {
     return <p>...loading</p>;
