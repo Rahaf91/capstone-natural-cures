@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 export default function SearchBar({
   handleSearchQuery,
   handleClearSearchBar,
@@ -13,7 +12,7 @@ export default function SearchBar({
 
   return (
     <SearchBarWrapper>
-      <SearchIcon icon={faSearch} />
+      <Image src="/search.svg" alt="heart icon" width={30} height={30} />
       <VisuallyHiddenLabel htmlFor="searchInput">
         Search remedies
       </VisuallyHiddenLabel>
@@ -38,8 +37,9 @@ const SearchBarWrapper = styled.div`
   width: 150px;
   height: 30px;
   border-radius: 10px;
-  border: 2px solid #86895d;
-  background-color: #bec092;
+  // border: 2px solid #86895d;
+  //background-color: #f8fbca;
+  box-shadow: 1px 1px 10px black;
   font-size: 0.8rem;
   padding-left: 3px;
   margin-bottom: 10px;
@@ -76,8 +76,4 @@ const ClearButton = styled.button`
   padding: 0 5px;
   margin-top: 2px;
   margin-bottom: 2px;
-`;
-const SearchIcon = styled(FontAwesomeIcon)`
-  margin-right: 8px;
-  color: #fff;
 `;

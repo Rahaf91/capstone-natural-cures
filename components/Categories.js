@@ -7,7 +7,9 @@ export default function Categories({
   activeCategory,
   remedies = [],
 }) {
-  const categories = [...new Set(remedies.map((remedy) => remedy.category))];
+  const categories = [
+    ...new Set(remedies.map((remedy) => remedy.category.toUpperCase())),
+  ];
 
   return (
     <CategoriesContainer>

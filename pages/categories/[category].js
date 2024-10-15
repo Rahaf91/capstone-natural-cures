@@ -22,7 +22,7 @@ export default function CategoryPage({
   }
 
   const filteredRemediesByCategory = remedies.filter(
-    (remedy) => remedy.category === category
+    (remedy) => remedy.category.toUpperCase() === category
   );
 
   const getSymptoms = Array.from(

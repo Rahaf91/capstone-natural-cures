@@ -39,8 +39,8 @@ export default function DailyHealthTips() {
       <Button onClick={handlePreviousTip}>
         <Image
           src="/left-arrow.svg"
-          width={24}
-          height={24}
+          width={35}
+          height={35}
           alt="Previous tip"
         />
       </Button>
@@ -59,7 +59,7 @@ export default function DailyHealthTips() {
       </Tip>
 
       <Button onClick={handleNextTip}>
-        <Image src="/right-arrow.svg" width={24} height={24} alt="Next tip" />
+        <Image src="/right-arrow.svg" width={35} height={35} alt="Next tip" />
       </Button>
     </CarouselWrapper>
   );
@@ -67,9 +67,14 @@ export default function DailyHealthTips() {
 
 const CarouselWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  background-color: #f8fbca;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 1px 10px black;
+  width: 100%;
+  max-width: 800px;
+  height: 27rem;
+  margin-bottom: 10px;
+  border-radius: 10px;
 `;
 
 const Tip = styled.div`
@@ -79,10 +84,15 @@ const Tip = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: transparent;
   border: none;
   padding: 0.5rem;
   cursor: pointer;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
 `;
 const ImageWrapper = styled.div`
   position: relative;
