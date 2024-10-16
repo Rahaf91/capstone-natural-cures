@@ -15,7 +15,13 @@ export default function Navbar() {
       <UserSection>
         {session ? (
           <>
-            <Avatar src={session.user.image} alt={session.user.name} />
+            {session.user.image ? (
+              <Avatar src={session.user.image} alt={session.user.name} />
+            ) : (
+              <InitialAvatar>
+                {session.user.name.charAt(0)} {/* Display first letter */}
+              </InitialAvatar>
+            )}
             <FullName>{session.user.name}</FullName>
             <SignInButton onClick={() => signOut()}>Sign Out</SignInButton>
           </>
@@ -55,6 +61,20 @@ const Avatar = styled.img`
   border-radius: 50%;
   margin-right: 10px;
   border: 2px solid #fff;
+`;
+
+const InitialAvatar = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff7e5f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
 `;
 
 const FullName = styled.div`

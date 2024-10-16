@@ -45,6 +45,7 @@ export const authOptions = {
       if (user) {
         token.email = user.email;
         token.name = user.name;
+        token.initial = user.name?.charAt(0);
       }
       return token;
     },
