@@ -2,8 +2,6 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import connectMongo from "../../../lib/mongoose";
-import User from "@/db/models/User";
 
 export const authOptions = {
   session: {
@@ -19,15 +17,14 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        await connectMongo();
-
-        const user = await User.findOne({ email: credentials.email });
-
-        if (user && credentials.password === "testing123") {
+        if (
+          credentials.email === "testing@gmail.com" &&
+          credentials.password === "FWrC^5%fr&gSj7"
+        ) {
           return {
-            name: user.name,
-            email: user.email,
-            id: user.id,
+            name: "Test User",
+            email: credentials.email,
+            id: "12345",
           };
         } else {
           return null;
