@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import styled from "styled-components";
@@ -5,33 +6,69 @@ import styled from "styled-components";
 export default function LoginView() {
   const { query } = useRouter();
   const callbackUrl = query.callbackUrl || "/";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+      callbackUrl,
+    });
+
+    if (res?.error) {
+      setError("Invalid email or password");
+    } else {
+      window.location.href = res.url || callbackUrl;
+    }
+  };
+
+  const handleOAuthSignIn = (provider) => {
+    signIn(provider, { callbackUrl });
+  };
 
   return (
-    <LoginContainer>
+    <Container>
       <Title>Login</Title>
-      <Button
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <StyledButton type="submit" bgColor="#4caf50">
+          Sign in with Credentials
+        </StyledButton>
+      </Form>
+      <StyledButton
         bgColor="#4285f4"
-        color="white"
-        border="none"
-        hoverBgColor="#357ae8"
-        onClick={() => signIn("google", { callbackUrl })}
+        onClick={() => handleOAuthSignIn("google")}
       >
-        Sign up with Google
-      </Button>
-      <Button
-        bgColor="#333"
-        color="white"
-        border="none"
-        hoverBgColor="#444"
-        onClick={() => signIn("github", { callbackUrl })}
-      >
-        Sign up with GitHub
-      </Button>
-    </LoginContainer>
+        Sign in with Google
+      </StyledButton>
+      <StyledButton bgColor="#333" onClick={() => handleOAuthSignIn("github")}>
+        Sign in with GitHub
+      </StyledButton>
+    </Container>
   );
 }
 
-const LoginContainer = styled.div`
+// Styled components
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,10 +85,27 @@ const Title = styled.h1`
   color: #555;
 `;
 
-const Button = styled.button`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+`;
+
+const StyledButton = styled.button`
   background-color: ${({ bgColor }) => bgColor || "white"};
-  color: ${({ color }) => color || "#333"};
-  border: ${({ border }) => border || "2px solid #ccc"};
+  color: white;
+  border: none;
   border-radius: 30px;
   padding: 12px 24px;
   font-size: 16px;
@@ -62,11 +116,21 @@ const Button = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: ${({ hoverBgColor }) => hoverBgColor || "#f0f0f0"};
+    background-color: ${({ bgColor }) =>
+      bgColor === "#4caf50"
+        ? "#45a049"
+        : bgColor === "#4285f4"
+        ? "#357ae8"
+        : "#444"};
     transform: scale(1.05);
   }
 
   &:active {
     transform: scale(0.95);
   }
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  margin-bottom: 20px;
 `;
