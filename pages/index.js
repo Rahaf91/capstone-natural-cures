@@ -2,6 +2,8 @@ import DailyHealthTips from "@/components/DailyHealthTips";
 import SearchBar from "@/components/SearchBar";
 import RemediesList from "@/components/RemediesList";
 import Categories from "@/components/Categories";
+import Navbar from "./Navbar/Navbar";
+
 export default function HomePage({
   remedies,
   handleSearchQuery,
@@ -10,6 +12,7 @@ export default function HomePage({
 }) {
   return (
     <>
+      <Navbar />
       <SearchBar
         handleSearchQuery={handleSearchQuery}
         handleClearSearchBar={() =>
