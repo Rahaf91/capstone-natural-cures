@@ -2,7 +2,7 @@ import DailyHealthTips from "@/components/DailyHealthTips";
 import SearchBar from "@/components/SearchBar";
 import RemediesList from "@/components/RemediesList";
 import Categories from "@/components/Categories";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/UserMenu";
 
 export default function HomePage({
   remedies,

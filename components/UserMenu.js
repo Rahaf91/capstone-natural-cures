@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 
-export default function Navbar() {
+export default function UserMenu() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
