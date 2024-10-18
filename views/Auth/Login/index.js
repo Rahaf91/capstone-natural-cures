@@ -50,17 +50,20 @@ export default function LoginView() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <StyledButton type="submit" bgColor="#4caf50">
+        <StyledButton type="submit" variant="credentials">
           Sign in with Credentials
         </StyledButton>
       </Form>
       <StyledButton
-        bgColor="#4285f4"
+        variant="google"
         onClick={() => handleOAuthSignIn("google")}
       >
         Sign in with Google
       </StyledButton>
-      <StyledButton bgColor="#333" onClick={() => handleOAuthSignIn("github")}>
+      <StyledButton
+        variant="github"
+        onClick={() => handleOAuthSignIn("github")}
+      >
         Sign in with GitHub
       </StyledButton>
     </Container>
@@ -103,7 +106,12 @@ const Input = styled.input`
 `;
 
 const StyledButton = styled.button`
-  background-color: ${({ bgColor }) => bgColor || "white"};
+  background-color: ${({ variant }) =>
+    variant === "google"
+      ? "#4285f4"
+      : variant === "github"
+      ? "#333"
+      : "#4caf50"};
   color: white;
   border: none;
   border-radius: 30px;
@@ -116,12 +124,12 @@ const StyledButton = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: ${({ bgColor }) =>
-      bgColor === "#4caf50"
-        ? "#45a049"
-        : bgColor === "#4285f4"
+    background-color: ${({ variant }) =>
+      variant === "google"
         ? "#357ae8"
-        : "#444"};
+        : variant === "github"
+        ? "#444"
+        : "#45a049"};
     transform: scale(1.05);
   }
 

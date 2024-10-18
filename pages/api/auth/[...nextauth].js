@@ -4,11 +4,6 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  useSecureCookies: false,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -19,7 +14,7 @@ export const authOptions = {
       async authorize(credentials) {
         if (
           credentials.email === "testing@gmail.com" &&
-          credentials.password === "FWrC^5%fr&gSj7"
+          credentials.password === "hummer123"
         ) {
           return {
             name: "Test User",

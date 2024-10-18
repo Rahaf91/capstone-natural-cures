@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Image from "next/image";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -11,8 +12,8 @@ export default function Navbar() {
   }
 
   return (
-    <NavbarContainer>
-      <UserSection>
+    <UserMenuContainer>
+      <UserDetails>
         {session ? (
           <>
             {session.user.image ? (
@@ -34,12 +35,12 @@ export default function Navbar() {
             Sign In
           </SignInButton>
         )}
-      </UserSection>
-    </NavbarContainer>
+      </UserDetails>
+    </UserMenuContainer>
   );
 }
 
-const NavbarContainer = styled.div`
+const UserMenuContainer = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,12 +51,12 @@ const NavbarContainer = styled.div`
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 `;
 
-const UserSection = styled.div`
+const UserDetails = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const Avatar = styled.img`
+const Avatar = styled(Image)`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -77,7 +78,7 @@ const InitialAvatar = styled.div`
   margin-right: 10px;
 `;
 
-const FullName = styled.div`
+const FullName = styled.p`
   color: #333;
   margin-right: 20px;
   font-size: 16px;
@@ -102,7 +103,7 @@ const SignInButton = styled.button`
   }
 `;
 
-const LoadingText = styled.div`
+const LoadingText = styled.p`
   color: #333;
   font-size: 16px;
   padding: 10px;
