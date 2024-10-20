@@ -10,7 +10,7 @@ const remedySchema = new Schema({
   usage: { type: String },
   videoUrlPreparation: { type: String },
   category: { type: String },
-  isFavorite: { type: Boolean, default: false },
+  // isFavorite: { type: Boolean, default: false },
   notes: [
     {
       text: { type: String, required: true },

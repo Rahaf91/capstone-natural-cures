@@ -1,9 +1,24 @@
 import RemediesList from "@/components/RemediesList";
 import { StyledLinks } from "@/components/StyledLinks";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
-export default function FavoritePage({ handleToggleFavorite, remedies }) {
-  const favoriteRemedies = remedies.filter((remedy) => remedy.isFavorite);
+export default function FavoritePage({
+  handleToggleFavorite,
+  // remedies
+}) {
+  // const favoriteRemedies = remedies.filter((remedy) => remedy.isFavorite);
+
+  const [favoriteRemedies, setFavoriteRemedies] = useState([]);
+
+  useEffect(() => {
+    async function fetchFavorites() {
+      const response = await fetch("/api/user/favorites");
+      const data = await response.json();
+      setFavoriteRemedies(data);
+    }
+    fetchFavorites();
+  }, []);
 
   return (
     <>
