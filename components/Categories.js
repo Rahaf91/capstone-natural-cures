@@ -27,13 +27,10 @@ export default function Categories({
         </CategoryLink>
       ) : (
         categories.map((category) => (
-          <CategoryLink
-            key={category}
-            href={`/categories/${category.toLowerCase()}`}
-          >
+          <CategoryLink key={category} href={`/categories/${category}`}>
             {showIcons && (
               <StyledImage
-                src={`/navigation-icons/${category}.svg`}
+                src={`/navigation-icons/${category.toLowerCase()}.svg`}
                 alt={category}
                 width={100}
                 height={100}
