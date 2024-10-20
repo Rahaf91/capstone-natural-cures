@@ -95,9 +95,7 @@ const LinksContainer = styled.div`
     position: absolute;
     top: 90px;
     right: 20px;
-    border-left: 4px solid var(--border-color);
-    border-right: 4px solid var(--border-color);
-    border-bottom: 4px solid var(--border-color);
+    border: 4px solid var(--border-color);
     background-color: var(--header-bg-color);
     z-index: 11;
     width: 90%;
