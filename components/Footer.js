@@ -1,29 +1,28 @@
 // Footer.js
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
   return (
-    <FooterContainer>
-      <Text>
-        <FontAwesomeIcon icon={faCopyright} /> Copy Right
-        <strong>Natural Cures</strong>
-      </Text>
+    <FooterContainer className="no-print">
+      <p>
+        <strong>Made With Love ❤️</strong>
+      </p>
     </FooterContainer>
   );
 }
 
 const FooterContainer = styled.footer`
-  margin-top: 10px;
-  padding: 20px;
-  text-align: center;
-  border-top: 1px solid #dee2e6;
-`;
-
-const Text = styled.p`
-  margin: 0;
-  font-size: 16px;
-  color: #343a40;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 60rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  color: #54582f;
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 `;

@@ -37,10 +37,10 @@ export default function DailyHealthTips() {
   return (
     <CarouselWrapper>
       <Button onClick={handlePreviousTip}>
-        <Image
+        <ArrowImage
           src="/left-arrow.svg"
-          width={35}
-          height={35}
+          width={40}
+          height={40}
           alt="Previous tip"
         />
       </Button>
@@ -59,7 +59,12 @@ export default function DailyHealthTips() {
       </Tip>
 
       <Button onClick={handleNextTip}>
-        <Image src="/right-arrow.svg" width={35} height={35} alt="Next tip" />
+        <ArrowImage
+          src="/right-arrow.svg"
+          width={40}
+          height={40}
+          alt="Next tip"
+        />
       </Button>
     </CarouselWrapper>
   );
@@ -69,12 +74,14 @@ const CarouselWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 1px 1px 10px black;
+  box-shadow: var(--box-shadow);
   width: 100%;
   max-width: 800px;
-  height: 27rem;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  height: 45vh;
+  border-radius: var(--border-radius);
+  @media (max-width: 600px) {
+    height: 65vh;
+  }
 `;
 
 const Tip = styled.div`
@@ -91,15 +98,23 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex-shrink: 0;
 `;
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 10px;
-  height: 250px;
+  height: 30vh;
+  margin-bottom: 1rem;
+  @media (max-width: 600px) {
+    height: 40vh;
+  }
 `;
 const StyledImage = styled(Image)`
-  border-radius: 10px;
+  border-radius: var(--border-radius);
+`;
+const ArrowImage = styled(Image)`
+  @media (max-width: 600px) {
+    width: 45px;
+    height: 45px;
+  }
 `;

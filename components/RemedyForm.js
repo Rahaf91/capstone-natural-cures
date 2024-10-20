@@ -6,6 +6,7 @@ import { StyledLinks } from "./StyledLinks";
 import { IconButton } from "./StyledButtons";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import Image from "next/image";
 export default function RemedyForm({
   onAddRemedy,
   isEditMode,
@@ -106,19 +107,23 @@ export default function RemedyForm({
     };
 
     isEditMode
-      ? onEditRemedy(remedyData)
-      : onAddRemedy({ ...remedyData, imageUrl });
+      ? (onEditRemedy(remedyData), router.push(`/remedy/${defaultData._id}`))
+      : (onAddRemedy({ ...remedyData, imageUrl }),
+        router.push(`/categories/${selectedCategory}`));
 
     event.target.reset();
     setIngredients([""]);
     setSelectedSymptoms([]);
     setSelectedCategory("");
-
-    router.push(`/categories/${selectedCategory}`);
   }
 
   return (
     <Form onSubmit={handleSubmit}>
+      <BackButtonWrapper>
+        <StyledLinks $variant="back" href="/">
+          <Image src="/back.svg" alt="back icon" width={60} height={60} />
+        </StyledLinks>
+      </BackButtonWrapper>
       <Label htmlFor="title" aria-label="Title, required">
         Title:<span>*</span>
       </Label>
@@ -130,7 +135,6 @@ export default function RemedyForm({
         defaultValue={isEditMode ? defaultData.title : ""}
         required
       />
-
       <section>
         <Label htmlFor="ingredients-group" aria-label="Ingredients, required">
           Ingredients: <span>*</span>
@@ -155,7 +159,7 @@ export default function RemedyForm({
               >
                 <Icon
                   name="delete"
-                  color="#ffa500"
+                  color="#fff"
                   size="lg"
                   aria-label="Remove ingredient"
                 />
@@ -164,15 +168,9 @@ export default function RemedyForm({
           </InputGroup>
         ))}
         <IconButton type="button" onClick={handleAddIngredients} $fullWidth>
-          <Icon
-            name="add"
-            color="#F6F9C7"
-            size="lg"
-            aria-label="add ingredient"
-          />
+          <Icon name="add" color="#fff" size="lg" aria-label="add ingredient" />
         </IconButton>
       </section>
-
       <section>
         <Label htmlFor="preparation">Preparation:</Label>
         <Textarea
@@ -182,7 +180,6 @@ export default function RemedyForm({
           defaultValue={isEditMode ? defaultData.preparation : ""}
         />
       </section>
-
       <section>
         <Label htmlFor="usage">Usage:</Label>
         <Textarea
@@ -192,7 +189,6 @@ export default function RemedyForm({
           defaultValue={isEditMode ? defaultData.usage : ""}
         />
       </section>
-
       <section>
         <Label htmlFor="category" aria-label="Category, required">
           Category:<span>*</span>
@@ -204,7 +200,7 @@ export default function RemedyForm({
           onChange={handleSelectCategory}
           required
         >
-          <option value="" hidden>
+          <option value="" disabled>
             Please select a category
           </option>
           {categories.map((category, index) => (
@@ -221,7 +217,7 @@ export default function RemedyForm({
 
         <Select id="symptoms" onChange={handleSelectSymptom}>
           <option value="" hidden>
-            Select a symptom
+            Please select a symptom
           </option>
           {filteredSymptoms.map((symptom, index) => (
             <option key={index} value={symptom}>
@@ -240,7 +236,7 @@ export default function RemedyForm({
               >
                 <Icon
                   name="delete"
-                  color="#ffa500"
+                  color="#fff"
                   size="lg"
                   aria-label="Remove symptom"
                 />
@@ -251,12 +247,14 @@ export default function RemedyForm({
       </section>
       {isEditMode ? (
         <>
-          <StyledLinks variant="cancel" href={`/remedy/${defaultData.id}`}>
-            Cancel
-          </StyledLinks>
-          <StyledButton variant="primary" type="submit">
-            Save
-          </StyledButton>
+          <ButtonsContainer>
+            <StyledButton variant="primary" type="submit">
+              Save
+            </StyledButton>
+            <StyledLinks variant="cancel" href={`/remedy/${defaultData._id}`}>
+              Cancel
+            </StyledLinks>
+          </ButtonsContainer>
         </>
       ) : (
         <>
@@ -271,13 +269,14 @@ export default function RemedyForm({
               required
             />
           </section>
-
-          <StyledLinks variant="cancel" href="/">
-            Cancel
-          </StyledLinks>
-          <StyledButton variant="primary" type="submit">
-            Submit
-          </StyledButton>
+          <ButtonsContainer>
+            <StyledButton variant="primary" type="submit">
+              Submit
+            </StyledButton>
+            <StyledLinks variant="cancel" href="/">
+              Cancel
+            </StyledLinks>
+          </ButtonsContainer>
         </>
       )}
     </Form>
@@ -285,15 +284,23 @@ export default function RemedyForm({
 }
 
 const Form = styled.form`
+  position: relative;
+  border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
+  max-width: 50%;
   gap: 0.5rem;
   background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(----header-card-box-shadow);
   padding: 1rem;
   font-family: var(--font-adventPro);
+  @media (max-width: 600px) {
+    max-width: 100%;
+    padding: 1rem;
+    box-shadow: none;
+  }
 `;
 
 const InputGroup = styled.div`
@@ -316,7 +323,7 @@ const Textarea = styled.textarea`
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(----header-card-box-shadow);
 
   &:focus {
     border-color: #85895e;
@@ -331,7 +338,7 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(----header-card-box-shadow);
   background-color: var(--card-background);
   text-align: center;
 `;
@@ -343,7 +350,7 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
   margin-bottom: 1rem;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--header-card-box-shadow);
   &:focus {
     border-color: #85895e;
     outline: none;
@@ -353,10 +360,24 @@ const Input = styled.input`
 const StyledFileInput = styled.input.attrs({
   type: "file",
 })`
-  padding: 8px;
+  padding: 1rem;
   border: none;
   &:focus {
     border-color: #0056b3;
     outline: none;
   }
+`;
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  @media (max-width: 600px) {
+    align-items: center;
+    flex-direction: column;
+  }
+`;
+const BackButtonWrapper = styled.div`
+  position: absolute;
+  top: -4rem;
+  left: 0;
+  z-index: 10;
 `;

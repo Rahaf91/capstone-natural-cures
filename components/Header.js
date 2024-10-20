@@ -7,7 +7,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className="no-print">
       <LogoContainer>
         <StyledImage src="/Logo.png" alt="Logo" height={200} width={200} />
       </LogoContainer>
@@ -17,22 +17,32 @@ export default function Header() {
           <Image
             src="/close-menu.svg"
             alt="Close Menu"
-            width={50}
-            height={50}
+            width={60}
+            height={60}
           />
         ) : (
-          <Image src="/open-menu.svg" alt="Open Menu" width={50} height={50} />
+          <Image src="/open-menu.svg" alt="Open Menu" width={60} height={60} />
         )}
       </MenuToggle>
 
-      <LinksContainer $isOpen={isMenuOpen}>
+      <LinksContainer
+        $isOpen={isMenuOpen}
+        onClick={() => {
+          setIsMenuOpen(false);
+        }}
+      >
         <StyledLink href="/favorites">
-          <Image src="/heart.svg" alt="heart icon" width={30} height={30} />
+          <Image src="/heart.svg" alt="heart icon" width={50} height={50} />
           Favorite Remedies
         </StyledLink>
 
-        <StyledLink href="/remedy/add">
-          <Image src="/add.svg" alt="add icon" width={30} height={30} />
+        <StyledLink
+          href="/remedy/add"
+          onClick={() => {
+            setIsMenuOpen(false);
+          }}
+        >
+          <Image src="/add.svg" alt="add icon" width={50} height={50} />
           Add Remedy
         </StyledLink>
       </LinksContainer>
@@ -41,15 +51,22 @@ export default function Header() {
 }
 
 const HeaderWrapper = styled.header`
+  position: sticky;
+  top: 7px;
   display: flex;
+  z-index: 2000;
+  background-color: var(--header-bg-color);
   align-items: center;
   justify-content: space-around;
-  padding: 1.25rem;
-  position: relative;
+  box-shadow: var(--header-card-box-shadow);
+  height: 13vh;
+  margin-top: 1rem;
 
   @media (max-width: 600px) {
     width: 100%;
     justify-content: space-between;
+    margin: 0;
+    padding: 0 1rem;
   }
 `;
 
@@ -59,9 +76,12 @@ const LogoContainer = styled.div`
 `;
 
 const StyledImage = styled(Image)`
+  height: auto;
+  width: auto;
+  max-width: 15rem;
+
   @media (max-width: 600px) {
-    height: 150px;
-    width: 150px;
+    max-width: 10rem;
   }
 `;
 
@@ -71,27 +91,45 @@ const LinksContainer = styled.div`
 
   @media (max-width: 600px) {
     flex-direction: column;
-    gap: 0.75rem;
     display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
     position: absolute;
-    top: 120px;
-    right: 29px;
-    box-shadow: 1px 1px 10px black;
-    z-index: 100;
-    width: 60%;
-    border-radius: 10px;
+    top: 90px;
+    right: 20px;
+    border-left: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+    border-bottom: 4px solid var(--border-color);
+    background-color: var(--header-bg-color);
+    z-index: 11;
+    width: 90%;
+    opacity: 90%;
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000;
+  color: var(--header-text-color);
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    text-decoration: underline;
+    transform: scale(1.1);
+  }
+  &:focus {
+    transform: scale(1.2);
+  }
+  @media (max-width: 600px) {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 1rem;
+    transition: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
   }
 `;
 
@@ -102,6 +140,7 @@ const MenuToggle = styled.button`
   padding: 0;
   display: flex;
   align-items: center;
+  margin-right: 1rem;
 
   @media (min-width: 601px) {
     display: none;

@@ -23,13 +23,13 @@ export default function Categories({
               height={100}
             />
           )}
-          <CategoryName>{activeCategory}</CategoryName>
+          <CategoryName>{activeCategory.toUpperCase()}</CategoryName>
         </CategoryLink>
       ) : (
         categories.map((category) => (
           <CategoryLink key={category} href={`/categories/${category}`}>
             {showIcons && (
-              <Image
+              <StyledImage
                 src={`/navigation-icons/${category}.svg`}
                 alt={category}
                 width={100}
@@ -50,16 +50,23 @@ const CategoryLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: inherit;
-  margin: 10px;
-  width: 100px;
+  margin: 1rem;
 `;
 
 const CategoryName = styled.span`
-  margin-top: 5px;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-style: bold;
 `;
 
 const CategoriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 1rem;
+`;
+const StyledImage = styled(Image)`
+  &:hover {
+    transform: scale(1.3);
+  }
 `;

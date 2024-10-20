@@ -6,6 +6,7 @@ import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
 import Categories from "@/components/Categories";
 import styled from "styled-components";
+import Image from "next/image";
 
 export default function CategoryPage({
   handleToggleFavorite,
@@ -22,9 +23,8 @@ export default function CategoryPage({
   }
 
   const filteredRemediesByCategory = remedies.filter(
-    (remedy) => remedy.category.toUpperCase() === category
+    (remedy) => remedy.category.toUpperCase() === category.toUpperCase()
   );
-
   const getSymptoms = Array.from(
     new Set(filteredRemediesByCategory.flatMap((remedy) => remedy.symptoms))
   );
@@ -46,11 +46,15 @@ export default function CategoryPage({
 
   return (
     <>
-      <StyledLinks $variant="back" href="/">
-        &larr; Back
-      </StyledLinks>
-      <Categories showIcons={true} activeCategory={category} />
-      <Container>
+      <FilterList
+        symptoms={getSymptoms}
+        selectedSymptom={selectedSymptom}
+        handleSymptomChange={handleSymptomChange}
+        handleClearFilter={handleClearFilter}
+      />
+
+      <MainContainer>
+        <Categories showIcons={true} activeCategory={category} />
         <SearchBar
           handleSearchQuery={handleSearchQuery}
           handleClearSearchBar={() =>
@@ -59,27 +63,43 @@ export default function CategoryPage({
           searchQuery={searchQuery}
         />
 
-        <FilterList
-          symptoms={getSymptoms}
-          selectedSymptom={selectedSymptom}
-          handleSymptomChange={handleSymptomChange}
-          handleClearFilter={handleClearFilter}
-        />
-      </Container>
-      {finalFilteredRemedies.length === 0 ? (
-        <p>No remedies found for this category.</p>
-      ) : (
-        <RemediesList
-          remedies={finalFilteredRemedies}
-          handleToggleFavorite={handleToggleFavorite}
-        />
-      )}
+        <BackButtonWrapper>
+          <StyledLinks $variant="back" href="/">
+            <Image src="/back.svg" alt="back icon" width={60} height={60} />
+          </StyledLinks>
+        </BackButtonWrapper>
+
+        {finalFilteredRemedies.length === 0 ? (
+          <p>No remedies found for this category.</p>
+        ) : (
+          <RemediesList
+            remedies={finalFilteredRemedies}
+            handleToggleFavorite={handleToggleFavorite}
+          />
+        )}
+      </MainContainer>
     </>
   );
 }
 
-const Container = styled.div`
+const MainContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+
+  @media (max-width: 600px) {
+    box-shadow: none;
+  }
+`;
+const BackButtonWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
 `;
