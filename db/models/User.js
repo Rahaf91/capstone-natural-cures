@@ -1,25 +1,7 @@
-// HINWEIS ANDREA
-// {
-//     "_id": "ObjectId",  // MongoDB ID
-//     "username": "string",
-//     "email": "string",
-//     "favorites": ["ObjectId"],  // Array von Remedy-IDs, die der Benutzer favorisiert hat
-//     "notes": [
-//       {
-//         "remedyId": "ObjectId",
-//         "noteId": "string",  // Eindeutige ID der Notiz
-//         "note": "string",
-//         "createdAt": "Date"
-//       }
-//     ],
-//   }
-
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 const userSchema = new Schema({
-  username: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Remedy" }],
   notes: [
     {
