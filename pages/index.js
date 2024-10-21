@@ -3,6 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import RemediesList from "@/components/RemediesList";
 import Categories from "@/components/Categories";
 import styled from "styled-components";
+
 export default function HomePage({
   remedies,
   handleSearchQuery,

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
+import { SessionProvider } from "next-auth/react";
 
 const fetcher = async (url) => {
   const response = await fetch(url);
@@ -163,23 +164,25 @@ export default function App({ Component, pageProps }) {
     mutate();
   }
   return (
-    <SWRConfig>
-      <Layout>
-        <GlobalStyle />
-        <Component
-          {...pageProps}
-          remedies={filteredRemedies}
-          handleAddRemedy={handleAddRemedy}
-          handleDeleteRemedy={handleDeleteRemedy}
-          handleEditRemedy={handleEditRemedy}
-          handleToggleFavorite={handleToggleFavorite}
-          handleAddNotes={handleAddNotes}
-          handleSearchQuery={handleSearchQuery}
-          searchQuery={searchQuery}
-          handleEditNotes={handleEditNotes}
-          handleDeleteNote={handleDeleteNote}
-        />
-      </Layout>
-    </SWRConfig>
+    <SessionProvider>
+      <SWRConfig>
+        <Layout>
+          <GlobalStyle />
+          <Component
+            {...pageProps}
+            remedies={filteredRemedies}
+            handleAddRemedy={handleAddRemedy}
+            handleDeleteRemedy={handleDeleteRemedy}
+            handleEditRemedy={handleEditRemedy}
+            handleToggleFavorite={handleToggleFavorite}
+            handleAddNotes={handleAddNotes}
+            handleSearchQuery={handleSearchQuery}
+            searchQuery={searchQuery}
+            handleEditNotes={handleEditNotes}
+            handleDeleteNote={handleDeleteNote}
+          />
+        </Layout>
+      </SWRConfig>
+    </SessionProvider>
   );
 }

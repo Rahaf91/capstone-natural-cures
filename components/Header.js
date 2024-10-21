@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,7 +10,9 @@ export default function Header() {
   return (
     <HeaderWrapper className="no-print">
       <LogoContainer>
-        <StyledImage src="/Logo.png" alt="Logo" height={200} width={200} />
+        <Link href={"/"}>
+          <StyledImage src="/Logo.png" alt="Logo" height={200} width={200} />
+        </Link>
       </LogoContainer>
 
       <MenuToggle onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -45,6 +48,7 @@ export default function Header() {
           <Image src="/add.svg" alt="add icon" width={50} height={50} />
           Add Remedy
         </StyledLink>
+        <UserMenu />
       </LinksContainer>
     </HeaderWrapper>
   );
@@ -91,6 +95,7 @@ const LinksContainer = styled.div`
 
   @media (max-width: 600px) {
     flex-direction: column;
+    align-items: center;
     display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
     position: absolute;
     top: 90px;
