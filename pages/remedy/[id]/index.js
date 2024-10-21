@@ -22,7 +22,6 @@ export default function RemedyDetailsPage({
   }
 
   const currentRemedy = remedies.find((remedy) => remedy._id === id);
-
   if (!currentRemedy) {
     return <p>...loading</p>;
   }
@@ -40,125 +39,152 @@ export default function RemedyDetailsPage({
   const currentVideo = currentRemedy.videoUrlPreparation;
 
   return (
-    <Container>
-      <div className="no-print">
-        <PrintButton onClick={handlePrint}>Print Remedy</PrintButton>
-      </div>
-      <Title>{currentRemedy.title}</Title>
-      <ImageWrapper>
-        <StyledImage
-          src={currentRemedy.imageUrl}
-          alt={currentRemedy.title}
-          width={250}
-          height={250}
-        />
+    <>
+      <Container>
+        <BackButtonContainer className="no-print">
+          <StyledLinks
+            $variant="back"
+            href={`/categories/${currentRemedy.category}`}
+          >
+            <Image src="/back.svg" alt="back icon" width={60} height={60} />
+          </StyledLinks>
+        </BackButtonContainer>
         <div className="no-print">
-          <FavoriteButton
-            isFavorite={currentRemedy.isFavorite}
-            isDetailPage={true}
-            handleToggleFavorite={() =>
-              handleToggleFavorite(currentRemedy._id, currentRemedy.isFavorite)
-            }
-          />
+          <PrintButton onClick={handlePrint}>
+            <Image src="/print.svg" alt="print icon" width={70} height={70} />
+          </PrintButton>
         </div>
-      </ImageWrapper>
-      <Section>
-        <Subtitle>Ingredients</Subtitle>
-        <List>
-          {currentRemedy.ingredients.map((ingredient, index) => (
-            <ListItem key={index}>{ingredient}</ListItem>
-          ))}
-        </List>
-      </Section>
-      <Section>
-        <Subtitle>Preparation</Subtitle>
-        <Text>{currentRemedy.preparation}</Text>
-      </Section>
-      <Section>
-        <Subtitle>Usage</Subtitle>
-        <Text>{currentRemedy.usage}</Text>
-      </Section>
-      <Section>
-        <Subtitle>Symptoms</Subtitle>
-        <List>
-          {currentRemedy.symptoms.map((symptom, index) => (
-            <ListItem key={index}>{symptom}</ListItem>
-          ))}
-        </List>
-      </Section>
-      <div className="no-print">
+        <h1>{currentRemedy.title}</h1>
+        <ImageWrapper>
+          <StyledImage
+            src={currentRemedy.imageUrl}
+            alt={currentRemedy.title}
+            width={250}
+            height={250}
+          />
+          <div className="no-print">
+            <FavoriteButton
+              isFavorite={currentRemedy.isFavorite}
+              handleToggleFavorite={() =>
+                handleToggleFavorite(
+                  currentRemedy._id,
+                  currentRemedy.isFavorite
+                )
+              }
+            />
+          </div>
+        </ImageWrapper>
         <Section>
-          <Subtitle>Preparation Video</Subtitle>
-          {currentVideo ? (
-            <VideoContainer>
-              <iframe
-                width="560"
-                height="315"
-                src={currentVideo}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </VideoContainer>
-          ) : (
-            <PlaceholderContainer>
-              <p>Sorry, the video is not available at the moment.</p>
-            </PlaceholderContainer>
-          )}
+          <Subtitle>Ingredients</Subtitle>
+          <List>
+            {currentRemedy.ingredients.map((ingredient, index) => (
+              <ListItem key={index}>{ingredient}</ListItem>
+            ))}
+          </List>
         </Section>
-      </div>
-      <div className="no-print">
-        <DeleteButtonConfirmation
-          onDelete={() => handleDelete(currentRemedy._id)}
+        <Section>
+          <Subtitle>Preparation</Subtitle>
+          <Text>{currentRemedy.preparation}</Text>
+        </Section>
+        <Section>
+          <Subtitle>Usage</Subtitle>
+          <Text>{currentRemedy.usage}</Text>
+        </Section>
+        <Section>
+          <Subtitle>Symptoms</Subtitle>
+          <List>
+            {currentRemedy.symptoms.map((symptom, index) => (
+              <ListItem key={index}>{symptom}</ListItem>
+            ))}
+          </List>
+        </Section>
+        <div className="no-print">
+          <Section>
+            <Subtitle>Preparation Video</Subtitle>
+            {currentVideo ? (
+              <VideoContainer>
+                <iframe
+                  width="560"
+                  height="315"
+                  src={currentVideo}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </VideoContainer>
+            ) : (
+              <PlaceholderContainer>
+                <p>Sorry, the video is not available at the moment.</p>
+              </PlaceholderContainer>
+            )}
+          </Section>
+        </div>
+
+        <EditDeleteContainer>
+          <ButtonContainer className="no-print">
+            <StyledLinks
+              $variant="edit"
+              href={`/remedy/${currentRemedy._id}/edit`}
+            >
+              Edit Remedy
+            </StyledLinks>
+          </ButtonContainer>
+          <div className="no-print">
+            <DeleteButtonConfirmation
+              onDelete={() => handleDelete(currentRemedy._id)}
+            />
+          </div>
+        </EditDeleteContainer>
+      </Container>
+      <NotesContainer>
+        <h2>Personal Notes</h2>
+        <Notes
+          onAddNote={handleAddNotes}
+          onEditNote={handleEditNotes}
+          currentRemedy={currentRemedy}
+          onDeleteNote={handleDeleteNote}
         />
-      </div>
-      <ButtonContainer className="no-print">
-        <StyledLinks $variant="edit" href={`/remedy/${currentRemedy._id}/edit`}>
-          Edit Remedy
-        </StyledLinks>
-      </ButtonContainer>
-      <Notes
-        onAddNote={handleAddNotes}
-        onEditNote={handleEditNotes}
-        currentRemedy={currentRemedy}
-        onDeleteNote={handleDeleteNote}
-      />
-      <BackButtonContainer className="no-print">
-        <StyledLinks $variant="back" href="/">
-          &larr; Back
-        </StyledLinks>
-      </BackButtonContainer>
-    </Container>
+      </NotesContainer>
+    </>
   );
 }
 
 const Container = styled.div`
-  max-width: 20rem;
+  width: 100%;
+  max-width: 60rem;
+  position: relative;
   margin: 0 auto;
   padding: 1rem;
-  color: #54582f;
-  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+  box-shadow: var(--box-shadow);
   border-radius: 1rem;
   background-color: var(--background-color);
-`;
-
-const Title = styled.h1`
-  font-size: 1.5rem;
-  color: #54582f;
-  text-align: center;
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: auto;
+  max-width: 60%;
+  height: 35vh;
+  margin: 0 auto;
   margin-bottom: 1rem;
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 200px;
+    max-width: 100%;
+  }
 `;
 
 const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
   display: block;
-  margin: 1rem auto;
   border-radius: 1rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 `;
 
 const Section = styled.section`
@@ -173,14 +199,13 @@ const Subtitle = styled.h3`
 const Text = styled.p`
   font-size: 1rem;
   line-height: 1.6;
-  margin-left: 1rem;
+  margin-left: 1.4rem;
 `;
 
 const List = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
-  margin-left: 1rem;
 `;
 
 const ListItem = styled.li`
@@ -195,26 +220,50 @@ const ButtonContainer = styled.div`
 `;
 
 const BackButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  display: flex;
   width: 100%;
-`;
-const PrintButton = styled.button`
-  background-color: rgba(84, 88, 47, 0.9);
-  color: white;
-  border: none;
-  padding: 1rem;
-  margin-left: 1rem;
-  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  @media (max-width: 600px) {
+    top: -1rem;
+    left: -0.5rem;
+  }
 `;
 
+const PrintButton = styled.button`
+  position: absolute;
+  background-color: transparent;
+  top: -1rem;
+  right: -1rem;
+  z-index: 10;
+  color: white;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
+  @media (max-width: 600px) {
+    top: -0.8rem;
+    right: 2.1rem;
+    width: 30px;
+    height: 30px;
+  }
+`;
 const VideoContainer = styled.div`
+  margin: 0 auto;
   margin-top: 2rem;
+  width: 100%;
+  max-width: 60%;
+  height: 35vh;
   iframe {
     width: 100%;
-    max-width: 560px;
-    height: 315px;
+    height: 100%;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 200px;
+    max-width: 100%;
   }
 `;
 
@@ -224,4 +273,22 @@ const PlaceholderContainer = styled.div`
   background-color: rgba(84, 88, 47, 0.9);
   color: white;
   text-align: center;
+`;
+const EditDeleteContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+const NotesContainer = styled.div`
+  background-color: var(--background-color);
+  width: 100%;
+  max-width: 60rem;
+  box-shadow: 1px 1px 10px black;
+  border-radius: 1rem;
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 2rem auto;
+  }
 `;

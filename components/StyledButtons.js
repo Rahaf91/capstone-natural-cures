@@ -5,8 +5,7 @@ export const StyledButton = styled.button`
   border: none;
   padding: ${(props) =>
     props.size === "small" ? "0.3rem 0.1rem" : "0.5rem 1.2rem"};
-  font-size: ${(props) => (props.size === "small" ? "0.85rem" : "1rem")};
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius);
   margin-top: 0.625rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
@@ -14,6 +13,7 @@ export const StyledButton = styled.button`
   display: inline-block;
   width: 220px;
   color: white;
+  font-size: 1rem;
 
   &:hover {
     transform: scale(1.05);
@@ -28,6 +28,7 @@ export const StyledButton = styled.button`
     css`
       background-color: #54582f;
       color: white;
+      padding: 0.5rem 1.2rem;
 
       &:hover {
         background-color: #86895d;
@@ -47,13 +48,15 @@ export const StyledButton = styled.button`
     ${(props) =>
     props.variant === "remove" &&
     css`
-      background-color: #f8f8f8;
+      background-color: #bdc3c7;
       color: #2c3e50;
-      border: 1px solid #bdc3c7;
-      padding: 0.2rem 0.5rem;
-      font-size: 0.875rem;
-      width: 120px;
-
+      height: var(--height);
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      margin: 0;
+      border-radius: var(--border-radius);
+      width: 10rem;
       &:hover {
         background-color: #dcdcdc;
         color: #2c3e50;
@@ -61,6 +64,9 @@ export const StyledButton = styled.button`
 
       &:active {
         background-color: #c0c0c0;
+      }
+      @media (max-width: 600px) {
+        width: 60%;
       }
     `}
 
@@ -80,9 +86,12 @@ export const StyledButton = styled.button`
     css`
       background-color: #a67b5b;
       color: white;
-
+      width: 10%;
       &:hover {
         background-color: #ec8c02;
+      }
+      @media (max-width: 600px) {
+        width: 50%;
       }
     `}
 `;
@@ -107,16 +116,22 @@ export const StyledFavoriteButton = styled.button`
 `;
 
 export const IconButton = styled.button`
-  background: #85895e;
+  background: none;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.25rem;
   margin-bottom: 1rem;
+
   ${(props) =>
     props.$fullWidth &&
     `
-      width: 100%;
+      width: 50%;
+  margin:0 auto;
+      background:#86895d;
     `}
+  &:hover {
+    transform: scale(1.2);
+  }
 `;

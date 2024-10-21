@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { StyledButton } from "./StyledButtons";
-
+import Image from "next/image";
 export default function FilterList({
   symptoms,
   selectedSymptom,
@@ -17,7 +17,9 @@ export default function FilterList({
           onChange={handleSymptomChange}
           aria-label="Filter by Symptoms"
         >
-          <FilterOption value="">Filter by Symptom</FilterOption>
+          <FilterOption value="" disabled>
+            Filter by Symptoms
+          </FilterOption>
           {symptoms.map((symptom, index) => (
             <FilterOption key={index} value={symptom}>
               {symptom}
@@ -36,10 +38,14 @@ export default function FilterList({
 }
 
 const FilterSection = styled.section`
+  border-radius: var(--border-radius);
   display: flex;
-  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 10px;
+  height: var(--height);
+  justify-content: center;
+  @media (max-width: 600px) {
+    width: 50%;
+  }
 `;
 const FilterSelect = styled.select`
   padding: 0.5rem;
@@ -47,6 +53,7 @@ const FilterSelect = styled.select`
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   background-color: var(--card-background);
+  width: var(--width);
 `;
 
 const FilterOption = styled.option`

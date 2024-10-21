@@ -7,7 +7,9 @@ export default function Categories({
   activeCategory,
   remedies = [],
 }) {
-  const categories = [...new Set(remedies.map((remedy) => remedy.category))];
+  const categories = [
+    ...new Set(remedies.map((remedy) => remedy.category.toUpperCase())),
+  ];
 
   return (
     <CategoriesContainer>
@@ -15,20 +17,20 @@ export default function Categories({
         <CategoryLink href={`/categories/${activeCategory}`}>
           {showIcons && (
             <Image
-              src={`/navigation-icons/${activeCategory}.svg`}
+              src={`/navigation-icons/${activeCategory.toLowerCase()}.svg`}
               alt={activeCategory}
               width={100}
               height={100}
             />
           )}
-          <CategoryName>{activeCategory}</CategoryName>
+          <CategoryName>{activeCategory.toUpperCase()}</CategoryName>
         </CategoryLink>
       ) : (
         categories.map((category) => (
           <CategoryLink key={category} href={`/categories/${category}`}>
             {showIcons && (
-              <Image
-                src={`/navigation-icons/${category}.svg`}
+              <StyledImage
+                src={`/navigation-icons/${category.toLowerCase()}.svg`}
                 alt={category}
                 width={100}
                 height={100}
@@ -48,16 +50,23 @@ const CategoryLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: inherit;
-  margin: 10px;
-  width: 100px;
+  margin: 1rem;
 `;
 
 const CategoryName = styled.span`
-  margin-top: 5px;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-style: bold;
 `;
 
 const CategoriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 1rem;
+`;
+const StyledImage = styled(Image)`
+  &:hover {
+    transform: scale(1.3);
+  }
 `;

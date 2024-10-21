@@ -12,7 +12,7 @@ export default function RemedyEditPage({ remedies, handleEditRemedy }) {
   }
   return (
     <>
-      <h1>Edit {currentRemedy.title} Remedy</h1>
+      <h1>Edit Remedy</h1>
       <RemedyForm
         onEditRemedy={(updatedRemedy) => handleEditRemedy(id, updatedRemedy)}
         isEditMode={true}
