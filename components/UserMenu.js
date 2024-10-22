@@ -43,6 +43,7 @@ const UserMenuContainer = styled.section`
   justify-content: space-between;
   align-items: center;
   color: #333;
+  padding: 1rem;
 `;
 
 const UserDetails = styled.div`

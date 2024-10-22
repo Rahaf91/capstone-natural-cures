@@ -16,16 +16,12 @@ export default function Header() {
       </LogoContainer>
 
       <MenuToggle onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        {isMenuOpen ? (
-          <Image
-            src="/close-menu.svg"
-            alt="Close Menu"
-            width={60}
-            height={60}
-          />
-        ) : (
-          <Image src="/open-menu.svg" alt="Open Menu" width={60} height={60} />
-        )}
+        <Image
+          src={isMenuOpen ? "/close-menu.svg" : "/open-menu.svg"}
+          alt={isMenuOpen ? "Close Menu" : "Open Menu"}
+          width={60}
+          height={60}
+        />
       </MenuToggle>
 
       <LinksContainer

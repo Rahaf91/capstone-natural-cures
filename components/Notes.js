@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { StyledButton } from "./StyledButtons";
-import { StyledLinks } from "./StyledLinks";
-import { ST } from "next/dist/shared/lib/utils";
 
 export default function Notes({
   onAddNote,
