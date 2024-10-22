@@ -69,8 +69,9 @@ export default function RemedyDetailsPage({
   };
 
   const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length ||
-    0;
+    reviews && reviews.length > 0
+      ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+      : 0;
 
   if (!remedies || remedies.length === 0) {
     return <p>...loading</p>;
@@ -93,6 +94,8 @@ export default function RemedyDetailsPage({
   }
 
   const currentVideo = currentRemedy.videoUrlPreparation;
+
+  const safeReviews = reviews || [];
 
   return (
     <Container>
@@ -177,7 +180,6 @@ export default function RemedyDetailsPage({
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
       />
-
       <Subtitle>Average Rating: {Math.round(averageRating)} / 5 stars</Subtitle>
       {session && (
         <StarRating
@@ -185,8 +187,9 @@ export default function RemedyDetailsPage({
           onRatingChange={(rating) => handleReviewSubmit(rating, "")}
         />
       )}
+
       <ReviewSection>
-        {reviews.map((review, index) => (
+        {safeReviews.map((review, index) => (
           <Review key={index}>
             <StarRating rating={review.rating} onRatingChange={() => {}} />
             <p>{review.comment}</p>

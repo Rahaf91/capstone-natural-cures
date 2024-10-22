@@ -7,7 +7,7 @@ import { authOptions } from "../auth/[...nextauth]";
 export default async function handler(request, response) {
   await dbConnect();
   const session = await getServerSession(request, response, authOptions);
-  // const token = await getToken({ req: request });
+  const token = await getToken({ req: request });
 
   //const userId = token.sub;
 
@@ -17,13 +17,17 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      //get user by object id
-      const userId = session.user.id;
-      const user = await User.findById(userId)
-        .populate("favorites")
-        .populate("notes.remedyId")
-        .populate("reviews.remedyId");
-      return response.status(200).json(user);
+      if (!token) {
+        return response.status(200).json({ status: "No user" });
+      } else {
+        const userId = token.sub;
+        const user = await User.findById(userId)
+          .populate("favorites")
+          .populate("notes.remedyId")
+          .populate("reviews.remedyId");
+
+        return response.status(200).json(user);
+      }
     } catch (error) {
       console.error(error);
       return response.status(400).json({ error: error.message });

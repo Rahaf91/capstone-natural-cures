@@ -1,5 +1,5 @@
 import dbConnect from "../../../db/connect";
-import User from "../../../models/User";
+import User from "../../../db/models/User";
 import { getToken } from "next-auth/jwt";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
