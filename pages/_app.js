@@ -20,24 +20,31 @@ const fetcher = async (url) => {
 };
 
 export default function App({ Component, pageProps }) {
+
   const {
     data: remedies,
-    error,
-    isLoading,
-    mutate,
+    error: remediesError,
+    isLoading: remediesLoading,
+    mutate: mutateRemedies,
   } = useSWR("/api/remedies", fetcher);
 
-  // evt const user api/user   fetch
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading,
+    mutate: mutateUser,
+  } = useSWR("/api/user", fetcher);
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  if (isLoading) {
+  if (remediesLoading || userLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (error || !remedies) {
-    return <h1>Error loading remedies: {error.message}</h1>;
+  if (remediesError || userError || !remedies || !user) {
+    return <h1>Error loading data: {remediesError?.message || userError?.message}</h1>;
   }
+
   const fuse = new Fuse(remedies, {
     keys: ["title", "ingredients"],
     includeScore: true,
@@ -81,7 +88,7 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to add remedy");
     }
-    mutate();
+    mutateRemedies();
   }
 
   async function handleDeleteRemedy(id) {
@@ -92,7 +99,7 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to delete remedy");
     }
-    mutate();
+     mutateRemedies();
   }
 
   async function handleEditRemedy(id, remedy) {
@@ -107,48 +114,46 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to update the remedy.");
     }
-    mutate();
+
+    mutateRemedies();
   }
 
   async function handleToggleFavorite(id, isFavorite) {
     // const response = await fetch(`/api/remedies/${id}`, {
 
     const response = await fetch(`/api/user/favorites`, {
-      // method: "PUT",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
 
-      // body: JSON.stringify({ isFavorite: !isFavorite }),
       body: JSON.stringify({ remedyId: id, isFavorite: !isFavorite }),
     });
 
     if (!response.ok) {
       throw new Error("Failed to toggle favorite");
     }
-    mutate();
+    mutateUser();
   }
 
   async function handleAddNotes(id, note) {
     // const response = await fetch(`/api/remedies/${id}/notes`, {
 
     const response = await fetch(`/api/user`, {
-      // method: "POST",
 
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
 
-      // body: JSON.stringify(note),
       body: JSON.stringify({ remedyId: id, note }),
     });
 
     if (!response.ok) {
       throw new Error("Failed to add note");
     }
-    mutate();
+    mutateUser();
+  }
   }
 
   async function handleEditNotes(id, noteId, updatedNote) {
@@ -159,14 +164,14 @@ export default function App({ Component, pageProps }) {
         "Content-Type": "application/json",
       },
 
-      // body: JSON.stringify(updatedNote),
       body: JSON.stringify({ remedyId: id, noteId, updatedNote }),
     });
 
     if (!response.ok) {
       throw new Error("Failed to edit note");
     }
-    mutate();
+    mutateUser();
+  }
   }
 
   async function handleDeleteNote(id, noteId) {
@@ -182,7 +187,8 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to delete note: " + response.status);
     }
-    mutate();
+    mutateUser();
+  }
   }
 
   async function handleAddReview(id, rating, comment) {
@@ -197,7 +203,8 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to add review");
     }
-    mutate();
+    mutateUser();
+  }
   }
 
   return (
