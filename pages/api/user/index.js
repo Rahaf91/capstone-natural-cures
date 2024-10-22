@@ -18,7 +18,8 @@ export default async function handler(request, response) {
     try {
       const user = await User.findById(userId)
         .populate("favorites")
-        .populate("notes.remedyId");
+        .populate("notes.remedyId")
+        .populate("reviews.remedyId");
       return response.status(200).json(user);
     } catch (error) {
       console.error(error);
@@ -27,10 +28,27 @@ export default async function handler(request, response) {
   } else if (request.method === "POST") {
     try {
       const userData = request.body;
-      const user = await User.findByIdAndUpdate(userId, userData, {
-        new: true,
-        upsert: true,
-      });
+      // statt userData :
+      // const { remedyId, rating, comment } = request.body;
+
+      const user = await User.findByIdAndUpdate(
+        userId,
+        userData,
+        {
+          new: true,
+          upsert: true,
+        }
+
+        // ;
+        // const newReview = {
+        //   remedyId,
+        //   rating,
+        //   comment,
+        //   createdAt: new Date(),};
+
+        // user.reviews.push(newReview);
+        // await user.save();
+      );
       return response.status(201).json(user);
     } catch (error) {
       console.error(error);

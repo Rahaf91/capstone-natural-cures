@@ -11,6 +11,14 @@ const userSchema = new Schema({
       createdAt: { type: Date, default: Date.now },
     },
   ],
+  reviews: [
+    {
+      remedyId: { type: mongoose.Schema.Types.ObjectId, ref: "Remedy" },
+      rating: { type: Number, required: true },
+      comment: { type: String },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   owner: { type: String, required: true },
 });
 

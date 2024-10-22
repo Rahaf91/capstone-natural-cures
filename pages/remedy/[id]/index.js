@@ -1,4 +1,7 @@
 import { useRouter } from "next/router";
+// import { useEffect, useState } from "react";
+// import StarRating from "@/components/StarRating";
+// import { useSession } from "next-auth/react";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
@@ -16,6 +19,54 @@ export default function RemedyDetailsPage({
 }) {
   const router = useRouter();
   const { id } = router.query;
+
+  // const { data: session } = useSession();
+  // const [remedy, setRemedy] = useState(null);
+  // const [reviews, setReviews] = useState([]);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchRemedy();
+  //   }
+  // }, [id]);
+
+  // const fetchRemedy = async () => {
+  //   try {
+  //     const response = await fetch(`/api/remedies/${id}`);
+  //     const data = await response.json();
+  //     setRemedy(data);
+  //     setReviews(data.reviews);
+  //   } catch (error) {
+  //     console.error("Error fetching remedy:", error);
+  //   }
+  // };
+
+  // const handleReviewSubmit = async (rating, comment) => {
+  //   try {
+  //     const response = await fetch("/api/user", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ remedyId: id, rating, comment }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to submit review");
+  //     }
+
+  //     const updatedUser = await response.json();
+  //     const newReview = updatedUser.reviews.find(
+  //       (review) => review.remedyId === id && review.rating === rating && review.comment === comment
+  //     );
+  //     setReviews([...reviews, newReview]);
+  //   } catch (error) {
+  //     console.error("Error submitting review:", error);
+  //   }
+  // };
+
+  // const averageRating =
+  //   reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
 
   if (!remedies || remedies.length === 0) {
     return <p>...loading</p>;
@@ -122,6 +173,23 @@ export default function RemedyDetailsPage({
         currentRemedy={currentRemedy}
         onDeleteNote={handleDeleteNote}
       />
+
+      {/* <Subtitle>Average Rating: {Math.round(averageRating)} / 5 stars</Subtitle>
+      {session && (
+        <StarRating
+          rating={0}
+          onRatingChange={(rating) => handleReviewSubmit(rating, "")}
+        />
+      )}
+      <ReviewSection>
+        {reviews.map((review, index) => (
+          <Review key={index}>
+            <StarRating rating={review.rating} onRatingChange={() => {}} />
+            <p>{review.comment}</p>
+          </Review>
+        ))}
+      </ReviewSection> */}
+
       <BackButtonContainer className="no-print">
         <StyledLinks $variant="back" href="/">
           &larr; Back
@@ -225,3 +293,18 @@ const PlaceholderContainer = styled.div`
   color: white;
   text-align: center;
 `;
+
+// const ReviewSection = styled.section`
+//   margin-top: 2rem;
+// font-size: 1rem;
+// line-height: 1.6;
+// margin-left: 1rem;
+// `;
+
+// const Review = styled.div`
+// font-size: 1rem;
+// line-height: 1.6;
+// margin-left: 1rem;
+//   border-bottom: 1px solid #ccc;
+//   padding: 1rem 0;
+// `;
