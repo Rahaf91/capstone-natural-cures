@@ -5,7 +5,7 @@ export const StyledLinks = styled(Link)`
   border: none;
   padding: 0.5rem 1.2rem;
   font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius);
   text-align: center;
   text-decoration: none;
   margin-top: 0.625rem;

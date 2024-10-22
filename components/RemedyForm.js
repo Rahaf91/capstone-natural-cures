@@ -377,7 +377,7 @@ const ButtonsContainer = styled.div`
 `;
 const BackButtonWrapper = styled.div`
   position: absolute;
-  top: -4rem;
+  top: -5rem;
   left: 0;
   z-index: 10;
 `;

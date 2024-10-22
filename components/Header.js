@@ -52,7 +52,7 @@ export default function Header() {
 
 const HeaderWrapper = styled.header`
   position: sticky;
-  top: 7px;
+  top: 0;
   display: flex;
   z-index: 2000;
   background-color: var(--header-bg-color);
