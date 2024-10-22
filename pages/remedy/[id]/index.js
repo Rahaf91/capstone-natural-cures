@@ -55,11 +55,21 @@ export default function RemedyDetailsPage({
   //       throw new Error("Failed to submit review");
   //     }
 
+  // ----
+
   //     const updatedUser = await response.json();
   //     const newReview = updatedUser.reviews.find(
   //       (review) => review.remedyId === id && review.rating === rating && review.comment === comment
   //     );
   //     setReviews([...reviews, newReview]);
+
+  // ODER : OHNE USER BEZUG :
+
+  // const newReview = await response.json();
+  // setReviews([...reviews, newReview]);
+
+  // ----
+
   //   } catch (error) {
   //     console.error("Error submitting review:", error);
   //   }

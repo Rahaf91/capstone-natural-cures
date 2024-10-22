@@ -28,27 +28,43 @@ export default async function handler(request, response) {
   } else if (request.method === "POST") {
     try {
       const userData = request.body;
-      // statt userData :
+      // statt const userData = request.body;
       // const { remedyId, rating, comment } = request.body;
 
-      const user = await User.findByIdAndUpdate(
-        userId,
-        userData,
-        {
-          new: true,
-          upsert: true,
-        }
+      const user = await User.findByIdAndUpdate(userId, userData, {
+        new: true,
+        upsert: true,
+      });
 
-        // ;
-        // const newReview = {
-        //   remedyId,
-        //   rating,
-        //   comment,
-        //   createdAt: new Date(),};
+      // statt  const user = await User.findByIdAndUpdate(
+      // userId,
+      // userData,
+      // {
+      //   new: true,
+      //   upsert: true,
+      // }
 
-        // user.reviews.push(newReview);
-        // await user.save();
-      );
+      // VERSION 1 :
+
+      // ;
+      // const newReview = {
+      //   remedyId,
+      //   rating,
+      //   comment,
+      //   createdAt: new Date(),};
+
+      // user.reviews.push(newReview);
+      // await user.save();
+
+      // VERSION 2 :
+      // const newReview = await Review.create({
+      //   remedyId,
+      //   userId,
+      //   rating,
+      //   comment,
+      //   createdAt: new Date(),
+      // });
+
       return response.status(201).json(user);
     } catch (error) {
       console.error(error);
