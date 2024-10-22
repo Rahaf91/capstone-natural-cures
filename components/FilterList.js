@@ -38,7 +38,6 @@ export default function FilterList({
 }
 
 const FilterSection = styled.section`
-  border-radius: var(--border-radius);
   display: flex;
   gap: 0.5rem;
   height: var(--height);
