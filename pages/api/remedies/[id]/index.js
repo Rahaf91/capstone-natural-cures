@@ -32,7 +32,9 @@ export default async function handler(request, response) {
     }
 
     try {
-      const updatedRemedy = await Remedy.findByIdAndUpdate(id, remedyData);
+      const updatedRemedy = await Remedy.findByIdAndUpdate(id, remedyData, {
+        new: true,
+      });
 
       if (!updatedRemedy) {
         response.status(404).json({ status: "Not Found" });
@@ -49,28 +51,28 @@ export default async function handler(request, response) {
     }
   }
 
-  if (request.method === "PUT") {
-    const { isFavorite } = request.body;
+  // if (request.method === "PUT") {
+  //   const { isFavorite } = request.body;
 
-    if (typeof isFavorite !== "boolean") {
-      response.status(400).json({ error: "Invalid favorite status" });
-      return;
-    }
+  //   if (typeof isFavorite !== "boolean") {
+  //     response.status(400).json({ error: "Invalid favorite status" });
+  //     return;
+  //   }
 
-    try {
-      const updatedRemedy = await Remedy.findByIdAndUpdate(id, { isFavorite });
+  //   try {
+  //     const updatedRemedy = await Remedy.findByIdAndUpdate(id, { isFavorite });
 
-      if (!updatedRemedy) {
-        response.status(404).json({ status: "Not Found" });
-        return;
-      }
-    } catch (error) {
-      response
-        .status(500)
-        .json({ error: "Error updating remedy: " + error.message });
-      return;
-    }
-  }
+  //     if (!updatedRemedy) {
+  //       response.status(404).json({ status: "Not Found" });
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     response
+  //       .status(500)
+  //       .json({ error: "Error updating remedy: " + error.message });
+  //     return;
+  //   }
+  // }
 
   if (request.method === "DELETE") {
     try {
@@ -83,5 +85,7 @@ export default async function handler(request, response) {
         .json({ error: "Error deleting remedy: " + error.message });
       return;
     }
+  } else {
+    return response.status(405).json({ error: "Method not allowed" });
   }
 }
