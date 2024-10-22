@@ -1,5 +1,5 @@
 import dbConnect from "../../../db/connect";
-import User from "../../../models/User";
+import User from "../../../db/models/User";
 import { getToken } from "next-auth/jwt";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
@@ -7,15 +7,18 @@ import { authOptions } from "../auth/[...nextauth]";
 export default async function handler(request, response) {
   await dbConnect();
   const session = await getServerSession(request, response, authOptions);
-  const token = await getToken({ req: request });
-  const userId = token.sub;
+  // const token = await getToken({ req: request });
 
-  if (!session) {
-    return response.status(401).json({ status: "Not authorized" });
-  }
+  //const userId = token.sub;
+
+  // if (!session) {
+  //   return response.status(401).json({ status: "Not authorized" });
+  // }
 
   if (request.method === "GET") {
     try {
+      //get user by object id
+      const userId = session.user.id;
       const user = await User.findById(userId)
         .populate("favorites")
         .populate("notes.remedyId")
