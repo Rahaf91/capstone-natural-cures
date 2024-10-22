@@ -74,7 +74,7 @@ const CarouselWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--header-card-box-shadow);
   width: 100%;
   max-width: 800px;
   height: 45vh;
