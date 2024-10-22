@@ -19,9 +19,7 @@ export default function UserMenu() {
             {session.user.image ? (
               <Avatar src={session.user.image} alt={session.user.name} />
             ) : (
-              <InitialAvatar>
-                {session.user.name.charAt(0)} {/* Display first letter */}
-              </InitialAvatar>
+              <InitialAvatar>{session.user.name.charAt(0)}</InitialAvatar>
             )}
             <FullName>{session.user.name}</FullName>
             <SignInButton onClick={() => signOut()}>Sign Out</SignInButton>
@@ -44,11 +42,8 @@ const UserMenuContainer = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
   color: #333;
-  padding: 0 20px;
-  height: 60px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
 `;
 
 const UserDetails = styled.div`
@@ -88,8 +83,8 @@ const SignInButton = styled.button`
   background: #ff7e5f;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 50px;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
 
@@ -97,14 +92,10 @@ const SignInButton = styled.button`
     background: #feb47b;
     transform: scale(1.05);
   }
-
-  &:active {
-    transform: scale(0.95);
-  }
 `;
 
 const LoadingText = styled.p`
   color: #333;
-  font-size: 16px;
-  padding: 10px;
+  font-size: 1rem;
+  padding: 1rem;
 `;

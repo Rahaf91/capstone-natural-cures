@@ -2,7 +2,7 @@ import DailyHealthTips from "@/components/DailyHealthTips";
 import SearchBar from "@/components/SearchBar";
 import RemediesList from "@/components/RemediesList";
 import Categories from "@/components/Categories";
-import Navbar from "../components/UserMenu";
+import styled from "styled-components";
 
 export default function HomePage({
   remedies,
@@ -12,7 +12,6 @@ export default function HomePage({
 }) {
   return (
     <>
-      <Navbar />
       <SearchBar
         handleSearchQuery={handleSearchQuery}
         handleClearSearchBar={() =>
@@ -21,7 +20,7 @@ export default function HomePage({
         searchQuery={searchQuery}
       />
       <DailyHealthTips />
-
+      <Text>Where Do You Need Relief? Click To Find Out</Text>
       {remedies && <Categories showIcons={true} remedies={remedies} />}
 
       {searchQuery && remedies.length > 0 && (
@@ -33,3 +32,11 @@ export default function HomePage({
     </>
   );
 }
+const Text = styled.p`
+  color: var(--text-color);
+  font-weight: bold;
+  text-align: center;
+  @media (max-width: 600px) {
+    max-width: 70%;
+  }
+`;

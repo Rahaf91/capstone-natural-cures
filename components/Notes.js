@@ -175,26 +175,29 @@ const TextArea = styled.textarea`
 
 const ButtonWrapper = styled.div`
   display: flex;
+  justify-content: center;
+  width: 100%;
   gap: 0.5rem;
+  @media (max-width: 600px) {
+    align-items: center;
+  }
 `;
 
 const NoteList = styled.ul`
   list-style: none;
-  padding: 0;
-  margin-top: 1rem;
+  margin-left: -1.6rem;
 `;
 
 const NoteItem = styled.li`
   background-color: #ffffff;
   padding: 1rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: var(--border-radius);
   margin-bottom: 1rem;
   transition: transform 0.2s ease;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--box-shadow);
   }
 `;
 
@@ -221,15 +224,18 @@ const NoteActions = styled.div`
 `;
 
 const DeleteConfirmation = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 0.5rem;
   background-color: #ffe6e6;
   padding: 1rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
 
   p {
     margin: 0;
     font-size: 1rem;
     color: #c0392b;
+    text-align: center;
   }
 `;

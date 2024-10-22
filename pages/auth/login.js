@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import styled from "styled-components";
-
+import { StyledLinks } from "@/components/StyledLinks";
+import Image from "next/image";
 export default function LoginView() {
   const { query } = useRouter();
   const callbackUrl = query.callbackUrl || "/";
@@ -34,70 +35,74 @@ export default function LoginView() {
 
   return (
     <Container>
-      <Title>Login</Title>
-      {error && <ErrorMessage>{error}</ErrorMessage>}{" "}
-      {/* Render error message */}
+      <BackButtonWrapper>
+        <StyledLinks $variant="back" href="/">
+          <Image src="/back.svg" alt="back icon" width={60} height={60} />
+        </StyledLinks>
+      </BackButtonWrapper>
+      <h1>LOGIN</h1>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Form onSubmit={handleSubmit}>
-        <Input type="email" placeholder="Email" name="email" required />
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          required
-        />
+        <Label htmlFor="email">
+          Email:<span>*</span>
+        </Label>
+        <Input type="email" name="email" required />
+        <Label htmlFor="password">
+          Password:<span>*</span>
+        </Label>
+        <Input type="password" name="password" required />
         <StyledButton type="submit" variant="credentials">
           Sign in with Credentials
         </StyledButton>
+        <StyledButton
+          variant="google"
+          onClick={() => handleOAuthSignIn("google")}
+        >
+          Sign in with Google
+        </StyledButton>
+        <StyledButton
+          variant="github"
+          onClick={() => handleOAuthSignIn("github")}
+        >
+          Sign in with GitHub
+        </StyledButton>
       </Form>
-      <StyledButton
-        variant="google"
-        onClick={() => handleOAuthSignIn("google")}
-      >
-        Sign in with Google
-      </StyledButton>
-      <StyledButton
-        variant="github"
-        onClick={() => handleOAuthSignIn("github")}
-      >
-        Sign in with GitHub
-      </StyledButton>
     </Container>
   );
 }
-
-// Styled components
 const Container = styled.div`
+  position: relative;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #ffdde1, #b5fffc);
-  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
-
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  color: #555;
-`;
-
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+`;
+
+const Label = styled.label`
+  align-self: flex-start;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
 `;
 
 const Input = styled.input`
   width: 100%;
-  max-width: 300px;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 `;
 
 const StyledButton = styled.button`
@@ -109,14 +114,14 @@ const StyledButton = styled.button`
       : "#4caf50"};
   color: white;
   border: none;
-  border-radius: 30px;
-  padding: 12px 24px;
-  font-size: 16px;
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 1rem;
   width: 100%;
-  max-width: 300px;
   transition: all 0.3s ease;
+  text-align: center;
 
   &:hover {
     background-color: ${({ variant }) =>
@@ -135,5 +140,12 @@ const StyledButton = styled.button`
 
 const ErrorMessage = styled.p`
   color: red;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+const BackButtonWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
 `;

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { StyledFavoriteButton } from "./StyledButtons";
-
 export default function FavoriteButton({ isFavorite, handleToggleFavorite }) {
   return (
     <FavoriteButtonWrapper>
@@ -26,19 +25,9 @@ const StyledFavIcon = styled.path.attrs(({ $isFavorite }) => ({
 
 const FavoriteButtonWrapper = styled.div`
   position: absolute;
-  ${(props) =>
-    props.isDetailPage
-      ? `
-    top: 10px;
-    left: 15px;
-    z-index: 10;
-  `
-      : `
-    top: 10px;
-    right: 30px;
-    z-index: 10;
-  `}
-
+  top: 0.3rem;
+  right: 0.5rem;
+  z-index: 10;
   button {
     width: 50px;
     height: 50px;
