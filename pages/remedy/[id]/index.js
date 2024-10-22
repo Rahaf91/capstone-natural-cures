@@ -48,12 +48,11 @@ export default function RemedyDetailsPage({
           >
             <Image src="/back.svg" alt="back icon" width={60} height={60} />
           </StyledLinks>
-        </BackButtonContainer>
-        <div className="no-print">
-          <PrintButton onClick={handlePrint}>
+          <PrintButton onClick={handlePrint} className="no-print">
             <Image src="/print.svg" alt="print icon" width={70} height={70} />
           </PrintButton>
-        </div>
+        </BackButtonContainer>
+
         <h1>{currentRemedy.title}</h1>
         <ImageWrapper>
           <StyledImage
@@ -155,7 +154,7 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 1rem;
   color: var(--text-color);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--header-card-box-shadow);
   border-radius: 1rem;
   background-color: var(--background-color);
   @media (max-width: 600px) {
@@ -220,34 +219,19 @@ const ButtonContainer = styled.div`
 `;
 
 const BackButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  @media (max-width: 600px) {
-    top: -1rem;
-    left: -0.5rem;
-  }
 `;
 
 const PrintButton = styled.button`
-  position: absolute;
   background-color: transparent;
-  top: -1rem;
-  right: -1rem;
-  z-index: 10;
   color: white;
   border: none;
   cursor: pointer;
   &:hover {
     transform: scale(1.2);
-  }
-  @media (max-width: 600px) {
-    top: -0.8rem;
-    right: 2.1rem;
-    width: 30px;
-    height: 30px;
   }
 `;
 const VideoContainer = styled.div`
@@ -285,7 +269,7 @@ const NotesContainer = styled.div`
   background-color: var(--background-color);
   width: 100%;
   max-width: 60rem;
-  box-shadow: 1px 1px 10px black;
+  box-shadow: var(--header-card-box-shadow);
   border-radius: 1rem;
   @media (max-width: 600px) {
     max-width: 100%;
