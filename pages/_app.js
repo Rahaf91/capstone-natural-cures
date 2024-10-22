@@ -20,7 +20,6 @@ const fetcher = async (url) => {
 };
 
 export default function App({ Component, pageProps }) {
-
   const {
     data: remedies,
     error: remediesError,
@@ -42,7 +41,11 @@ export default function App({ Component, pageProps }) {
   }
 
   if (remediesError || userError || !remedies || !user) {
-    return <h1>Error loading data: {remediesError?.message || userError?.message}</h1>;
+    return (
+      <h1>
+        Error loading data: {remediesError?.message || userError?.message}
+      </h1>
+    );
   }
 
   const fuse = new Fuse(remedies, {
@@ -99,7 +102,7 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to delete remedy");
     }
-     mutateRemedies();
+    mutateRemedies();
   }
 
   async function handleEditRemedy(id, remedy) {
@@ -140,7 +143,6 @@ export default function App({ Component, pageProps }) {
     // const response = await fetch(`/api/remedies/${id}/notes`, {
 
     const response = await fetch(`/api/user`, {
-
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -153,7 +155,6 @@ export default function App({ Component, pageProps }) {
       throw new Error("Failed to add note");
     }
     mutateUser();
-  }
   }
 
   async function handleEditNotes(id, noteId, updatedNote) {
@@ -172,7 +173,6 @@ export default function App({ Component, pageProps }) {
     }
     mutateUser();
   }
-  }
 
   async function handleDeleteNote(id, noteId) {
     // const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
@@ -189,7 +189,6 @@ export default function App({ Component, pageProps }) {
     }
     mutateUser();
   }
-  }
 
   async function handleAddReview(id, rating, comment) {
     const response = await fetch(`/api/user`, {
@@ -204,7 +203,6 @@ export default function App({ Component, pageProps }) {
       throw new Error("Failed to add review");
     }
     mutateUser();
-  }
   }
 
   return (
