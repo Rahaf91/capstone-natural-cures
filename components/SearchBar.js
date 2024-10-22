@@ -75,6 +75,5 @@ const ClearButton = styled.button`
   cursor: pointer;
   font-size: 0.8rem;
   padding: 0 var(--padding);
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
+  margin: 0.2rem 0;
 `;
