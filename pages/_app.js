@@ -27,6 +27,8 @@ export default function App({ Component, pageProps }) {
     mutate,
   } = useSWR("/api/remedies", fetcher);
 
+  // evt const user api/user   fetch
+
   const [searchQuery, setSearchQuery] = useState("");
 
   if (isLoading) {
@@ -109,12 +111,17 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleToggleFavorite(id, isFavorite) {
-    const response = await fetch(`/api/remedies/${id}`, {
-      method: "PUT",
+    // const response = await fetch(`/api/remedies/${id}`, {
+
+    const response = await fetch(`/api/user/favorites`, {
+      // method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isFavorite: !isFavorite }),
+
+      // body: JSON.stringify({ isFavorite: !isFavorite }),
+      body: JSON.stringify({ remedyId: id, isFavorite: !isFavorite }),
     });
 
     if (!response.ok) {
@@ -124,12 +131,18 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleAddNotes(id, note) {
-    const response = await fetch(`/api/remedies/${id}/notes`, {
-      method: "POST",
+    // const response = await fetch(`/api/remedies/${id}/notes`, {
+
+    const response = await fetch(`/api/user`, {
+      // method: "POST",
+
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(note),
+
+      // body: JSON.stringify(note),
+      body: JSON.stringify({ remedyId: id, note }),
     });
 
     if (!response.ok) {
@@ -139,12 +152,15 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleEditNotes(id, noteId, updatedNote) {
-    const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    // const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    const response = await fetch(`/api/user`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedNote),
+
+      // body: JSON.stringify(updatedNote),
+      body: JSON.stringify({ remedyId: id, noteId, updatedNote }),
     });
 
     if (!response.ok) {
@@ -154,8 +170,13 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleDeleteNote(id, noteId) {
-    const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    // const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    const response = await fetch(`/api/user`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ remedyId: id, noteId }),
     });
 
     if (!response.ok) {
@@ -163,6 +184,22 @@ export default function App({ Component, pageProps }) {
     }
     mutate();
   }
+
+  async function handleAddReview(id, rating, comment) {
+    const response = await fetch(`/api/user`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ remedyId: id, rating, comment }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add review");
+    }
+    mutate();
+  }
+
   return (
     <SessionProvider>
       <SWRConfig>
@@ -180,6 +217,7 @@ export default function App({ Component, pageProps }) {
             searchQuery={searchQuery}
             handleEditNotes={handleEditNotes}
             handleDeleteNote={handleDeleteNote}
+            handleAddReview={handleAddReview}
           />
         </Layout>
       </SWRConfig>

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-// import { useEffect, useState } from "react";
-// import StarRating from "@/components/StarRating";
-// import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import StarRating from "@/components/StarRating";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import FavoriteButton from "@/components/FavoriteButton";
 import DeleteButtonConfirmation from "@/components/DeleteButtonConfirmation";
@@ -20,63 +20,57 @@ export default function RemedyDetailsPage({
   const router = useRouter();
   const { id } = router.query;
 
-  // const { data: session } = useSession();
-  // const [remedy, setRemedy] = useState(null);
-  // const [reviews, setReviews] = useState([]);
+  const { data: session } = useSession();
+  const [remedy, setRemedy] = useState(null);
+  const [reviews, setReviews] = useState([]);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchRemedy();
-  //   }
-  // }, [id]);
+  // Zeile 24 : const currentRemedy = remedies.find((remedy) => remedy._id === id);
 
-  // const fetchRemedy = async () => {
-  //   try {
-  //     const response = await fetch(`/api/remedies/${id}`);
-  //     const data = await response.json();
-  //     setRemedy(data);
-  //     setReviews(data.reviews);
-  //   } catch (error) {
-  //     console.error("Error fetching remedy:", error);
-  //   }
-  // };
+  // if (!currentRemedy) {
+  //   return <p>...loading</p>;
+  // }
 
-  // const handleReviewSubmit = async (rating, comment) => {
-  //   try {
-  //     const response = await fetch("/api/user", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ remedyId: id, rating, comment }),
-  //     });
+  useEffect(() => {
+    if (id) {
+      fetchRemedy();
+    }
+  }, [id]);
 
-  //     if (!response.ok) {
-  //       throw new Error("Failed to submit review");
-  //     }
+  const fetchRemedy = async () => {
+    try {
+      const response = await fetch(`/api/remedies/${id}`);
+      const data = await response.json();
+      setRemedy(data);
+      setReviews(data.reviews);
+    } catch (error) {
+      console.error("Error fetching remedy:", error);
+    }
+  };
 
-  // ----
+  const handleReviewSubmit = async (rating, comment) => {
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ remedyId: id, rating, comment }),
+      });
 
-  //     const updatedUser = await response.json();
-  //     const newReview = updatedUser.reviews.find(
-  //       (review) => review.remedyId === id && review.rating === rating && review.comment === comment
-  //     );
-  //     setReviews([...reviews, newReview]);
+      if (!response.ok) {
+        throw new Error("Failed to submit review");
+      }
 
-  // ODER : OHNE USER BEZUG :
+      const newReview = await response.json();
+      setReviews([...reviews, newReview]);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  };
 
-  // const newReview = await response.json();
-  // setReviews([...reviews, newReview]);
-
-  // ----
-
-  //   } catch (error) {
-  //     console.error("Error submitting review:", error);
-  //   }
-  // };
-
-  // const averageRating =
-  //   reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length || 0;
+  const averageRating =
+    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length ||
+    0;
 
   if (!remedies || remedies.length === 0) {
     return <p>...loading</p>;
@@ -184,7 +178,7 @@ export default function RemedyDetailsPage({
         onDeleteNote={handleDeleteNote}
       />
 
-      {/* <Subtitle>Average Rating: {Math.round(averageRating)} / 5 stars</Subtitle>
+      <Subtitle>Average Rating: {Math.round(averageRating)} / 5 stars</Subtitle>
       {session && (
         <StarRating
           rating={0}
@@ -198,7 +192,7 @@ export default function RemedyDetailsPage({
             <p>{review.comment}</p>
           </Review>
         ))}
-      </ReviewSection> */}
+      </ReviewSection>
 
       <BackButtonContainer className="no-print">
         <StyledLinks $variant="back" href="/">
@@ -304,17 +298,17 @@ const PlaceholderContainer = styled.div`
   text-align: center;
 `;
 
-// const ReviewSection = styled.section`
-//   margin-top: 2rem;
-// font-size: 1rem;
-// line-height: 1.6;
-// margin-left: 1rem;
-// `;
+const ReviewSection = styled.section`
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-left: 1rem;
+`;
 
-// const Review = styled.div`
-// font-size: 1rem;
-// line-height: 1.6;
-// margin-left: 1rem;
-//   border-bottom: 1px solid #ccc;
-//   padding: 1rem 0;
-// `;
+const Review = styled.div`
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-left: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+`;

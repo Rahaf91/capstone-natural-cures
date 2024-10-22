@@ -10,16 +10,16 @@ export default async function handler(request, response) {
   const token = await getToken({ req: request });
   const userId = token.sub;
 
-  if (request.method === "GET") {
-    if (session) {
-      const users = await User.find({ owner: userId });
-      return response.status(200).json(users);
-    } else {
-      const users = await User.find({ owner: "default" });
-      return response.status(200).json(users);
-    }
-  }
-}
+//   if (request.method === "GET") {
+//     if (session) {
+//       const users = await User.find({ owner: userId });
+//       return response.status(200).json(users);
+//     } else {
+//       const users = await User.find({ owner: "default" });
+//       return response.status(200).json(users);
+//     }
+//   }
+// }
 
 // } else if (request.method === "POST") {
 //   try {

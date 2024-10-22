@@ -27,45 +27,48 @@ export default async function handler(request, response) {
     }
   } else if (request.method === "POST") {
     try {
-      const userData = request.body;
-      // statt const userData = request.body;
-      // const { remedyId, rating, comment } = request.body;
+      const { favorites, notes, reviews } = request.body;
 
-      const user = await User.findByIdAndUpdate(userId, userData, {
-        new: true,
-        upsert: true,
+      const newUser = new User({
+        _id: userId,
+        favorites,
+        notes,
+        reviews,
+        owner: userId,
       });
 
-      // statt  const user = await User.findByIdAndUpdate(
-      // userId,
-      // userData,
-      // {
-      //   new: true,
-      //   upsert: true,
-      // }
+      await newUser.save();
+      return response.status(201).json(newUser);
+    } catch (error) {
+      console.error(error);
+      return response.status(400).json({ error: error.message });
+    }
+  } else if (request.method === "PUT") {
+    try {
+      const { remedyId, rating, comment, favorites, notes } = request.body;
 
-      // VERSION 1 :
+      const user = await User.findById(userId);
 
-      // ;
-      // const newReview = {
-      //   remedyId,
-      //   rating,
-      //   comment,
-      //   createdAt: new Date(),};
+      if (remedyId && rating) {
+        const newReview = {
+          remedyId,
+          rating,
+          comment,
+          createdAt: new Date(),
+        };
+        user.reviews.push(newReview);
+      }
 
-      // user.reviews.push(newReview);
-      // await user.save();
+      if (favorites) {
+        user.favorites = favorites;
+      }
 
-      // VERSION 2 :
-      // const newReview = await Review.create({
-      //   remedyId,
-      //   userId,
-      //   rating,
-      //   comment,
-      //   createdAt: new Date(),
-      // });
+      if (notes) {
+        user.notes = notes;
+      }
 
-      return response.status(201).json(user);
+      await user.save();
+      return response.status(200).json(user);
     } catch (error) {
       console.error(error);
       return response.status(400).json({ error: error.message });
