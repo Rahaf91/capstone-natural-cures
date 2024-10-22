@@ -122,7 +122,13 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleToggleFavorite(id, isFavorite) {
-    // const response = await fetch(`/api/remedies/${id}`, {
+    const responseGet = await fetch(`/api/user/favorites`);
+    const data = await responseGet.json();
+    if (data.some((favorite) => favorite._id === id)) {
+      isFavorite = true;
+    } else {
+      isFavorite = false;
+    }
 
     const response = await fetch(`/api/user/favorites`, {
       method: "POST",
@@ -136,6 +142,7 @@ export default function App({ Component, pageProps }) {
     if (!response.ok) {
       throw new Error("Failed to toggle favorite");
     }
+
     mutateUser();
   }
 

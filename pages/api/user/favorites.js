@@ -29,6 +29,9 @@ export default async function handler(request, response) {
       if (!user.favorites.includes(remedyId)) {
         user.favorites.push(remedyId);
         await user.save();
+      } else {
+        user.favorites.pull(remedyId);
+        await user.save();
       }
       return response.status(201).json(user.favorites);
     } catch (error) {

@@ -2,41 +2,61 @@ import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { StyledLinks } from "./StyledLinks";
+import { useEffect, useState } from "react";
 
 export default function RemediesList({ remedies, handleToggleFavorite }) {
+  const [favoriteRemedies, setFavoriteRemedies] = useState([]);
+
+  useEffect(() => {
+    async function fetchFavorites() {
+      const response = await fetch("/api/user/favorites");
+      const data = await response.json();
+      setFavoriteRemedies(data);
+    }
+    fetchFavorites();
+  }, []);
+
   return (
     <>
-      {remedies.map((remedy) => (
-        <RemedyCard key={remedy._id}>
-          <ImageWrapper>
-            <StyledImage
-              src={remedy.imageUrl}
-              alt={remedy.title}
-              layout="fill"
-              objectFit="cover"
+      {remedies.map((remedy) => {
+        const isFavorite = favoriteRemedies.some(
+          (favorite) => favorite._id === remedy._id
+        );
+        remedy.isFavorite = isFavorite;
+
+        return (
+          <RemedyCard key={remedy._id}>
+            <ImageWrapper>
+              <StyledImage
+                src={remedy.imageUrl}
+                alt={remedy.title}
+                layout="fill"
+                objectFit="cover"
+              />
+            </ImageWrapper>
+            <FavoriteButton
+              isFavorite={isFavorite}
+              isDetailPage={false}
+              handleToggleFavorite={() =>
+                handleToggleFavorite(remedy._id, remedy.isFavorite)
+              }
             />
-          </ImageWrapper>
-          <FavoriteButton
-            isFavorite={remedy.isFavorite}
-            handleToggleFavorite={() =>
-              handleToggleFavorite(remedy._id, remedy.isFavorite)
-            }
-            isDetailPage={false}
-          />
-          <ContentWrapper>
-            <h2>{remedy.title}</h2>
-            <h3>Symptoms:</h3>
-            <ul>
-              {remedy.symptoms.map((symptom, index) => (
-                <li key={index}>{symptom}</li>
-              ))}
-            </ul>
-          </ContentWrapper>
-          <StyledLinks href={`/remedy/${remedy._id}`} $variant="view">
-            View Recipe
-          </StyledLinks>
-        </RemedyCard>
-      ))}
+
+            <ContentWrapper>
+              <h2>{remedy.title}</h2>
+              <h3>Symptoms:</h3>
+              <ul>
+                {remedy.symptoms.map((symptom, index) => (
+                  <li key={index}>{symptom}</li>
+                ))}
+              </ul>
+            </ContentWrapper>
+            <StyledLinks href={`/remedy/${remedy._id}`} $variant="view">
+              View Recipe
+            </StyledLinks>
+          </RemedyCard>
+        );
+      })}
     </>
   );
 }
