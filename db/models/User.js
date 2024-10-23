@@ -6,7 +6,6 @@ const userSchema = new Schema({
   notes: [
     {
       remedyId: { type: mongoose.Schema.Types.ObjectId, ref: "Remedy" },
-      noteId: { type: String, required: true },
       note: { type: String, required: true },
       createdAt: { type: Date, default: Date.now },
     },

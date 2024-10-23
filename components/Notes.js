@@ -1,6 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { StyledButton } from "./StyledButtons";
+import { useEffect, useState } from "react";
 
 export default function Notes({
   onAddNote,
@@ -12,6 +12,18 @@ export default function Notes({
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
 
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    async function fetchNotes() {
+      const response = await fetch("/api/user/");
+      const data = await response.json();
+      console.log(data.notes);
+      setNotes(data.notes);
+    }
+    fetchNotes();
+  }, []);
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -19,8 +31,10 @@ export default function Notes({
     const textArea = form.elements.notes;
 
     const newNote = {
-      text: textArea.value,
-      timestamp: new Date().toLocaleString(),
+      // _id: editingNote?._id || undefined,
+      note: textArea.value,
+      createdAt: new Date().toLocaleString(),
+      remedyId: currentRemedy._id,
     };
 
     if (editingNote) {
@@ -90,10 +104,10 @@ export default function Notes({
       )}
 
       <NoteList>
-        {currentRemedy.notes?.map((note) => (
+        {notes?.map((note) => (
           <NoteItem key={note._id}>
-            <NoteText>{note.text}</NoteText>
-            <NoteTimestamp>{convertToLocalTime(note.timestamp)}</NoteTimestamp>
+            <NoteText>{note.note}</NoteText>
+            <NoteTimestamp>{convertToLocalTime(note.createdAt)}</NoteTimestamp>
 
             <NoteActions className="no-print">
               <StyledButton variant="edit" onClick={() => handleEdit(note)}>

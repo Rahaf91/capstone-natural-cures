@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import useSWR from "swr";
 import { SessionProvider } from "next-auth/react";
+import { Cinzel } from "next/font/google";
 
 const fetcher = async (url) => {
   const response = await fetch(url);
@@ -148,14 +149,14 @@ export default function App({ Component, pageProps }) {
 
   async function handleAddNotes(id, note) {
     // const response = await fetch(`/api/remedies/${id}/notes`, {
-
+    console.log(JSON.stringify({ remedyId: id, notes: note }));
     const response = await fetch(`/api/user`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify({ remedyId: id, note }),
+      body: JSON.stringify({ remedyId: id, notes: note }),
     });
 
     if (!response.ok) {

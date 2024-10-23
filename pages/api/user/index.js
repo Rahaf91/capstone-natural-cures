@@ -51,9 +51,18 @@ export default async function handler(request, response) {
       return response.status(400).json({ error: error.message });
     }
   } else if (request.method === "PUT") {
+    console.log("PUT");
     try {
+      console.log("request.body", request.body);
       const { remedyId, rating, comment, favorites, notes } = request.body;
 
+      console.log("remedyId", remedyId);
+      console.log("rating", rating);
+      console.log("comment", comment);
+      console.log("favorites", favorites);
+      console.log("notes", notes);
+
+      const userId = token.sub;
       const user = await User.findById(userId);
 
       if (remedyId && rating) {
