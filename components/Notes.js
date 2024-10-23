@@ -19,6 +19,9 @@ export default function Notes({
       const response = await fetch("/api/user/");
       const data = await response.json();
       console.log(data.notes);
+      // const notesFiltered = data.notes.filter(
+      //   (note) => note.remedyId === currentRemedy._id
+      // );
       setNotes(data.notes);
     }
     fetchNotes();

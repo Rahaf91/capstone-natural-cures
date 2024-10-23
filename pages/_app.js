@@ -148,7 +148,11 @@ export default function App({ Component, pageProps }) {
   }
 
   async function handleAddNotes(id, note) {
-    // const response = await fetch(`/api/remedies/${id}/notes`, {
+    const responseGet = await fetch(`/api/user`);
+
+    const data = await responseGet.json();
+    data.notes.push(note);
+
     console.log(JSON.stringify({ remedyId: id, notes: note }));
     const response = await fetch(`/api/user`, {
       method: "PUT",
@@ -156,7 +160,7 @@ export default function App({ Component, pageProps }) {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify({ remedyId: id, notes: note }),
+      body: JSON.stringify({ remedyId: id, notes: data.notes }),
     });
 
     if (!response.ok) {
@@ -167,33 +171,52 @@ export default function App({ Component, pageProps }) {
 
   async function handleEditNotes(id, noteId, updatedNote) {
     // const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    const responseGet = await fetch(`/api/user`);
+
+    const data = await responseGet.json();
+    const note = data.notes.find((note) => note._id === noteId);
+    note.note = updatedNote.note;
+
+    //CHange note in array
+    const index = data.notes.indexOf(note);
+    data.notes[index] = note;
+
     const response = await fetch(`/api/user`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify({ remedyId: id, noteId, updatedNote }),
+      body: JSON.stringify({ remedyId: id, notes: data.notes }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to edit note");
+      throw new Error("Failed to add note");
     }
     mutateUser();
   }
 
   async function handleDeleteNote(id, noteId) {
     // const response = await fetch(`/api/remedies/${id}/notes/${noteId}`, {
+    const responseGet = await fetch(`/api/user`);
+
+    const data = await responseGet.json();
+    const note = data.notes.find((note) => note._id === noteId);
+    //remove note from array
+    const index = data.notes.indexOf(note);
+    data.notes.splice(index, 1);
+
     const response = await fetch(`/api/user`, {
-      method: "DELETE",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ remedyId: id, noteId }),
+
+      body: JSON.stringify({ remedyId: id, notes: data.notes }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to delete note: " + response.status);
+      throw new Error("Failed to add note");
     }
     mutateUser();
   }
