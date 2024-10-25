@@ -94,17 +94,17 @@ The Sign-In Authentication feature ensures secure access to the app by requiring
 
 _The tools and technologies powering the app._
 
-- React ⚛️
-- Next.js 📦
-- Styled Components 🎨
-- SWR 🌊
-- NextAuth 🔑
-- MongoDB 🗄️
-- Mongoose 🐍
-- Vercel ☁️
-- Git 🐙
-- GitHub 🐱‍💻
-- Cloudinary ☁️🌈
+- React 
+- Next.js 
+- Styled Components 
+- SWR 
+- NextAuth 
+- MongoDB 
+- Mongoose 
+- Vercel 
+- Git 
+- GitHub
+- Cloudinary 
 
 ---
 
